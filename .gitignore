@@ -7,6 +7,9 @@
 *.userosscache
 *.sln.docstates
 
+ProjectFiles/Build
+ProjectFiles/.vs
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 

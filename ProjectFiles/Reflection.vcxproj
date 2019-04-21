@@ -18,6 +18,28 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Reflection\FunctionPoinerReflector.h" />
+    <ClInclude Include="..\Reflection\FunctionReflector.h" />
+    <ClInclude Include="..\Reflection\FunctionTypeReflector.h" />
+    <ClInclude Include="..\Reflection\GetTypeInfo.h" />
+    <ClInclude Include="..\Reflection\ReflectedFunction.h" />
+    <ClInclude Include="..\Reflection\ReflectedFunctionImpl.h" />
+    <ClInclude Include="..\Reflection\ReflectType.h" />
+    <ClInclude Include="..\Reflection\TypeHasMethod.h" />
+    <ClInclude Include="..\Reflection\TypeInfo.h" />
+    <ClInclude Include="..\Reflection\TypeInfoImpl.h" />
+    <ClInclude Include="..\Reflection\TypeReflector.h" />
+    <ClInclude Include="..\Reflection\TypeRegistry.h" />
+    <ClInclude Include="..\Reflection\TypeRegistryImpl.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Reflection\main.cpp" />
+    <ClCompile Include="..\Reflection\ReflectedFunctionImpl.cpp" />
+    <ClCompile Include="..\Reflection\TypeInfo.cpp" />
+    <ClCompile Include="..\Reflection\TypeInfoImpl.cpp" />
+    <ClCompile Include="..\Reflection\TypeRegistryImpl.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{9B148748-336B-4DC4-81F3-D43E37486651}</ProjectGuid>
@@ -69,13 +91,29 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)Build\$(Configuration)_$(Platform)\</OutDir>
+    <IntDir>$(SolutionDir)Build\$(Configuration)_$(Platform)\Temp\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)Build\$(Configuration)_$(Platform)\</OutDir>
+    <IntDir>$(SolutionDir)Build\$(Configuration)_$(Platform)\Temp\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)Build\$(Configuration)_$(Platform)\</OutDir>
+    <IntDir>$(SolutionDir)Build\$(Configuration)_$(Platform)\Temp\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)Build\$(Configuration)_$(Platform)\</OutDir>
+    <IntDir>$(SolutionDir)Build\$(Configuration)_$(Platform)\Temp\$(ProjectName)\</IntDir>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -84,6 +122,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -94,6 +133,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -108,14 +148,13 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
