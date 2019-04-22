@@ -4,9 +4,9 @@
 #include <vector>
 #include <memory>
 
-#include "TypeInfo.h"
+#include "../TypeInfo.h"
 
-namespace edt::reflection
+namespace edt::reflection::detail
 {
     class ReflectedFunctionImpl;
 
@@ -20,7 +20,7 @@ namespace edt::reflection
 
         virtual size_t GetMethodsCount() const override;
         virtual const ReflectedFunction* GetMethod(size_t index) const override;
-        virtual const char* GetTypeName() const override;
+        virtual const char* GetName() const override;
 
         void SetName(const char* name);
 

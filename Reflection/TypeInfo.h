@@ -10,12 +10,12 @@ namespace edt::reflection
     class TypeInfo
     {
     public:
-        virtual ~TypeInfo() = default;
-
         virtual size_t GetInstanceSize() const = 0;
-        virtual const char* GetTypeName() const = 0;
-
+        virtual const char* GetName() const = 0;
         virtual size_t GetMethodsCount() const = 0;
         virtual const ReflectedFunction* GetMethod(size_t index) const = 0;
+
+		//
+		virtual ~TypeInfo() = default;
     };
 }

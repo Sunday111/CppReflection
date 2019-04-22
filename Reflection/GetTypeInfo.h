@@ -1,7 +1,8 @@
 #pragma once
 
-#include "TypeRegistryImpl.h"
 #include "TypeReflector.h"
+#include "Detail/CallReflectType.h"
+#include "Detail/TypeRegistryImpl.h"
 
 namespace edt::reflection
 {
@@ -13,13 +14,13 @@ namespace edt::reflection
         if constexpr (std::is_pointer_v<T>) {
             using Naked = std::remove_pointer_t<T>;
             auto ti = GetTypeInfo<Naked>();
-            auto name = std::string(ti->GetTypeName()) + '*';
+            auto name = std::string(ti->GetName()) + '*';
             rt.SetName(name.c_str());
         }
         else {
             using Naked = std::remove_reference_t<T>;
             auto ti = GetTypeInfo<Naked>();
-            auto name = std::string(ti->GetTypeName()) + '&';
+            auto name = std::string(ti->GetName()) + '&';
             rt.SetName(name.c_str());
         }
     }
@@ -30,7 +31,7 @@ namespace edt::reflection
         if (ptr != nullptr) {
             return ptr;
         }
-        TypeReflector<T>& ref = TypeRegistryImpl::Instance().Register<T>();
+        TypeReflector<T>& ref = detail::TypeRegistryImpl::Instance().Register<T>();
         ptr = &ref;
         detail::CallReflectType(ref);
         return ptr;

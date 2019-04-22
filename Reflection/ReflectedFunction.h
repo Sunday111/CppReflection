@@ -36,5 +36,8 @@ namespace edt::reflection
          * ReturnValue - where to write return value, may be null if return value is void
          */
         virtual void Call(void* Object, void* ReturnValue, void** ArgsArray, size_t ArgsArraySize) const = 0;
+
+		//
+		virtual ~ReflectedFunction() = default;
     };
 }

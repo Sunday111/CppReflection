@@ -1,10 +1,9 @@
 #pragma once
 
-#include "TypeRegistry.h"
-#include "TypeReflector.h"
-#include "ReflectType.h"
+#include "../TypeRegistry.h"
+#include "../TypeReflector.h"
 
-namespace edt::reflection
+namespace edt::reflection::detail
 {
     class TypeRegistryImpl : public TypeRegistry
     {

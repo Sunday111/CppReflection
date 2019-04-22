@@ -1,6 +1,6 @@
 #include "TypeRegistryImpl.h"
 
-namespace edt::reflection
+namespace edt::reflection::detail
 {
     TypeRegistryImpl& TypeRegistryImpl::Instance()
     {

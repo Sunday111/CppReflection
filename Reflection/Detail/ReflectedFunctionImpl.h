@@ -2,9 +2,9 @@
 
 #include <vector>
 
-#include "ReflectedFunction.h"
+#include "../ReflectedFunction.h"
 
-namespace edt::reflection
+namespace edt::reflection::detail
 {
     class ReflectedFunctionImpl : public ReflectedFunction
     {

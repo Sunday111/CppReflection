@@ -19,26 +19,27 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Reflection\FunctionPoinerReflector.h" />
-    <ClInclude Include="..\Reflection\FunctionReflector.h" />
-    <ClInclude Include="..\Reflection\FunctionTypeReflector.h" />
+    <ClInclude Include="..\Reflection\FieldInfo.h" />
+    <ClInclude Include="..\Reflection\Detail\CallReflectType.h" />
+    <ClInclude Include="..\Reflection\Detail\FunctionPoinerTraits.h" />
+    <ClInclude Include="..\Reflection\Detail\FunctionReflector.h" />
+    <ClInclude Include="..\Reflection\Detail\FunctionTypeTraits.h" />
+    <ClInclude Include="..\Reflection\Detail\ReflectedFunctionImpl.h" />
+    <ClInclude Include="..\Reflection\Detail\TypeHasMethod.h" />
+    <ClInclude Include="..\Reflection\Detail\TypeInfoImpl.h" />
+    <ClInclude Include="..\Reflection\Detail\TypeRegistryImpl.h" />
     <ClInclude Include="..\Reflection\GetTypeInfo.h" />
     <ClInclude Include="..\Reflection\ReflectedFunction.h" />
-    <ClInclude Include="..\Reflection\ReflectedFunctionImpl.h" />
-    <ClInclude Include="..\Reflection\ReflectType.h" />
-    <ClInclude Include="..\Reflection\TypeHasMethod.h" />
     <ClInclude Include="..\Reflection\TypeInfo.h" />
-    <ClInclude Include="..\Reflection\TypeInfoImpl.h" />
     <ClInclude Include="..\Reflection\TypeReflector.h" />
     <ClInclude Include="..\Reflection\TypeRegistry.h" />
-    <ClInclude Include="..\Reflection\TypeRegistryImpl.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Reflection\Detail\ReflectedFunctionImpl.cpp" />
+    <ClCompile Include="..\Reflection\Detail\TypeInfoImpl.cpp" />
+    <ClCompile Include="..\Reflection\Detail\TypeRegistryImpl.cpp" />
     <ClCompile Include="..\Reflection\main.cpp" />
-    <ClCompile Include="..\Reflection\ReflectedFunctionImpl.cpp" />
     <ClCompile Include="..\Reflection\TypeInfo.cpp" />
-    <ClCompile Include="..\Reflection\TypeInfoImpl.cpp" />
-    <ClCompile Include="..\Reflection\TypeRegistryImpl.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -109,7 +110,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
@@ -118,7 +119,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
@@ -127,7 +128,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -142,7 +143,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>

@@ -1,7 +1,7 @@
 #include "TypeInfoImpl.h"
 #include "ReflectedFunctionImpl.h"
 
-namespace edt::reflection
+namespace edt::reflection::detail
 {
     size_t TypeInfoImpl::GetMethodsCount() const {
         return m_methods.size();
@@ -14,7 +14,7 @@ namespace edt::reflection
         return nullptr;
     }
 
-    const char* TypeInfoImpl::GetTypeName() const {
+    const char* TypeInfoImpl::GetName() const {
         return m_name.c_str();
     }
 

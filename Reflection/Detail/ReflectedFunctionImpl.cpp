@@ -1,6 +1,6 @@
 #include "ReflectedFunctionImpl.h"
 
-namespace edt::reflection
+namespace edt::reflection::detail
 {
     const char* ReflectedFunctionImpl::GetName() const {
         return m_name.c_str();

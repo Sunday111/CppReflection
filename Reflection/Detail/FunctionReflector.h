@@ -1,17 +1,21 @@
 #pragma once
 
+#include <cassert>
 #include "ReflectedFunctionImpl.h"
-#include "FunctionPoinerReflector.h"
+#include "Detail/FunctionPoinerTraits.h"
 
 namespace edt::reflection
 {
-    template<typename T>
-    const TypeInfo* GetTypeInfo();
+	template<typename T>
+	const TypeInfo* GetTypeInfo();
+}
 
+namespace edt::reflection::detail
+{
     template<auto pfn>
     class FunctionReflector : public ReflectedFunctionImpl
     {
-        using FnReflector = FunctionPointerReflector<pfn>;
+        using FnReflector = detail::FunctionPointerTraits<pfn>;
 
     public:
         FunctionReflector();
@@ -19,7 +23,7 @@ namespace edt::reflection
 
     private:
         template<size_t Index>
-        static constexpr decltype(auto) Cast_i(void** ArgsArray);
+        static constexpr decltype(auto) CastArg_i(void** ArgsArray);
 
         template<size_t... Index>
         void Call_i(void* Object, void* ReturnValue, void** ArgsArray, size_t ArgsArraySize, std::index_sequence<Index...>) const;
@@ -48,10 +52,10 @@ namespace edt::reflection
 
 }
 
-namespace edt::reflection::function_reflection_details
+namespace edt::reflection::detail
 {
     template<typename T>
-    constexpr decltype(auto) Cast_t(void* rawArg) {
+    constexpr decltype(auto) CastArg_t(void* rawArg) {
         if constexpr (std::is_reference_v<T>) {
             using NoRef = std::remove_reference_t<T>;
             return *reinterpret_cast<NoRef*>(rawArg);
@@ -62,7 +66,7 @@ namespace edt::reflection::function_reflection_details
     }
 }
 
-namespace edt::reflection
+namespace edt::reflection::detail
 {
     template<auto pfn>
     void FunctionReflector<pfn>::Call(void* Object, void* ReturnValue, void** ArgsArray, size_t ArgsArraySize) const {
@@ -71,39 +75,58 @@ namespace edt::reflection
 
     template<auto pfn>
     template<size_t Index>
-    constexpr decltype(auto) FunctionReflector<pfn>::Cast_i(void** ArgsArray) {
+    constexpr decltype(auto) FunctionReflector<pfn>::CastArg_i(void** ArgsArray) {
         using Arguments = typename FnReflector::Arguments;
         using T = std::tuple_element_t<Index, Arguments>;
-        return function_reflection_details::Cast_t<T>(ArgsArray[Index]);
+        return CastArg_t<T>(ArgsArray[Index]);
     }
 
     template<auto pfn>
     template<size_t... Index>
-    void FunctionReflector<pfn>::Call_i(void* Object, void* ReturnValue, void** ArgsArray, size_t ArgsArraySize, std::index_sequence<Index...>) const {
-        using namespace function_reflection_details;
+	void FunctionReflector<pfn>::Call_i(void* Object, void* ReturnValue, void** ArgsArray, size_t ArgsArraySize, std::index_sequence<Index...>) const {
+		assert(ArgsArraySize >= std::tuple_size_v<typename FnReflector::Arguments>);
         using ReturnType = typename FnReflector::ReturnType;
         if constexpr (FnReflector::IsMethod()) {
             using Class = typename FnReflector::Class;
+			assert(Object != nullptr);
             auto pObject = reinterpret_cast<Class*>(Object);
             if constexpr (std::is_same_v<void, ReturnType>) {
                 // Method without return type
-                (pObject->*pfn)(Cast_i<Index>(ArgsArray)...);
+                (pObject->*pfn)(CastArg_i<Index>(ArgsArray)...);
             }
             else {
-                // Method with return type
-                auto& pRV = Cast_t<ReturnType>(ReturnValue);
-                pRV = (pObject->*pfn)(Cast_i<Index>(ArgsArray)...);
+                // Method with with some return type
+				assert(ReturnValue != nullptr);
+				if constexpr (std::is_reference_v<ReturnType>) {
+					// Return type is reference (expect pointer to pointer here)
+					using NoRef = std::remove_reference_t<ReturnType>;
+					auto ppRV = reinterpret_cast<NoRef**>(ReturnValue);
+					*ppRV = &(pObject->*pfn)(CastArg_i<Index>(ArgsArray)...);
+				}
+				else {
+					auto& RV = CastArg_t<ReturnType>(ReturnValue);
+					RV = (pObject->*pfn)(CastArg_i<Index>(ArgsArray)...);
+				}
             }
         }
         else {
             if constexpr (std::is_same_v<void, ReturnType>) {
                 // free function without return type
-                pfn(Cast_i<Index>(ArgsArray)...);
+                pfn(CastArg_i<Index>(ArgsArray)...);
             }
             else {
-                // free function with some return type
-                auto& pRV = Cast_t<ReturnType>(ReturnValue);
-                pRV = pfn(Cast_i<Index>(ArgsArray)...);
+				// free function with some return type
+				assert(ReturnValue != nullptr);
+				if constexpr (std::is_reference_v<ReturnType>) {
+					// Return type is reference (expect pointer to pointer here)
+					using NoRef = std::remove_reference_t<ReturnType>;
+					auto ppRV = reinterpret_cast<NoRef**>(ReturnValue);
+					*ppRV = pfn(CastArg_i<Index>(ArgsArray)...);
+				}
+				else {
+					auto& pRV = CastArg_t<ReturnType>(ReturnValue);
+					pRV = pfn(CastArg_i<Index>(ArgsArray)...);
+				}
             }
         }
     }
