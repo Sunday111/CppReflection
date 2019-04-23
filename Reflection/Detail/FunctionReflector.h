@@ -110,10 +110,11 @@ namespace edt::reflection::detail
     template<auto pfn>
     template<size_t... Index>
     void FunctionReflector<pfn>::Call_i(void* Object, void* ReturnValue, void** ArgsArray, size_t ArgsArraySize, std::index_sequence<Index...>) const {
-        assert(ArgsArraySize >= std::tuple_size_v<typename FnReflector::Arguments>);
+        assert(ArgsArraySize >= FnReflector::GetArgsCount());
         using ReturnType = typename FnReflector::ReturnType;
-        auto call = [&, function = WrapMethodCalls<pfn>(Object)]() -> decltype(auto) {
-            return static_cast<ReturnType>(function(CastArg_i<Index>(ArgsArray)...));
+        auto call = [&]() -> decltype(auto) {
+            auto f = WrapMethodCalls<pfn>(Object);
+            return static_cast<ReturnType>(f(CastArg_i<Index>(ArgsArray)...));
         };
 
         if constexpr (std::is_same_v<void, ReturnType>) {
