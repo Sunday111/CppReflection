@@ -33,6 +33,7 @@
     <ClInclude Include="..\Reflection\TypeInfo.h" />
     <ClInclude Include="..\Reflection\TypeReflector.h" />
     <ClInclude Include="..\Reflection\TypeRegistry.h" />
+    <ClInclude Include="..\Reflection\UnusedVar.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Reflection\Detail\ReflectedFunctionImpl.cpp" />
@@ -40,6 +41,9 @@
     <ClCompile Include="..\Reflection\Detail\TypeRegistryImpl.cpp" />
     <ClCompile Include="..\Reflection\main.cpp" />
     <ClCompile Include="..\Reflection\TypeInfo.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Reflection\CallReflectedFunction.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
