@@ -112,10 +112,13 @@ namespace edt::reflection::detail
     void FunctionReflector<pfn>::Call_i(void* Object, void* ReturnValue, void** ArgsArray, size_t ArgsArraySize, std::index_sequence<Index...>) const {
         assert(ArgsArraySize >= std::tuple_size_v<typename FnReflector::Arguments>);
         using ReturnType = typename FnReflector::ReturnType;
-        auto function = WrapMethodCalls<pfn>(Object);
+        auto call = [&, function = WrapMethodCalls<pfn>(Object)]() -> decltype(auto) {
+            return static_cast<ReturnType>(function(CastArg_i<Index>(ArgsArray)...));
+        };
+
         if constexpr (std::is_same_v<void, ReturnType>) {
             // free function without return type
-            function(CastArg_i<Index>(ArgsArray)...);
+            call();
         }
         else {
             // free function with some return type
@@ -126,18 +129,18 @@ namespace edt::reflection::detail
                     // Return type is rvalue reference
                     auto pRV = reinterpret_cast<NoRef*>(ReturnValue);
                     // Construct instance in given memory
-                    new (pRV)NoRef(function(CastArg_i<Index>(ArgsArray)...));
+                    new (pRV)NoRef(call());
                 }
                 else {
                     // Return type is lvalue reference
                     auto ppRV = reinterpret_cast<NoRef**>(ReturnValue);
-                    *ppRV = &function(CastArg_i<Index>(ArgsArray)...);
+                    *ppRV = &call();
                 }
             }
             else {
                 // Return type is not reference
                 auto& pRV = CastArg_t<ReturnType>(ReturnValue);
-                pRV = function(CastArg_i<Index>(ArgsArray)...);
+                pRV = call();
             }
         }
     }
