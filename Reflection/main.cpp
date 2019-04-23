@@ -48,7 +48,7 @@ namespace test_method_ret_void_arg_void
         assert(functionInfo->GetArgumentsCount() == 0);
 
         ReflectedType object;
-        functionInfo->Call(&object, nullptr, nullptr, 0);
+        edt::reflection::WrapReflectedMethodCall<void>(functionInfo, object);
         assert(object.member == 1);
     }
 }
@@ -85,8 +85,7 @@ namespace test_method_ret_void_arg_int
 
         ReflectedType object;
         int arg;
-        void* argsArray[] = { &arg };
-        functionInfo->Call(&object, nullptr, argsArray, 1);
+        edt::reflection::WrapReflectedMethodCall<void>(functionInfo, object, arg);
     }
 }
 
@@ -125,8 +124,7 @@ namespace test_method_ret_void_arg_int_ptr
         ReflectedType object;
         int arg;
         int* pArg = &arg;
-        void* argsArray[] = { &pArg };
-        functionInfo->Call(&object, nullptr, argsArray, 1);
+        edt::reflection::WrapReflectedMethodCall<void>(functionInfo, object, pArg);
         assert(arg == object.member);
     }
 }
@@ -163,8 +161,7 @@ namespace test_method_ret_void_arg_int_ref
 
         ReflectedType object;
         int arg;
-        void* argsArray[] = { &arg };
-        functionInfo->Call(&object, nullptr, argsArray, 1);
+        edt::reflection::WrapReflectedMethodCall<void>(functionInfo, object, arg);
         assert(arg == 110);
     }
 }
@@ -203,8 +200,7 @@ namespace test_method_ret_void_arg_int_ptr_ref
 
         ReflectedType object;
         int* arg = nullptr;
-        void* argsArray[] = { &arg };
-        functionInfo->Call(&object, nullptr, argsArray, 1);
+        edt::reflection::WrapReflectedMethodCall<void>(functionInfo, object, arg);
         assert(arg == &object.member);
     }
 }
@@ -253,10 +249,8 @@ namespace test_method_ret_void_arg_rvalue
         MovableType arg;
         arg.values.resize(10);
 
-        void* argsArray[]{ &arg };
-
         ReflectedType object;
-        functionInfo->Call(&object, nullptr, argsArray, 1);
+        edt::reflection::WrapReflectedMethodCall<void>(functionInfo, object, arg);
         assert(arg.values.empty());
         assert(object.value.values.size() == 10);
     }
@@ -294,8 +288,7 @@ namespace test_method_ret_int
         assert(functionInfo->GetArgumentsCount() == 0);
 
         ReflectedType object;
-        int returnValue = 111;
-        functionInfo->Call(&object, &returnValue, nullptr, 0);
+        int returnValue = edt::reflection::WrapReflectedMethodCall<int>(functionInfo, object);
         assert(returnValue == object.member);
     }
 }
@@ -332,7 +325,7 @@ namespace test_method_ret_int_ptr
         assert(functionInfo->GetArgumentsCount() == 0);
 
         ReflectedType object;
-        int* returnValue = edt::reflection::WrapReflectedFunctionReturnType<int*>(functionInfo, &object, nullptr, 0);
+        int* returnValue = edt::reflection::WrapReflectedMethodCall<int*>(functionInfo, object);
         assert(returnValue == &object.member);
     }
 }
@@ -369,9 +362,8 @@ namespace test_method_ret_int_ref
         assert(functionInfo->GetArgumentsCount() == 0);
 
         ReflectedType object;
-        int* returnValue = nullptr;
-        functionInfo->Call(&object, &returnValue, nullptr, 0);
-        assert(returnValue == &object.member);
+        int& returnValue = edt::reflection::WrapReflectedMethodCall<int&>(functionInfo, object);
+        assert(&returnValue == &object.member);
     }
 }
 
@@ -412,9 +404,8 @@ namespace test_method_ret_int_ptr_ref
         assert(functionInfo->GetArgumentsCount() == 0);
 
         ReflectedType object;
-        int** ppRet = nullptr;
-        functionInfo->Call(&object, &ppRet, nullptr, 0);
-        assert(ppRet == &object.pMember);
+        int*& returnValue = edt::reflection::WrapReflectedMethodCall<int*&>(functionInfo, object);
+        assert(&returnValue == &object.pMember);
     }
 }
 
@@ -515,8 +506,7 @@ namespace test_method_ret_void_arg_same_type_ref
 
         ReflectedType object;
         ReflectedType arg{ 11 };
-        void* argsArray[] = { &arg };
-        functionInfo->Call(&object, nullptr, argsArray, 1);
+        edt::reflection::WrapReflectedMethodCall<void>(functionInfo, object, arg);
         assert(arg.member == 11 * 12);
     }
 }
