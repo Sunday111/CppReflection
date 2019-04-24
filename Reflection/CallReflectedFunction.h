@@ -46,7 +46,7 @@ namespace edt::reflection
     }
 
     template<typename ReturnType, typename Class, typename... Args>
-    decltype(auto) WrapReflectedMethodCall(const Function* fn, Class& instance, Args&... args) {
+    decltype(auto) CallMethod(const Function* fn, Class& instance, Args&&... args) {
         constexpr const size_t argsCount = sizeof...(Args);
         if constexpr (argsCount > 0) {
             void* arr[argsCount]{ &args... };
@@ -54,6 +54,18 @@ namespace edt::reflection
         }
         else {
             return WrapReflectedFunctionReturnType<ReturnType>(fn, &instance, nullptr, 0);
+        }
+    }
+
+    template<typename ReturnType, typename... Args>
+    decltype(auto) CallFunction(const Function* fn, Args&&... args) {
+        constexpr const size_t argsCount = sizeof...(Args);
+        if constexpr (argsCount > 0) {
+            void* arr[argsCount]{ &args... };
+            return WrapReflectedFunctionReturnType<ReturnType>(fn, nullptr, arr, argsCount);
+        }
+        else {
+            return WrapReflectedFunctionReturnType<ReturnType>(fn, nullptr, nullptr, 0);
         }
     }
 

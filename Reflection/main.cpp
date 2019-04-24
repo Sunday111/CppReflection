@@ -48,7 +48,7 @@ namespace test_method_ret_void_arg_void
         assert(functionInfo->GetArgumentsCount() == 0);
 
         ReflectedType object;
-        edt::reflection::WrapReflectedMethodCall<void>(functionInfo, object);
+        edt::reflection::CallMethod<void>(functionInfo, object);
         assert(object.member == 1);
     }
 }
@@ -85,7 +85,7 @@ namespace test_method_ret_void_arg_int
 
         ReflectedType object;
         int arg;
-        edt::reflection::WrapReflectedMethodCall<void>(functionInfo, object, arg);
+        edt::reflection::CallMethod<void>(functionInfo, object, arg);
     }
 }
 
@@ -124,7 +124,7 @@ namespace test_method_ret_void_arg_int_ptr
         ReflectedType object;
         int arg;
         int* pArg = &arg;
-        edt::reflection::WrapReflectedMethodCall<void>(functionInfo, object, pArg);
+        edt::reflection::CallMethod<void>(functionInfo, object, pArg);
         assert(arg == object.member);
     }
 }
@@ -161,7 +161,7 @@ namespace test_method_ret_void_arg_int_ref
 
         ReflectedType object;
         int arg;
-        edt::reflection::WrapReflectedMethodCall<void>(functionInfo, object, arg);
+        edt::reflection::CallMethod<void>(functionInfo, object, arg);
         assert(arg == 110);
     }
 }
@@ -200,7 +200,7 @@ namespace test_method_ret_void_arg_int_ptr_ref
 
         ReflectedType object;
         int* arg = nullptr;
-        edt::reflection::WrapReflectedMethodCall<void>(functionInfo, object, arg);
+        edt::reflection::CallMethod<void>(functionInfo, object, arg);
         assert(arg == &object.member);
     }
 }
@@ -250,7 +250,7 @@ namespace test_method_ret_void_arg_rvalue
         arg.values.resize(10);
 
         ReflectedType object;
-        edt::reflection::WrapReflectedMethodCall<void>(functionInfo, object, arg);
+        edt::reflection::CallMethod<void>(functionInfo, object, arg);
         assert(arg.values.empty());
         assert(object.value.values.size() == 10);
     }
@@ -288,7 +288,7 @@ namespace test_method_ret_int
         assert(functionInfo->GetArgumentsCount() == 0);
 
         ReflectedType object;
-        int returnValue = edt::reflection::WrapReflectedMethodCall<int>(functionInfo, object);
+        int returnValue = edt::reflection::CallMethod<int>(functionInfo, object);
         assert(returnValue == object.member);
     }
 }
@@ -325,7 +325,7 @@ namespace test_method_ret_int_ptr
         assert(functionInfo->GetArgumentsCount() == 0);
 
         ReflectedType object;
-        int* returnValue = edt::reflection::WrapReflectedMethodCall<int*>(functionInfo, object);
+        int* returnValue = edt::reflection::CallMethod<int*>(functionInfo, object);
         assert(returnValue == &object.member);
     }
 }
@@ -362,7 +362,7 @@ namespace test_method_ret_int_ref
         assert(functionInfo->GetArgumentsCount() == 0);
 
         ReflectedType object;
-        int& returnValue = edt::reflection::WrapReflectedMethodCall<int&>(functionInfo, object);
+        int& returnValue = edt::reflection::CallMethod<int&>(functionInfo, object);
         assert(&returnValue == &object.member);
     }
 }
@@ -404,7 +404,7 @@ namespace test_method_ret_int_ptr_ref
         assert(functionInfo->GetArgumentsCount() == 0);
 
         ReflectedType object;
-        int*& returnValue = edt::reflection::WrapReflectedMethodCall<int*&>(functionInfo, object);
+        int*& returnValue = edt::reflection::CallMethod<int*&>(functionInfo, object);
         assert(&returnValue == &object.pMember);
     }
 }
@@ -506,7 +506,7 @@ namespace test_method_ret_void_arg_same_type_ref
 
         ReflectedType object;
         ReflectedType arg{ 11 };
-        edt::reflection::WrapReflectedMethodCall<void>(functionInfo, object, arg);
+        edt::reflection::CallMethod<void>(functionInfo, object, arg);
         assert(arg.member == 11 * 12);
     }
 }
@@ -517,13 +517,33 @@ namespace test_function_ret_void_arg_void
     {
     public:
         static void f1() {
+            ++k;
+        }
+
+        static void f2(int arg) {
+            k += arg;
+        }
+
+        static void f3(int* arg) {
+            *arg = 114;
+        }
+
+        static void f4(int& arg) {
+            arg = 115;
         }
 
         static void ReflectType(edt::reflection::TypeReflector<ReflectedType>& rt) {
             rt.SetName("test_function_ret_void_arg_void::ReflectedType");
             rt.AddMethod<&ReflectedType::f1>("f1");
+            rt.AddMethod<&ReflectedType::f2>("f2");
+            rt.AddMethod<&ReflectedType::f3>("f3");
+            rt.AddMethod<&ReflectedType::f4>("f4");
         }
+
+        static int k;
     };
+
+    int ReflectedType::k = 10;
 
     void test() {
         using namespace std::literals;
@@ -531,13 +551,56 @@ namespace test_function_ret_void_arg_void
         assert(typeInfo != nullptr);
         assert(typeInfo->GetName() == "test_function_ret_void_arg_void::ReflectedType"sv);
         assert(typeInfo->GetInstanceSize() == sizeof(ReflectedType));
-        assert(typeInfo->GetMethodsCount() == 1);
-        const edt::reflection::Function* functionInfo = typeInfo->GetMethod(0);
-        assert(functionInfo != nullptr);
-        assert(functionInfo->GetName() == "f1"sv);
-        assert(functionInfo->GetObjectType() == nullptr);
-        assert(functionInfo->GetReturnType() == nullptr);
-        assert(functionInfo->GetArgumentsCount() == 0);
+        assert(typeInfo->GetMethodsCount() == 4);
+
+        {
+            const edt::reflection::Function* f = typeInfo->GetMethod(0);
+            assert(f != nullptr);
+            assert(f->GetName() == "f1"sv);
+            assert(f->GetObjectType() == nullptr);
+            assert(f->GetReturnType() == nullptr);
+            assert(f->GetArgumentsCount() == 0);
+            edt::reflection::CallFunction<void>(f);
+            assert(ReflectedType::k == 11);
+        }
+
+        {
+            const edt::reflection::Function* f = typeInfo->GetMethod(1);
+            assert(f != nullptr);
+            assert(f->GetName() == "f2"sv);
+            assert(f->GetObjectType() == nullptr);
+            assert(f->GetReturnType() == nullptr);
+            assert(f->GetArgumentsCount() == 1);
+            assert(f->GetArgumentType(0) == edt::reflection::GetTypeInfo<int>());
+            edt::reflection::CallFunction<void>(f, 2);
+            assert(ReflectedType::k == 13);
+        }
+
+        {
+            const edt::reflection::Function* f = typeInfo->GetMethod(2);
+            assert(f != nullptr);
+            assert(f->GetName() == "f3"sv);
+            assert(f->GetObjectType() == nullptr);
+            assert(f->GetReturnType() == nullptr);
+            assert(f->GetArgumentsCount() == 1);
+            assert(f->GetArgumentType(0) == edt::reflection::GetTypeInfo<int*>());
+            int arg = 3;
+            edt::reflection::CallFunction<void>(f, &arg);
+            assert(arg == 114);
+        }
+
+        {
+            const edt::reflection::Function* f = typeInfo->GetMethod(3);
+            assert(f != nullptr);
+            assert(f->GetName() == "f4"sv);
+            assert(f->GetObjectType() == nullptr);
+            assert(f->GetReturnType() == nullptr);
+            assert(f->GetArgumentsCount() == 1);
+            assert(f->GetArgumentType(0) == edt::reflection::GetTypeInfo<int&>());
+            int arg = 3;
+            edt::reflection::CallFunction<void>(f, arg);
+            assert(arg == 115);
+        }
     }
 }
 
