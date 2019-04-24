@@ -6,7 +6,7 @@
 
 namespace edt::reflection
 {
-    class TypeInfo;
+    class Type;
 
     // Recursive reflection for pointer and reference types
     template<typename T, typename = std::enable_if_t<std::is_pointer_v<T> || std::is_reference_v<T>>>
@@ -32,8 +32,8 @@ namespace edt::reflection
     }
 
     template<typename T>
-    inline const TypeInfo* GetTypeInfo() {
-        static const TypeInfo* ptr = nullptr;
+    inline const Type* GetTypeInfo() {
+        static const Type* ptr = nullptr;
         if (ptr != nullptr) {
             return ptr;
         }

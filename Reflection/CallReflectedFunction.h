@@ -6,7 +6,7 @@
 namespace edt::reflection
 {
     template<typename ReturnType>
-    decltype(auto) WrapReflectedFunctionReturnType(const ReflectedFunction* fn, void* instance, void** args, size_t argsCount) {
+    decltype(auto) WrapReflectedFunctionReturnType(const Function* fn, void* instance, void** args, size_t argsCount) {
         if constexpr (!std::is_same_v<void, ReturnType>) {
             assert(GetTypeInfo<ReturnType>() == fn->GetReturnType());
             if constexpr (std::is_pointer_v<ReturnType>) {
@@ -46,7 +46,7 @@ namespace edt::reflection
     }
 
     template<typename ReturnType, typename Class, typename... Args>
-    decltype(auto) WrapReflectedMethodCall(const ReflectedFunction* fn, Class& instance, Args&... args) {
+    decltype(auto) WrapReflectedMethodCall(const Function* fn, Class& instance, Args&... args) {
         constexpr const size_t argsCount = sizeof...(Args);
         if constexpr (argsCount > 0) {
             void* arr[argsCount]{ &args... };

@@ -2,21 +2,21 @@
 
 namespace edt::reflection
 {
-    class TypeInfo;
+    class Type;
 
-    class ReflectedFunction
+    class Function
     {
     public:
         /* Function return value type.
          * Null if function doesn't have return type (void)
          */
-        virtual const TypeInfo* GetReturnType() const = 0;
+        virtual const Type* GetReturnType() const = 0;
 
         /* Returns type of object on which instance this function should be called.
          * i.e. function is method.
          * Returns null for pure functions
          */
-        virtual const TypeInfo* GetObjectType() const = 0;
+        virtual const Type* GetObjectType() const = 0;
 
         /* Function parameters count
          */
@@ -25,7 +25,7 @@ namespace edt::reflection
         /* Function parameter type by index
          * index should be in range [0; GetArgumentsCount())
          */
-        virtual const TypeInfo* GetArgumentType(size_t index) const = 0;
+        virtual const Type* GetArgumentType(size_t index) const = 0;
 
         /* Name of function
          */
@@ -38,6 +38,6 @@ namespace edt::reflection
         virtual void Call(void* Object, void* ReturnValue, void** ArgsArray, size_t ArgsArraySize) const = 0;
 
 		//
-		virtual ~ReflectedFunction() = default;
+		virtual ~Function() = default;
     };
 }

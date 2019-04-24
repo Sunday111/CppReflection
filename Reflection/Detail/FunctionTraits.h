@@ -23,4 +23,10 @@ namespace edt::reflection::detail
         static constexpr size_t GetArgsCount() { return sizeof...(Args); }
         static constexpr bool IsMethod() { return true; };
     };
+
+    template<auto pfn>
+    struct FunctionPointerTraits
+        : public FunctionTypeTraits<decltype(pfn)>
+    {
+    };
 }

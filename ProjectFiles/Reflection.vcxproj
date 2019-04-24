@@ -19,25 +19,28 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Reflection\FieldInfo.h" />
     <ClInclude Include="..\Reflection\Detail\CallReflectType.h" />
-    <ClInclude Include="..\Reflection\Detail\FunctionPoinerTraits.h" />
+    <ClInclude Include="..\Reflection\Detail\FieldImpl.h" />
+    <ClInclude Include="..\Reflection\Detail\FieldReflector.h" />
+    <ClInclude Include="..\Reflection\Detail\FieldTraits.h" />
+    <ClInclude Include="..\Reflection\Detail\FunctionImpl.h" />
     <ClInclude Include="..\Reflection\Detail\FunctionReflector.h" />
-    <ClInclude Include="..\Reflection\Detail\FunctionTypeTraits.h" />
-    <ClInclude Include="..\Reflection\Detail\ReflectedFunctionImpl.h" />
+    <ClInclude Include="..\Reflection\Detail\FunctionTraits.h" />
     <ClInclude Include="..\Reflection\Detail\TypeHasMethod.h" />
-    <ClInclude Include="..\Reflection\Detail\TypeInfoImpl.h" />
+    <ClInclude Include="..\Reflection\Detail\TypeImpl.h" />
     <ClInclude Include="..\Reflection\Detail\TypeRegistryImpl.h" />
+    <ClInclude Include="..\Reflection\Field.h" />
     <ClInclude Include="..\Reflection\GetTypeInfo.h" />
-    <ClInclude Include="..\Reflection\ReflectedFunction.h" />
-    <ClInclude Include="..\Reflection\TypeInfo.h" />
+    <ClInclude Include="..\Reflection\Function.h" />
+    <ClInclude Include="..\Reflection\Type.h" />
     <ClInclude Include="..\Reflection\TypeReflector.h" />
     <ClInclude Include="..\Reflection\TypeRegistry.h" />
     <ClInclude Include="..\Reflection\UnusedVar.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Reflection\Detail\ReflectedFunctionImpl.cpp" />
-    <ClCompile Include="..\Reflection\Detail\TypeInfoImpl.cpp" />
+    <ClCompile Include="..\Reflection\Detail\FieldImpl.cpp" />
+    <ClCompile Include="..\Reflection\Detail\FunctionImpl.cpp" />
+    <ClCompile Include="..\Reflection\Detail\TypeImpl.cpp" />
     <ClCompile Include="..\Reflection\Detail\TypeRegistryImpl.cpp" />
     <ClCompile Include="..\Reflection\main.cpp" />
     <ClCompile Include="..\Reflection\TypeInfo.cpp" />

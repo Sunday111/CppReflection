@@ -35,12 +35,12 @@ namespace test_method_ret_void_arg_void
 
     void test() {
         using namespace std::literals;
-        const edt::reflection::TypeInfo* typeInfo = edt::reflection::GetTypeInfo<ReflectedType>();
+        const edt::reflection::Type* typeInfo = edt::reflection::GetTypeInfo<ReflectedType>();
         assert(typeInfo != nullptr);
         assert(typeInfo->GetName() == "test_method_ret_void_arg_void::ReflectedType"sv);
         assert(typeInfo->GetInstanceSize() == sizeof(ReflectedType));
         assert(typeInfo->GetMethodsCount() == 1);
-        const edt::reflection::ReflectedFunction* functionInfo = typeInfo->GetMethod(0);
+        const edt::reflection::Function* functionInfo = typeInfo->GetMethod(0);
         assert(functionInfo != nullptr);
         assert(functionInfo->GetName() == "f1"sv);
         assert(functionInfo->GetObjectType() == typeInfo);
@@ -70,12 +70,12 @@ namespace test_method_ret_void_arg_int
 
     void test() {
         using namespace std::literals;
-        const edt::reflection::TypeInfo* typeInfo = edt::reflection::GetTypeInfo<ReflectedType>();
+        const edt::reflection::Type* typeInfo = edt::reflection::GetTypeInfo<ReflectedType>();
         assert(typeInfo != nullptr);
         assert(typeInfo->GetName() == "test_method_ret_void_arg_int::ReflectedType"sv);
         assert(typeInfo->GetInstanceSize() == sizeof(ReflectedType));
         assert(typeInfo->GetMethodsCount() == 1);
-        const edt::reflection::ReflectedFunction* functionInfo = typeInfo->GetMethod(0);
+        const edt::reflection::Function* functionInfo = typeInfo->GetMethod(0);
         assert(functionInfo != nullptr);
         assert(functionInfo->GetName() == "f1"sv);
         assert(functionInfo->GetObjectType() == typeInfo);
@@ -108,12 +108,12 @@ namespace test_method_ret_void_arg_int_ptr
 
     void test() {
         using namespace std::literals;
-        const edt::reflection::TypeInfo* typeInfo = edt::reflection::GetTypeInfo<ReflectedType>();
+        const edt::reflection::Type* typeInfo = edt::reflection::GetTypeInfo<ReflectedType>();
         assert(typeInfo != nullptr);
         assert(typeInfo->GetName() == "test_method_ret_void_arg_int_ptr::ReflectedType"sv);
         assert(typeInfo->GetInstanceSize() == sizeof(ReflectedType));
         assert(typeInfo->GetMethodsCount() == 1);
-        const edt::reflection::ReflectedFunction* functionInfo = typeInfo->GetMethod(0);
+        const edt::reflection::Function* functionInfo = typeInfo->GetMethod(0);
         assert(functionInfo != nullptr);
         assert(functionInfo->GetName() == "f1"sv);
         assert(functionInfo->GetObjectType() == typeInfo);
@@ -146,12 +146,12 @@ namespace test_method_ret_void_arg_int_ref
 
     void test() {
         using namespace std::literals;
-        const edt::reflection::TypeInfo* typeInfo = edt::reflection::GetTypeInfo<ReflectedType>();
+        const edt::reflection::Type* typeInfo = edt::reflection::GetTypeInfo<ReflectedType>();
         assert(typeInfo != nullptr);
         assert(typeInfo->GetName() == "test_method_ret_void_arg_int_ref::ReflectedType"sv);
         assert(typeInfo->GetInstanceSize() == sizeof(ReflectedType));
         assert(typeInfo->GetMethodsCount() == 1);
-        const edt::reflection::ReflectedFunction* functionInfo = typeInfo->GetMethod(0);
+        const edt::reflection::Function* functionInfo = typeInfo->GetMethod(0);
         assert(functionInfo != nullptr);
         assert(functionInfo->GetName() == "f1"sv);
         assert(functionInfo->GetObjectType() == typeInfo);
@@ -185,12 +185,12 @@ namespace test_method_ret_void_arg_int_ptr_ref
 
     void test() {
         using namespace std::literals;
-        const edt::reflection::TypeInfo* typeInfo = edt::reflection::GetTypeInfo<ReflectedType>();
+        const edt::reflection::Type* typeInfo = edt::reflection::GetTypeInfo<ReflectedType>();
         assert(typeInfo != nullptr);
         assert(typeInfo->GetName() == "test_method_ret_void_arg_int_ptr_ref::ReflectedType"sv);
         assert(typeInfo->GetInstanceSize() == sizeof(ReflectedType));
         assert(typeInfo->GetMethodsCount() == 1);
-        const edt::reflection::ReflectedFunction* functionInfo = typeInfo->GetMethod(0);
+        const edt::reflection::Function* functionInfo = typeInfo->GetMethod(0);
         assert(functionInfo != nullptr);
         assert(functionInfo->GetName() == "f1"sv);
         assert(functionInfo->GetObjectType() == typeInfo);
@@ -233,12 +233,12 @@ namespace test_method_ret_void_arg_rvalue
 
     void test() {
         using namespace std::literals;
-        const edt::reflection::TypeInfo* typeInfo = edt::reflection::GetTypeInfo<ReflectedType>();
+        const edt::reflection::Type* typeInfo = edt::reflection::GetTypeInfo<ReflectedType>();
         assert(typeInfo != nullptr);
         assert(typeInfo->GetName() == "test_method_ret_void_arg_void::ReflectedType"sv);
         assert(typeInfo->GetInstanceSize() == sizeof(ReflectedType));
         assert(typeInfo->GetMethodsCount() == 1);
-        const edt::reflection::ReflectedFunction* functionInfo = typeInfo->GetMethod(0);
+        const edt::reflection::Function* functionInfo = typeInfo->GetMethod(0);
         assert(functionInfo != nullptr);
         assert(functionInfo->GetName() == "f1"sv);
         assert(functionInfo->GetObjectType() == typeInfo);
@@ -275,12 +275,12 @@ namespace test_method_ret_int
 
     void test() {
         using namespace std::literals;
-        const edt::reflection::TypeInfo* typeInfo = edt::reflection::GetTypeInfo<ReflectedType>();
+        const edt::reflection::Type* typeInfo = edt::reflection::GetTypeInfo<ReflectedType>();
         assert(typeInfo != nullptr);
         assert(typeInfo->GetName() == "test_method_ret_int::ReflectedType"sv);
         assert(typeInfo->GetInstanceSize() == sizeof(ReflectedType));
         assert(typeInfo->GetMethodsCount() == 1);
-        const edt::reflection::ReflectedFunction* functionInfo = typeInfo->GetMethod(0);
+        const edt::reflection::Function* functionInfo = typeInfo->GetMethod(0);
         assert(functionInfo != nullptr);
         assert(functionInfo->GetName() == "f1"sv);
         assert(functionInfo->GetObjectType() == typeInfo);
@@ -312,12 +312,12 @@ namespace test_method_ret_int_ptr
 
     void test() {
         using namespace std::literals;
-        const edt::reflection::TypeInfo* typeInfo = edt::reflection::GetTypeInfo<ReflectedType>();
+        const edt::reflection::Type* typeInfo = edt::reflection::GetTypeInfo<ReflectedType>();
         assert(typeInfo != nullptr);
         assert(typeInfo->GetName() == "test_method_ret_int_ptr::ReflectedType"sv);
         assert(typeInfo->GetInstanceSize() == sizeof(ReflectedType));
         assert(typeInfo->GetMethodsCount() == 1);
-        const edt::reflection::ReflectedFunction* functionInfo = typeInfo->GetMethod(0);
+        const edt::reflection::Function* functionInfo = typeInfo->GetMethod(0);
         assert(functionInfo != nullptr);
         assert(functionInfo->GetName() == "f1"sv);
         assert(functionInfo->GetObjectType() == typeInfo);
@@ -349,12 +349,12 @@ namespace test_method_ret_int_ref
 
     void test() {
         using namespace std::literals;
-        const edt::reflection::TypeInfo* typeInfo = edt::reflection::GetTypeInfo<ReflectedType>();
+        const edt::reflection::Type* typeInfo = edt::reflection::GetTypeInfo<ReflectedType>();
         assert(typeInfo != nullptr);
         assert(typeInfo->GetName() == "test_method_ret_int_ref::ReflectedType"sv);
         assert(typeInfo->GetInstanceSize() == sizeof(ReflectedType));
         assert(typeInfo->GetMethodsCount() == 1);
-        const edt::reflection::ReflectedFunction* functionInfo = typeInfo->GetMethod(0);
+        const edt::reflection::Function* functionInfo = typeInfo->GetMethod(0);
         assert(functionInfo != nullptr);
         assert(functionInfo->GetName() == "f1"sv);
         assert(functionInfo->GetObjectType() == typeInfo);
@@ -391,12 +391,12 @@ namespace test_method_ret_int_ptr_ref
 
     void test() {
         using namespace std::literals;
-        const edt::reflection::TypeInfo* typeInfo = edt::reflection::GetTypeInfo<ReflectedType>();
+        const edt::reflection::Type* typeInfo = edt::reflection::GetTypeInfo<ReflectedType>();
         assert(typeInfo != nullptr);
         assert(typeInfo->GetName() == "test_method_ret_int_ptr_ref::ReflectedType"sv);
         assert(typeInfo->GetInstanceSize() == sizeof(ReflectedType));
         assert(typeInfo->GetMethodsCount() == 1);
-        const edt::reflection::ReflectedFunction* functionInfo = typeInfo->GetMethod(0);
+        const edt::reflection::Function* functionInfo = typeInfo->GetMethod(0);
         assert(functionInfo != nullptr);
         assert(functionInfo->GetName() == "f1"sv);
         assert(functionInfo->GetObjectType() == typeInfo);
@@ -453,12 +453,12 @@ namespace test_method_ret_rvalue
 
     void test() {
         using namespace std::literals;
-        const edt::reflection::TypeInfo* typeInfo = edt::reflection::GetTypeInfo<ReflectedType>();
+        const edt::reflection::Type* typeInfo = edt::reflection::GetTypeInfo<ReflectedType>();
         assert(typeInfo != nullptr);
         assert(typeInfo->GetName() == "test_method_ret_rvalue::ReflectedType"sv);
         assert(typeInfo->GetInstanceSize() == sizeof(ReflectedType));
         assert(typeInfo->GetMethodsCount() == 1);
-        const edt::reflection::ReflectedFunction* functionInfo = typeInfo->GetMethod(0);
+        const edt::reflection::Function* functionInfo = typeInfo->GetMethod(0);
         assert(functionInfo != nullptr);
         assert(functionInfo->GetName() == "f1"sv);
         assert(functionInfo->GetObjectType() == typeInfo);
@@ -491,12 +491,12 @@ namespace test_method_ret_void_arg_same_type_ref
 
     void test() {
         using namespace std::literals;
-        const edt::reflection::TypeInfo* typeInfo = edt::reflection::GetTypeInfo<ReflectedType>();
+        const edt::reflection::Type* typeInfo = edt::reflection::GetTypeInfo<ReflectedType>();
         assert(typeInfo != nullptr);
         assert(typeInfo->GetName() == "test_method_ret_void_arg_same_type_ref::ReflectedType"sv);
         assert(typeInfo->GetInstanceSize() == sizeof(ReflectedType));
         assert(typeInfo->GetMethodsCount() == 1);
-        const edt::reflection::ReflectedFunction* functionInfo = typeInfo->GetMethod(0);
+        const edt::reflection::Function* functionInfo = typeInfo->GetMethod(0);
         assert(functionInfo != nullptr);
         assert(functionInfo->GetName() == "f1"sv);
         assert(functionInfo->GetObjectType() == typeInfo);
@@ -527,12 +527,12 @@ namespace test_function_ret_void_arg_void
 
     void test() {
         using namespace std::literals;
-        const edt::reflection::TypeInfo* typeInfo = edt::reflection::GetTypeInfo<ReflectedType>();
+        const edt::reflection::Type* typeInfo = edt::reflection::GetTypeInfo<ReflectedType>();
         assert(typeInfo != nullptr);
         assert(typeInfo->GetName() == "test_function_ret_void_arg_void::ReflectedType"sv);
         assert(typeInfo->GetInstanceSize() == sizeof(ReflectedType));
         assert(typeInfo->GetMethodsCount() == 1);
-        const edt::reflection::ReflectedFunction* functionInfo = typeInfo->GetMethod(0);
+        const edt::reflection::Function* functionInfo = typeInfo->GetMethod(0);
         assert(functionInfo != nullptr);
         assert(functionInfo->GetName() == "f1"sv);
         assert(functionInfo->GetObjectType() == nullptr);
@@ -541,7 +541,84 @@ namespace test_function_ret_void_arg_void
     }
 }
 
-void PrintType(const edt::reflection::TypeInfo* typeInfo, std::ostream& output) {
+namespace test_fields
+{
+    class ReflectedType
+    {
+    public:
+        static void ReflectType(edt::reflection::TypeReflector<ReflectedType>& rt) {
+            rt.SetName("test_field_value::ReflectedType");
+            rt.AddField<&ReflectedType::m_int>("m_int");
+            rt.AddField<&ReflectedType::m_int_ptr>("m_int_ptr");
+            rt.AddField<&ReflectedType::ms_int>("ms_int");
+            rt.AddField<&ReflectedType::ms_int_ptr>("ms_int_ptr");
+        }
+
+        ReflectedType(int value)
+            : m_int(value)
+            , m_int_ptr(&m_int)
+        {
+        }
+
+        int m_int;
+        int* m_int_ptr;
+
+        static int ms_int;
+        static int* ms_int_ptr;
+        static int& ms_int_ref;
+    };
+
+    int ReflectedType::ms_int = 12;
+    int* ReflectedType::ms_int_ptr = &ReflectedType::ms_int;
+
+    void test() {
+        using namespace std::literals;
+        const edt::reflection::Type* typeInfo = edt::reflection::GetTypeInfo<ReflectedType>();
+        assert(typeInfo != nullptr);
+        assert(typeInfo->GetName() == "test_field_value::ReflectedType"sv);
+        assert(typeInfo->GetInstanceSize() == sizeof(ReflectedType));
+        assert(typeInfo->GetFieldsCount() == 4);
+
+        ReflectedType instance(100);
+        // Reflected int
+        {
+            auto f = typeInfo->GetField(0);
+            assert(f != nullptr);
+            assert(f->GetName() == "m_int"sv);
+            assert(f->GetType() == edt::reflection::GetTypeInfo<int>());
+            assert(f->GetValue(&instance) == &instance.m_int);
+        }
+
+        // Reflected int*
+        {
+            auto f = typeInfo->GetField(1);
+            assert(f != nullptr);
+            assert(f->GetName() == "m_int_ptr"sv);
+            assert(f->GetType() == edt::reflection::GetTypeInfo<int*>());
+            assert(f->GetValue(&instance) == &instance.m_int_ptr);
+        }
+
+        // Reflected static int
+        {
+            auto f = typeInfo->GetField(2);
+            assert(f != nullptr);
+            assert(f->GetName() == "ms_int"sv);
+            assert(f->GetType() == edt::reflection::GetTypeInfo<int>());
+            assert(f->GetValue(nullptr) == &instance.ms_int);
+        }
+
+        // Reflected static int*
+        {
+            auto f = typeInfo->GetField(3);
+            assert(f != nullptr);
+            assert(f->GetName() == "ms_int_ptr"sv);
+            assert(f->GetType() == edt::reflection::GetTypeInfo<int*>());
+            assert(f->GetValue(nullptr) == &instance.ms_int_ptr);
+        }
+    }
+}
+
+void PrintType(const edt::reflection::Type* typeInfo, std::ostream& output) {
     assert(typeInfo->GetName() != nullptr);
     output << typeInfo->GetName() << '\n';
     bool needNewLine = false;
@@ -601,6 +678,7 @@ int main() {
     test_method_ret_rvalue::test();
     test_method_ret_void_arg_same_type_ref::test();
     test_function_ret_void_arg_void::test();
+    test_fields::test();
 
     PrintReflectedTypes(edt::reflection::detail::TypeRegistryImpl::Instance(), std::cout);
 

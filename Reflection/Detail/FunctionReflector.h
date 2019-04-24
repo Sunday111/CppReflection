@@ -1,20 +1,20 @@
 #pragma once
 
 #include <cassert>
-#include "ReflectedFunctionImpl.h"
-#include "Detail/FunctionPoinerTraits.h"
+#include "FunctionImpl.h"
+#include "Detail/FunctionTraits.h"
 #include "UnusedVar.h"
 
 namespace edt::reflection
 {
     template<typename T>
-    const TypeInfo* GetTypeInfo();
+    const Type* GetTypeInfo();
 }
 
 namespace edt::reflection::detail
 {
     template<auto pfn>
-    class FunctionReflector : public ReflectedFunctionImpl
+    class FunctionReflector : public FunctionImpl
     {
         using FnReflector = detail::FunctionPointerTraits<pfn>;
 

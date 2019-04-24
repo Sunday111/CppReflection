@@ -20,47 +20,53 @@
     <ClInclude Include="..\Reflection\GetTypeInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Reflection\ReflectedFunction.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Reflection\TypeInfo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\Reflection\TypeReflector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Reflection\TypeRegistry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Reflection\Detail\FunctionTypeTraits.h">
+    <ClInclude Include="..\Reflection\UnusedVar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Reflection\Function.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Reflection\Field.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Reflection\Type.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Reflection\Detail\CallReflectType.h">
       <Filter>Header Files\Detail</Filter>
     </ClInclude>
-    <ClInclude Include="..\Reflection\Detail\FunctionPoinerTraits.h">
+    <ClInclude Include="..\Reflection\Detail\FieldImpl.h">
+      <Filter>Header Files\Detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Reflection\Detail\FunctionImpl.h">
       <Filter>Header Files\Detail</Filter>
     </ClInclude>
     <ClInclude Include="..\Reflection\Detail\FunctionReflector.h">
       <Filter>Header Files\Detail</Filter>
     </ClInclude>
-    <ClInclude Include="..\Reflection\Detail\CallReflectType.h">
+    <ClInclude Include="..\Reflection\Detail\TypeHasMethod.h">
       <Filter>Header Files\Detail</Filter>
     </ClInclude>
-    <ClInclude Include="..\Reflection\Detail\ReflectedFunctionImpl.h">
-      <Filter>Header Files\Detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Reflection\Detail\TypeInfoImpl.h">
+    <ClInclude Include="..\Reflection\Detail\TypeImpl.h">
       <Filter>Header Files\Detail</Filter>
     </ClInclude>
     <ClInclude Include="..\Reflection\Detail\TypeRegistryImpl.h">
       <Filter>Header Files\Detail</Filter>
     </ClInclude>
-    <ClInclude Include="..\Reflection\Detail\TypeHasMethod.h">
+    <ClInclude Include="..\Reflection\Detail\FieldTraits.h">
       <Filter>Header Files\Detail</Filter>
     </ClInclude>
-    <ClInclude Include="..\Reflection\FieldInfo.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\Reflection\Detail\FunctionTraits.h">
+      <Filter>Header Files\Detail</Filter>
     </ClInclude>
-    <ClInclude Include="..\Reflection\UnusedVar.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\Reflection\Detail\FieldReflector.h">
+      <Filter>Header Files\Detail</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -70,14 +76,17 @@
     <ClCompile Include="..\Reflection\TypeInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Reflection\Detail\ReflectedFunctionImpl.cpp">
-      <Filter>Source Files\Detail</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Reflection\Detail\TypeInfoImpl.cpp">
-      <Filter>Source Files\Detail</Filter>
-    </ClCompile>
     <ClCompile Include="..\Reflection\Detail\TypeRegistryImpl.cpp">
       <Filter>Source Files\Detail</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Reflection\Detail\TypeImpl.cpp">
+      <Filter>Source Files\Detail</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Reflection\Detail\FunctionImpl.cpp">
+      <Filter>Source Files\Detail</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Reflection\Detail\FieldImpl.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

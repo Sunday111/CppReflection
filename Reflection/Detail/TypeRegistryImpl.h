@@ -11,11 +11,11 @@ namespace edt::reflection::detail
         template<typename T>
         TypeReflector<T>& Register();
         static TypeRegistryImpl& Instance();
-        virtual const TypeInfo* GetTypeInfo(size_t index) const override;
+        virtual const Type* GetTypeInfo(size_t index) const override;
         virtual size_t GetTypesCount() const override;
 
     private:
-        std::vector<std::unique_ptr<TypeInfoImpl>> m_types;
+        std::vector<std::unique_ptr<TypeImpl>> m_types;
     };
 
     template<typename T>
