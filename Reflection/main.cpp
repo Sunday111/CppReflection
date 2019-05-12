@@ -990,52 +990,7 @@ void PrintReflectedTypes(const edt::reflection::TypeRegistry& registry, std::ost
     }
 }
 
-class Foo
-{
-public:
-    bool operator==(const Foo& b) const {
-        return ll == b.ll;
-    }
-
-    int ll;
-};
-
-constexpr bool TypeHasEqOp(...) {
-    return false;
-}
-
-template<typename T>
-constexpr auto TypeHasEqOp(const T* ptr) ->
-    decltype((
-        *ptr == *ptr
-        , true))
-{
-    return true;
-}
-
-template<typename T>
-using CompareOp = bool(*)(const T& a, const T& b);
-
-template<typename T>
-constexpr CompareOp<T> GetCompareOperator() {
-    constexpr const T* const pppp = nullptr;
-    if constexpr (TypeHasEqOp(pppp)) {
-        return [](const T& a, const T& b) {
-            return a == b;
-        };
-    }
-    else {
-        return nullptr;
-    }
-}
-
 int main() {
-    Foo f1{ 1 }, f2{ 2 };
-    constexpr auto op = GetCompareOperator<Foo>();
-    if constexpr (op) {
-        op(f1, f2);
-    }
-
     test_method_ret_void_arg_void::test();
     test_method_ret_void_arg_int::test();
     test_method_ret_void_arg_int_ptr::test();
