@@ -1,0 +1,4 @@
+[submodule "Submodules/EverydayTools"]
+	path = Submodules/EverydayTools
+	url = https://github.com/Sunday111/EverydayTools
+	branch = master

@@ -10,7 +10,7 @@ namespace edt::reflection
 
     // Recursive reflection for pointer and reference types
     template<typename T, typename = std::enable_if_t<std::is_pointer_v<T> || std::is_reference_v<T>>>
-    void ReflectType(TypeReflector<T>& rt) {
+    inline void ReflectType(TypeReflector<T>& rt) {
         if constexpr (std::is_pointer_v<T>) {
             using Naked = std::remove_pointer_t<T>;
             auto ti = GetTypeInfo<Naked>();
@@ -32,7 +32,7 @@ namespace edt::reflection
     }
 
     template<typename T>
-    inline const Type* GetTypeInfo() {
+    [[nodiscard]] inline const Type* GetTypeInfo() {
         static const Type* ptr = nullptr;
         if (ptr != nullptr) {
             return ptr;

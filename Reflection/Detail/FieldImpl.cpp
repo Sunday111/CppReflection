@@ -17,5 +17,4 @@ namespace edt::reflection::detail
     void FieldImpl::SetType(const Type* type) {
         m_type = type;
     }
-
 }

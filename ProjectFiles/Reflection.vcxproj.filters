@@ -26,9 +26,6 @@
     <ClInclude Include="..\Reflection\TypeRegistry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Reflection\UnusedVar.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\Reflection\Function.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -50,9 +47,6 @@
     <ClInclude Include="..\Reflection\Detail\FunctionReflector.h">
       <Filter>Header Files\Detail</Filter>
     </ClInclude>
-    <ClInclude Include="..\Reflection\Detail\TypeHasMethod.h">
-      <Filter>Header Files\Detail</Filter>
-    </ClInclude>
     <ClInclude Include="..\Reflection\Detail\TypeImpl.h">
       <Filter>Header Files\Detail</Filter>
     </ClInclude>
@@ -68,12 +62,30 @@
     <ClInclude Include="..\Reflection\Detail\FieldReflector.h">
       <Filter>Header Files\Detail</Filter>
     </ClInclude>
+    <ClInclude Include="..\Reflection\PrimitiveTypeReflection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Reflection\TypeFlag.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Reflection\TypeSpecialMembers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Reflection\Detail\HasOperator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Reflection\Detail\MakeTypeSpecialMembers.h">
+      <Filter>Header Files\Detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Reflection\TypeComparisonOperators.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Reflection\Detail\MakeTypeComparisonOperators.h">
+      <Filter>Header Files\Detail</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Reflection\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Reflection\TypeInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\Reflection\Detail\TypeRegistryImpl.cpp">
@@ -86,7 +98,7 @@
       <Filter>Source Files\Detail</Filter>
     </ClCompile>
     <ClCompile Include="..\Reflection\Detail\FieldImpl.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Detail</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -19,6 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Reflection\Detail\HasOperator.h" />
+    <ClInclude Include="..\Reflection\Detail\MakeTypeComparisonOperators.h" />
+    <ClInclude Include="..\Reflection\Detail\MakeTypeSpecialMembers.h" />
+    <ClInclude Include="..\Reflection\TypeComparisonOperators.h" />
+    <ClInclude Include="..\Reflection\TypeSpecialMembers.h" />
     <ClInclude Include="..\Reflection\Detail\CallReflectType.h" />
     <ClInclude Include="..\Reflection\Detail\FieldImpl.h" />
     <ClInclude Include="..\Reflection\Detail\FieldReflector.h" />
@@ -26,16 +31,16 @@
     <ClInclude Include="..\Reflection\Detail\FunctionImpl.h" />
     <ClInclude Include="..\Reflection\Detail\FunctionReflector.h" />
     <ClInclude Include="..\Reflection\Detail\FunctionTraits.h" />
-    <ClInclude Include="..\Reflection\Detail\TypeHasMethod.h" />
     <ClInclude Include="..\Reflection\Detail\TypeImpl.h" />
     <ClInclude Include="..\Reflection\Detail\TypeRegistryImpl.h" />
     <ClInclude Include="..\Reflection\Field.h" />
     <ClInclude Include="..\Reflection\GetTypeInfo.h" />
     <ClInclude Include="..\Reflection\Function.h" />
+    <ClInclude Include="..\Reflection\PrimitiveTypeReflection.h" />
     <ClInclude Include="..\Reflection\Type.h" />
+    <ClInclude Include="..\Reflection\TypeFlag.h" />
     <ClInclude Include="..\Reflection\TypeReflector.h" />
     <ClInclude Include="..\Reflection\TypeRegistry.h" />
-    <ClInclude Include="..\Reflection\UnusedVar.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Reflection\Detail\FieldImpl.cpp" />
@@ -43,7 +48,6 @@
     <ClCompile Include="..\Reflection\Detail\TypeImpl.cpp" />
     <ClCompile Include="..\Reflection\Detail\TypeRegistryImpl.cpp" />
     <ClCompile Include="..\Reflection\main.cpp" />
-    <ClCompile Include="..\Reflection\TypeInfo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Reflection\CallReflectedFunction.h" />
@@ -122,6 +126,8 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)../Submodules/EverydayTools/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -131,6 +137,8 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)../Submodules/EverydayTools/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -142,6 +150,8 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)../Submodules/EverydayTools/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -157,6 +167,8 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)../Submodules/EverydayTools/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>

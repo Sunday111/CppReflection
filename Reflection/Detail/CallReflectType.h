@@ -1,6 +1,6 @@
 #pragma once
 
-#include "TypeHasMethod.h"
+#include "EverydayTools/Template/TypeHasMethod.h"
 
 namespace edt::reflection
 {

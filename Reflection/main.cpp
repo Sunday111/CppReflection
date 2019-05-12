@@ -3,18 +3,9 @@
 #include <string_view>
 
 #include "TypeReflector.h"
-#include "GetTypeInfo.h"
-
+#include "PrimitiveTypeReflection.h"
 #include "CallReflectedFunction.h"
-
 #include "Detail/TypeRegistryImpl.h"
-
-namespace edt::reflection
-{
-    void ReflectType(TypeReflector<int>& rt) {
-        rt.SetName("int");
-    }
-}
 
 namespace test_method_ret_void_arg_void
 {
@@ -681,6 +672,278 @@ namespace test_fields
     }
 }
 
+namespace test_special_members
+{
+    namespace default_constructor
+    {
+        class ReflectedType
+        {
+        public:
+            static void ReflectType(edt::reflection::TypeReflector<ReflectedType>& rt) {
+                rt.SetName("test_special_members::default_constructor::ReflectedType");
+            }
+
+            ReflectedType()
+                : member(124)
+            {}
+
+            int member = 112;
+        };
+
+        void test() {
+            const edt::reflection::Type* type = edt::reflection::GetTypeInfo<ReflectedType>();
+            assert(type != nullptr);
+            assert(type->specialMembers.defaultConstructor != nullptr);
+
+            std::aligned_storage_t<sizeof(ReflectedType), alignof(ReflectedType)> data;
+            ReflectedType* pointer = reinterpret_cast<ReflectedType*>(&data);
+            type->specialMembers.defaultConstructor(pointer);
+            assert(pointer->member == 124);
+        }
+    }
+
+    namespace no_default_constructor
+    {
+        class ReflectedType
+        {
+        public:
+            static void ReflectType(edt::reflection::TypeReflector<ReflectedType>& rt) {
+                rt.SetName("test_special_members::no_default_constructor::ReflectedType");
+            }
+
+            ReflectedType(int) {}
+        };
+
+        void test() {
+            const edt::reflection::Type* type = edt::reflection::GetTypeInfo<ReflectedType>();
+            assert(type != nullptr);
+            assert(type->specialMembers.defaultConstructor == nullptr);
+        }
+    }
+
+    namespace copy_assign
+    {
+        class ReflectedType
+        {
+        public:
+            static void ReflectType(edt::reflection::TypeReflector<ReflectedType>& rt) {
+                rt.SetName("test_special_members::copy_assign::ReflectedType");
+            }
+
+            ReflectedType& operator=(const ReflectedType& another) {
+                member = another.member;
+                return *this;
+            }
+
+            std::vector<int> member;
+        };
+
+        void test() {
+            const edt::reflection::Type* type = edt::reflection::GetTypeInfo<ReflectedType>();
+            assert(type != nullptr);
+            assert(type->specialMembers.copyAssign != nullptr);
+
+            ReflectedType a, b;
+            std::vector<int> member{ 1, 2, 3 };
+            b.member = member;
+            type->specialMembers.copyAssign(&a, &b);
+            assert(b.member == member);
+            assert(a.member == member);
+        }
+    }
+
+    namespace no_copy_assign
+    {
+        class ReflectedType
+        {
+        public:
+            static void ReflectType(edt::reflection::TypeReflector<ReflectedType>& rt) {
+                rt.SetName("test_special_members::no_copy_assign::ReflectedType");
+            }
+
+            ReflectedType& operator=(const ReflectedType& another) = delete;
+        };
+
+        void test() {
+            const edt::reflection::Type* type = edt::reflection::GetTypeInfo<ReflectedType>();
+            assert(type != nullptr);
+            assert(type->specialMembers.copyAssign == nullptr);
+        }
+    }
+
+    namespace move_assign
+    {
+        class ReflectedType
+        {
+        public:
+            static void ReflectType(edt::reflection::TypeReflector<ReflectedType>& rt) {
+                rt.SetName("test_special_members::move_assign::ReflectedType");
+            }
+
+            ReflectedType& operator=(ReflectedType&& another) {
+                member = std::move(another.member);
+                return *this;
+            }
+
+            std::vector<int> member;
+        };
+
+        void test() {
+            const edt::reflection::Type* type = edt::reflection::GetTypeInfo<ReflectedType>();
+            assert(type != nullptr);
+            assert(type->specialMembers.moveAssign != nullptr);
+
+            ReflectedType a, b;
+            std::vector<int> member{ 1, 2, 3 };
+            b.member = member;
+            type->specialMembers.moveAssign(&a, &b);
+            assert(b.member.empty());
+            assert(a.member == member);
+        }
+    }
+
+    namespace no_move_assign
+    {
+        class ReflectedType
+        {
+        public:
+            static void ReflectType(edt::reflection::TypeReflector<ReflectedType>& rt) {
+                rt.SetName("test_special_members::no_move_assign::ReflectedType");
+            }
+
+            ReflectedType& operator=(ReflectedType&& another) = delete;
+        };
+
+        void test() {
+            const edt::reflection::Type* type = edt::reflection::GetTypeInfo<ReflectedType>();
+            assert(type != nullptr);
+            assert(type->specialMembers.moveAssign == nullptr);
+        }
+    }
+
+    namespace destructor
+    {
+        class ReflectedType
+        {
+        public:
+            static void ReflectType(edt::reflection::TypeReflector<ReflectedType>& rt) {
+                rt.SetName("test_special_members::destructor::ReflectedType");
+            }
+
+            ~ReflectedType() {
+                member = 2048;
+            }
+
+            int member = 1024;
+        };
+
+        void test() {
+            const edt::reflection::Type* type = edt::reflection::GetTypeInfo<ReflectedType>();
+            assert(type != nullptr);
+            assert(type->specialMembers.defaultConstructor != nullptr);
+            assert(type->specialMembers.destructor != nullptr);
+
+            std::aligned_storage_t<sizeof(ReflectedType), alignof(ReflectedType)> data;
+            ReflectedType* pointer = reinterpret_cast<ReflectedType*>(&data);
+            type->specialMembers.defaultConstructor(pointer);
+            assert(pointer->member == 1024);
+            type->specialMembers.destructor(pointer);
+            assert(pointer->member == 2048);
+        }
+    }
+}
+
+namespace test_comparison_operators {
+    namespace less_operator {
+        class ReflectedType
+        {
+        public:
+            friend bool operator<(const ReflectedType& a, const ReflectedType& b) {
+                return a.member < b.member;
+            }
+
+            static void ReflectType(edt::reflection::TypeReflector<ReflectedType>& rt) {
+                rt.SetName("test_comparison_operators::less_operator::ReflectedType");
+            }
+
+            int member = 1024;
+        };
+
+        void test() {
+            const edt::reflection::Type* type = edt::reflection::GetTypeInfo<ReflectedType>();
+            assert(type != nullptr);
+            assert(type->comparisonOperators.less != nullptr);
+
+            ReflectedType a;
+            a.member = 10;
+
+            ReflectedType b;
+            a.member = 20;
+
+            assert(type->comparisonOperators.less(&a, &b));
+            assert(!type->comparisonOperators.less(&a, &a));
+            assert(!type->comparisonOperators.less(&b, &a));
+        }
+    }
+
+    namespace equals_operator {
+        class ReflectedType
+        {
+        public:
+            friend bool operator==(const ReflectedType& a, const ReflectedType& b) {
+                return a.member == b.member;
+            }
+
+            static void ReflectType(edt::reflection::TypeReflector<ReflectedType>& rt) {
+                rt.SetName("test_comparison_operators::equals_operator::ReflectedType");
+            }
+
+            int member = 1024;
+        };
+
+        void test() {
+            const edt::reflection::Type* type = edt::reflection::GetTypeInfo<ReflectedType>();
+            assert(type != nullptr);
+            assert(type->comparisonOperators.equals != nullptr);
+
+            ReflectedType a;
+            a.member = 10;
+
+            ReflectedType b;
+            a.member = 20;
+
+            assert(!type->comparisonOperators.equals(&a, &b));
+            assert(!type->comparisonOperators.equals(&b, &a));
+            assert(type->comparisonOperators.equals(&a, &a));
+            assert(type->comparisonOperators.equals(&b, &b));
+        }
+    }
+
+    class ReflectedType_NoCompare
+    {
+    public:
+        static void ReflectType(edt::reflection::TypeReflector<ReflectedType_NoCompare>& rt) {
+            rt.SetName("test_comparison_operators::ReflectedType_NoCompare");
+        }
+    };
+
+    namespace no_less_operator {
+        void test() {
+            const edt::reflection::Type* type = edt::reflection::GetTypeInfo<ReflectedType_NoCompare>();
+            assert(type != nullptr);
+            assert(type->comparisonOperators.less == nullptr);
+        }
+    }
+
+    namespace no_equals_operator {
+        void test() {
+            const edt::reflection::Type* type = edt::reflection::GetTypeInfo<ReflectedType_NoCompare>();
+            assert(type != nullptr);
+            assert(type->comparisonOperators.equals == nullptr);
+        }
+    }
+}
+
 void PrintType(const edt::reflection::Type* typeInfo, std::ostream& output) {
     assert(typeInfo->GetName() != nullptr);
     output << typeInfo->GetName() << '\n';
@@ -727,7 +990,52 @@ void PrintReflectedTypes(const edt::reflection::TypeRegistry& registry, std::ost
     }
 }
 
+class Foo
+{
+public:
+    bool operator==(const Foo& b) const {
+        return ll == b.ll;
+    }
+
+    int ll;
+};
+
+constexpr bool TypeHasEqOp(...) {
+    return false;
+}
+
+template<typename T>
+constexpr auto TypeHasEqOp(const T* ptr) ->
+    decltype((
+        *ptr == *ptr
+        , true))
+{
+    return true;
+}
+
+template<typename T>
+using CompareOp = bool(*)(const T& a, const T& b);
+
+template<typename T>
+constexpr CompareOp<T> GetCompareOperator() {
+    constexpr const T* const pppp = nullptr;
+    if constexpr (TypeHasEqOp(pppp)) {
+        return [](const T& a, const T& b) {
+            return a == b;
+        };
+    }
+    else {
+        return nullptr;
+    }
+}
+
 int main() {
+    Foo f1{ 1 }, f2{ 2 };
+    constexpr auto op = GetCompareOperator<Foo>();
+    if constexpr (op) {
+        op(f1, f2);
+    }
+
     test_method_ret_void_arg_void::test();
     test_method_ret_void_arg_int::test();
     test_method_ret_void_arg_int_ptr::test();
@@ -742,6 +1050,17 @@ int main() {
     test_method_ret_void_arg_same_type_ref::test();
     test_function_ret_void_arg_void::test();
     test_fields::test();
+    test_special_members::default_constructor::test();
+    test_special_members::no_default_constructor::test();
+    test_special_members::copy_assign::test();
+    test_special_members::no_copy_assign::test();
+    test_special_members::move_assign::test();
+    test_special_members::no_move_assign::test();
+    test_special_members::destructor::test();
+    test_comparison_operators::less_operator::test();
+    test_comparison_operators::no_less_operator::test();
+    test_comparison_operators::equals_operator::test();
+    test_comparison_operators::no_equals_operator::test();
 
     PrintReflectedTypes(edt::reflection::detail::TypeRegistryImpl::Instance(), std::cout);
 
