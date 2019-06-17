@@ -1,6 +1,6 @@
 #pragma once
 
-namespace edt::reflection::detail
+namespace cppreflection::detail
 {
     template<typename T>
     struct FieldTypeTraits

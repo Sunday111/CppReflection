@@ -3,7 +3,7 @@
 #include "HasOperator.h"
 #include "../TypeComparisonOperators.h"
 
-namespace edt::reflection::detail
+namespace cppreflection::detail
 {
     template<typename T>
     [[nodiscard]]

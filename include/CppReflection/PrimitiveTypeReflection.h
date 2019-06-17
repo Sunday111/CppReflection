@@ -3,7 +3,7 @@
 #include <cstdint>
 #include "GetTypeInfo.h"
 
-namespace edt::reflection
+namespace cppreflection
 {
     inline void ReflectType(TypeReflector<int8_t>& rt) {
         rt.SetName("int8");

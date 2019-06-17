@@ -1,6 +1,6 @@
 #include "FieldImpl.h"
 
-namespace edt::reflection::detail
+namespace cppreflection::detail
 {
     const Type* FieldImpl::GetType() const {
         return m_type;

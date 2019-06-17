@@ -1,6 +1,6 @@
 #include "FunctionImpl.h"
 
-namespace edt::reflection::detail
+namespace cppreflection::detail
 {
     const char* FunctionImpl::GetName() const {
         return m_name.c_str();

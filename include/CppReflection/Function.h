@@ -1,6 +1,6 @@
 #pragma once
 
-namespace edt::reflection
+namespace cppreflection
 {
     class Type;
 
@@ -42,7 +42,7 @@ namespace edt::reflection
          */
         virtual void Call(void* Object, void* ReturnValue, void** ArgsArray, size_t ArgsArraySize) const = 0;
 
-		//
-		virtual ~Function() = default;
+        //
+        virtual ~Function() = default;
     };
 }

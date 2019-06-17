@@ -3,7 +3,7 @@
 #include <type_traits>
 #include "../TypeSpecialMembers.h"
 
-namespace edt::reflection::detail
+namespace cppreflection::detail
 {
     template<typename T>
     [[nodiscard]]

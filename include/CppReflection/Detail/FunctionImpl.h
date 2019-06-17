@@ -4,7 +4,7 @@
 
 #include "../Function.h"
 
-namespace edt::reflection::detail
+namespace cppreflection::detail
 {
     class FunctionImpl : public Function
     {
@@ -22,8 +22,8 @@ namespace edt::reflection::detail
 
     private:
         std::string m_name;
-        const Type* m_returnType;
-        const Type* m_objectType;
+        const Type* m_returnType = nullptr;
+        const Type* m_objectType = nullptr;
         std::vector<const Type*> m_argumentTypes;
     };
 }

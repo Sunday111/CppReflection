@@ -1,13 +1,13 @@
 #include "TypeRegistryImpl.h"
 
-namespace edt::reflection::detail
+namespace cppreflection::detail
 {
     TypeRegistryImpl& TypeRegistryImpl::Instance() {
         static TypeRegistryImpl instance;
         return instance;
     }
 
-    const edt::reflection::Type* TypeRegistryImpl::GetTypeInfo(size_t index) const {
+    const cppreflection::Type* TypeRegistryImpl::GetTypeInfo(size_t index) const {
         return m_types[index].get();
     }
 

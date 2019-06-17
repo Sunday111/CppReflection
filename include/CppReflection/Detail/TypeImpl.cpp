@@ -2,8 +2,12 @@
 #include "FunctionImpl.h"
 #include "FieldImpl.h"
 
-namespace edt::reflection::detail
+namespace cppreflection::detail
 {
+    TypeImpl::TypeImpl(TypeImpl&&) = default;
+    TypeImpl::TypeImpl() = default;
+    TypeImpl::~TypeImpl() = default;
+
     size_t TypeImpl::GetMethodsCount() const {
         return m_methods.size();
     }
@@ -30,8 +34,4 @@ namespace edt::reflection::detail
     const Field* TypeImpl::GetField(size_t index) const {
         return m_fields[index].get();
     }
-
-    TypeImpl::TypeImpl(TypeImpl&&) = default;
-    TypeImpl::TypeImpl() = default;
-    TypeImpl::~TypeImpl() = default;
 }

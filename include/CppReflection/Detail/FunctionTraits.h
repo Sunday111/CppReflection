@@ -2,7 +2,7 @@
 
 #include <tuple>
 
-namespace edt::reflection::detail
+namespace cppreflection::detail
 {
     template<typename T>
     struct FunctionTypeTraits;

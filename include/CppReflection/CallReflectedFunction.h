@@ -3,7 +3,7 @@
 #include "GetTypeInfo.h"
 #include "EverydayTools/UnusedVar.h"
 
-namespace edt::reflection
+namespace cppreflection
 {
     template<typename ReturnType>
     decltype(auto) WrapReflectedFunctionReturnType(const Function* fn, void* instance, void** args, size_t argsCount) {

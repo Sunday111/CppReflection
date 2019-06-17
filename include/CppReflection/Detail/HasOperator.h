@@ -2,7 +2,7 @@
 
 #include <type_traits>
 
-namespace edt::reflection::detail
+namespace cppreflection::detail
 {
     template<class F, class... T, typename = decltype(std::declval<F>()(std::declval<T>()...))>
     std::true_type  supports_test(const F&, const T&...);

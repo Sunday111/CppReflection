@@ -2,13 +2,13 @@
 
 #include "EverydayTools/Template/TypeHasMethod.h"
 
-namespace edt::reflection
+namespace cppreflection
 {
     template<typename T>
     class TypeReflector;
 }
 
-namespace edt::reflection::detail
+namespace cppreflection::detail
 {
     ImplementHasMethod(ReflectType);
 
@@ -46,7 +46,7 @@ namespace edt::reflection::detail
     }
 }
 
-namespace edt::reflection
+namespace cppreflection
 {
     template<typename T>
     inline constexpr bool TypeIsReflected = detail::TypeIsReflectedWithMethod<T> || detail::TypeIsReflectedWithOverload<T>;

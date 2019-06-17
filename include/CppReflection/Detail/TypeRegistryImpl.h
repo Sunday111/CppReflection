@@ -3,7 +3,7 @@
 #include "../TypeRegistry.h"
 #include "../TypeReflector.h"
 
-namespace edt::reflection::detail
+namespace cppreflection::detail
 {
     class TypeRegistryImpl : public TypeRegistry
     {

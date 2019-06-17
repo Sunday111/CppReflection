@@ -5,13 +5,13 @@
 #include "Detail/FunctionTraits.h"
 #include "EverydayTools/UnusedVar.h"
 
-namespace edt::reflection
+namespace cppreflection
 {
     template<typename T>
     const Type* GetTypeInfo();
 }
 
-namespace edt::reflection::detail
+namespace cppreflection::detail
 {
     template<auto pfn>
     class FunctionReflector : public FunctionImpl
@@ -50,10 +50,9 @@ namespace edt::reflection::detail
 
         InitializeArgs(std::make_index_sequence<FnReflector::GetArgsCount()>());
     }
-
 }
 
-namespace edt::reflection::detail
+namespace cppreflection::detail
 {
     template<typename T>
     constexpr decltype(auto) CastArg_t(void* rawArg) {
@@ -72,7 +71,7 @@ namespace edt::reflection::detail
     }
 }
 
-namespace edt::reflection::detail
+namespace cppreflection::detail
 {
     template<auto pfn>
     void FunctionReflector<pfn>::Call(void* Object, void* ReturnValue, void** ArgsArray, size_t ArgsArraySize) const {
@@ -119,6 +118,7 @@ namespace edt::reflection::detail
 
         if constexpr (std::is_same_v<void, ReturnType>) {
             // free function without return type
+            UnusedVar(ReturnValue);
             call();
         }
         else {

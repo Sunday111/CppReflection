@@ -2,7 +2,7 @@
 
 #pragma once
 
-namespace edt::reflection
+namespace cppreflection
 {
     class TypeComparisonOperators
     {

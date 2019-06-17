@@ -5,13 +5,13 @@
 #include "FieldTraits.h"
 #include "EverydayTools/UnusedVar.h"
 
-namespace edt::reflection
+namespace cppreflection
 {
     template<typename T>
     const Type* GetTypeInfo();
 }
 
-namespace edt::reflection::detail
+namespace cppreflection::detail
 {
     template<auto pField>
     class FieldReflector : public FieldImpl

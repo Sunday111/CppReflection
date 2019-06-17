@@ -6,7 +6,7 @@
 
 #include "../Type.h"
 
-namespace edt::reflection::detail
+namespace cppreflection::detail
 {
     class FieldImpl;
     class FunctionImpl;

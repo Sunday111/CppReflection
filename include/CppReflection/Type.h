@@ -7,7 +7,7 @@
 #include "TypeSpecialMembers.h"
 #include "TypeComparisonOperators.h"
 
-namespace edt::reflection
+namespace cppreflection
 {
     class Field;
     class Function;

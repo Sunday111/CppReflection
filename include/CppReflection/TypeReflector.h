@@ -12,7 +12,7 @@
 #include "Detail/MakeTypeComparisonOperators.h"
 #include "Detail/MakeTypeSpecialMembers.h"
 
-namespace edt::reflection
+namespace cppreflection
 {
     template<typename T>
     class TypeReflector : public detail::TypeImpl

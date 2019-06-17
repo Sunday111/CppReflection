@@ -2,7 +2,7 @@
 
 #include "EverydayTools/Bitset/EnumBitset.h"
 
-namespace edt::reflection
+namespace cppreflection
 {
     enum class TypeFlag
     {
@@ -17,7 +17,7 @@ namespace edt::reflection
 namespace edt
 {
     template<>
-    struct enable_enum_bitset<edt::reflection::TypeFlag>
+    struct enable_enum_bitset<cppreflection::TypeFlag>
     {
         static constexpr bool value = true;
     };

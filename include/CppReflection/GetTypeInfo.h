@@ -4,7 +4,7 @@
 #include "Detail/CallReflectType.h"
 #include "Detail/TypeRegistryImpl.h"
 
-namespace edt::reflection
+namespace cppreflection
 {
     class Type;
 
