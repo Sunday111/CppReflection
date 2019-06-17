@@ -6,6 +6,7 @@
 namespace edt::reflection::detail
 {
     template<typename T>
+    [[nodiscard]]
     constexpr TypeComparisonOperators MakeTypeComparisonOperators() {
         TypeComparisonOperators Result{};
 

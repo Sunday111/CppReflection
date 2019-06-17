@@ -32,7 +32,8 @@ namespace edt::reflection
     }
 
     template<typename T>
-    [[nodiscard]] inline const Type* GetTypeInfo() {
+    [[nodiscard]]
+    inline const Type* GetTypeInfo() {
         static const Type* ptr = nullptr;
         if (ptr != nullptr) {
             return ptr;

@@ -12,14 +12,18 @@ namespace edt::reflection::detail
     {
         using Field = Field_;
         using Class = Class_;
-        [[nodiscard]] static constexpr bool IsStatic() { return false; }
+
+        [[nodiscard]]
+        static constexpr bool IsStatic() { return false; }
     };
 
     template<typename Field_>
     struct FieldTypeTraits<Field_*>
     {
         using Field = Field_;
-        [[nodiscard]] static constexpr bool IsStatic() { return true; }
+
+        [[nodiscard]]
+        static constexpr bool IsStatic() { return true; }
     };
 
     template<auto pfield>

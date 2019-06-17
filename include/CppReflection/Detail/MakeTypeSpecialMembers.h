@@ -6,6 +6,7 @@
 namespace edt::reflection::detail
 {
     template<typename T>
+    [[nodiscard]]
     constexpr TypeSpecialMembers::DefaultConstructor MakeDefaultConstructor() noexcept {
         if constexpr (!std::is_default_constructible_v<T>) {
             return nullptr;
@@ -18,6 +19,7 @@ namespace edt::reflection::detail
     }
 
     template<typename T>
+    [[nodiscard]]
     constexpr TypeSpecialMembers::CopyConstructor MakeCopyConstructor() noexcept {
         if constexpr (!std::is_copy_constructible_v<T>) {
             return nullptr;
@@ -30,6 +32,7 @@ namespace edt::reflection::detail
     }
 
     template<typename T>
+    [[nodiscard]]
     constexpr TypeSpecialMembers::MoveConstructor MakeMoveConstructor() noexcept {
         if constexpr (!std::is_move_constructible_v<T>) {
             return nullptr;
@@ -42,6 +45,7 @@ namespace edt::reflection::detail
     }
 
     template<typename T>
+    [[nodiscard]]
     constexpr TypeSpecialMembers::CopyAssign MakeCopyAssignOperator() noexcept {
         if constexpr (!std::is_copy_assignable_v<T>) {
             return nullptr;
@@ -56,6 +60,7 @@ namespace edt::reflection::detail
     }
 
     template<typename T>
+    [[nodiscard]]
     constexpr TypeSpecialMembers::MoveAssign MakeMoveAssignOperator() noexcept {
         if constexpr (!std::is_move_assignable_v<T>) {
             return nullptr;
@@ -70,6 +75,7 @@ namespace edt::reflection::detail
     }
 
     template<typename T>
+    [[nodiscard]]
     constexpr TypeSpecialMembers::Destructor MakeDestructor() noexcept {
         if constexpr (!std::is_destructible_v<T>) {
             return nullptr;
@@ -83,6 +89,7 @@ namespace edt::reflection::detail
     }
 
     template<typename T>
+    [[nodiscard]]
     constexpr TypeSpecialMembers MakeTypeSpecialMembers() {
         TypeSpecialMembers Result{};
 

@@ -9,7 +9,10 @@ namespace edt::reflection::detail
     class FieldImpl : public Field
     {
     public:
+        [[nodiscard]]
         virtual const Type* GetType() const override;
+
+        [[nodiscard]]
         virtual const char* GetName() const override;
 
         void SetName(const char* name);
