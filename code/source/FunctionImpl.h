@@ -2,28 +2,30 @@
 
 #include <vector>
 
-#include "../Function.h"
+#include "CppReflection/Function.h"
 
 namespace cppreflection::detail
 {
     class FunctionImpl : public Function
     {
     public:
-        virtual const char* GetName() const override;
+        virtual void SetReturnType(const Type* type) override;
         virtual const Type* GetReturnType() const override;
+        virtual void SetObjectType(const Type* type) override;
         virtual const Type* GetObjectType() const override;
+        virtual size_t AddArgumentType(const Type* argumentType) override;
         virtual size_t GetArgumentsCount() const override;
         virtual const Type* GetArgumentType(size_t index) const override;
-
-        void SetName(const char* name);
-        void SetReturnType(const Type* type);
-        void SetObjectType(const Type* type);
-        void PushArgumentType(const Type* type);
+        virtual void SetName(const char* name) override;
+        virtual const char* GetName() const override;
+        virtual void SetCaller(Caller caller) override;
+        virtual void Call(void* Object, void* ReturnValue, void** ArgsArray, size_t ArgsArraySize) const override;
 
     private:
         std::string m_name;
         const Type* m_returnType = nullptr;
         const Type* m_objectType = nullptr;
         std::vector<const Type*> m_argumentTypes;
+        Caller m_caller = nullptr;
     };
 }

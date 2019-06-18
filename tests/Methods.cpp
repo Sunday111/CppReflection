@@ -7,7 +7,6 @@
 #include "CppReflection/TypeReflector.h"
 #include "CppReflection/PrimitiveTypeReflection.h"
 #include "CppReflection/CallReflectedFunction.h"
-#include "CppReflection/Detail/TypeRegistryImpl.h"
 
 TEST(CppReflectionTest, Method_ReturnsVoidArgumentVoid) {
     class ReflectedType

@@ -2,7 +2,7 @@
 
 #include "TypeReflector.h"
 #include "Detail/CallReflectType.h"
-#include "Detail/TypeRegistryImpl.h"
+#include "TypeRegistry.h"
 
 namespace cppreflection
 {
@@ -39,9 +39,12 @@ namespace cppreflection
             return ptr;
         }
 
-        TypeReflector<T>& ref = detail::TypeRegistryImpl::Instance().Register<T>();
-        ptr = &ref;
-        detail::CallReflectType(ref);
+        TypeReflector<T> typeReflector;
+        Type* type = typeReflector.GetType();
+        GetTypeRegistry()->RegisterType(type);
+        ptr = type;
+
+        detail::CallReflectType(typeReflector);
         return ptr;
     }
 }

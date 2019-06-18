@@ -1,5 +1,7 @@
 #pragma once
 
+#include "CppReflection/Common.h"
+
 namespace cppreflection
 {
     class Type;
@@ -13,7 +15,13 @@ namespace cppreflection
         [[nodiscard]]
         virtual size_t GetTypesCount() const = 0;
 
+        virtual bool RegisterType(Type* type) = 0;
+
+        virtual void ClearRegistry() = 0;
+
         //
         virtual ~TypeRegistry() = default;
     };
+
+    CPP_REFLECTION_API TypeRegistry* GetTypeRegistry();
 }

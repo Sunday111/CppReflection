@@ -7,7 +7,6 @@
 #include "CppReflection/TypeReflector.h"
 #include "CppReflection/PrimitiveTypeReflection.h"
 #include "CppReflection/CallReflectedFunction.h"
-#include "CppReflection/Detail/TypeRegistryImpl.h"
 
 TEST(CppReflectionTest, ComparisonOperators_LessOperator) {
     class ReflectedType
@@ -26,7 +25,7 @@ TEST(CppReflectionTest, ComparisonOperators_LessOperator) {
 
     const cppreflection::Type* type = cppreflection::GetTypeInfo<ReflectedType>();
     EXPECT_TRUE(type != nullptr);
-    EXPECT_TRUE(type->comparisonOperators.less != nullptr);
+    EXPECT_TRUE(type->GetComparisonOperators().less != nullptr);
 
     ReflectedType a;
     a.member = 10;
@@ -34,9 +33,9 @@ TEST(CppReflectionTest, ComparisonOperators_LessOperator) {
     ReflectedType b;
     a.member = 20;
 
-    EXPECT_TRUE(type->comparisonOperators.less(&a, &b));
-    EXPECT_TRUE(!type->comparisonOperators.less(&a, &a));
-    EXPECT_TRUE(!type->comparisonOperators.less(&b, &a));
+    EXPECT_TRUE(type->GetComparisonOperators().less(&a, &b));
+    EXPECT_TRUE(!type->GetComparisonOperators().less(&a, &a));
+    EXPECT_TRUE(!type->GetComparisonOperators().less(&b, &a));
 }
 
 TEST(CppReflectionTest, ComparisonOperators_EqualsOperator) {
@@ -56,7 +55,7 @@ TEST(CppReflectionTest, ComparisonOperators_EqualsOperator) {
 
     const cppreflection::Type* type = cppreflection::GetTypeInfo<ReflectedType>();
     EXPECT_TRUE(type != nullptr);
-    EXPECT_TRUE(type->comparisonOperators.equals != nullptr);
+    EXPECT_TRUE(type->GetComparisonOperators().equals != nullptr);
 
     ReflectedType a;
     a.member = 10;
@@ -64,10 +63,10 @@ TEST(CppReflectionTest, ComparisonOperators_EqualsOperator) {
     ReflectedType b;
     a.member = 20;
 
-    EXPECT_TRUE(!type->comparisonOperators.equals(&a, &b));
-    EXPECT_TRUE(!type->comparisonOperators.equals(&b, &a));
-    EXPECT_TRUE(type->comparisonOperators.equals(&a, &a));
-    EXPECT_TRUE(type->comparisonOperators.equals(&b, &b));
+    EXPECT_TRUE(!type->GetComparisonOperators().equals(&a, &b));
+    EXPECT_TRUE(!type->GetComparisonOperators().equals(&b, &a));
+    EXPECT_TRUE(type->GetComparisonOperators().equals(&a, &a));
+    EXPECT_TRUE(type->GetComparisonOperators().equals(&b, &b));
 }
 
 class ReflectedType_NoCompare
@@ -81,11 +80,11 @@ public:
 TEST(CppReflectionTest, ComparisonOperators_NoLessOperator) {
     const cppreflection::Type* type = cppreflection::GetTypeInfo<ReflectedType_NoCompare>();
     EXPECT_TRUE(type != nullptr);
-    EXPECT_TRUE(type->comparisonOperators.less == nullptr);
+    EXPECT_TRUE(type->GetComparisonOperators().less == nullptr);
 }
 
 TEST(CppReflectionTest, ComparisonOperators_NoEqualsOperator) {
     const cppreflection::Type* type = cppreflection::GetTypeInfo<ReflectedType_NoCompare>();
     EXPECT_TRUE(type != nullptr);
-    EXPECT_TRUE(type->comparisonOperators.equals == nullptr);
+    EXPECT_TRUE(type->GetComparisonOperators().equals == nullptr);
 }

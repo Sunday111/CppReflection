@@ -7,7 +7,6 @@
 #include "CppReflection/TypeReflector.h"
 #include "CppReflection/PrimitiveTypeReflection.h"
 #include "CppReflection/CallReflectedFunction.h"
-#include "CppReflection/Detail/TypeRegistryImpl.h"
 
 namespace FunctionReturnsVoidArgumentVoid_nm
 {

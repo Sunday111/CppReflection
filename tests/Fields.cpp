@@ -5,9 +5,9 @@
 #include "gtest/gtest.h"
 
 #include "CppReflection/TypeReflector.h"
+#include "CppReflection/Field.h"
 #include "CppReflection/PrimitiveTypeReflection.h"
 #include "CppReflection/CallReflectedFunction.h"
-#include "CppReflection/Detail/TypeRegistryImpl.h"
 
 namespace CppReflectionTest_Fields
 {

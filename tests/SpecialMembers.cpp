@@ -7,7 +7,6 @@
 #include "CppReflection/TypeReflector.h"
 #include "CppReflection/PrimitiveTypeReflection.h"
 #include "CppReflection/CallReflectedFunction.h"
-#include "CppReflection/Detail/TypeRegistryImpl.h"
 
 TEST(CppReflectionTest, SpecialMembers_DefaultConstructor) {
     class ReflectedType
@@ -26,11 +25,11 @@ TEST(CppReflectionTest, SpecialMembers_DefaultConstructor) {
 
     const cppreflection::Type* type = cppreflection::GetTypeInfo<ReflectedType>();
     EXPECT_TRUE(type != nullptr);
-    EXPECT_TRUE(type->specialMembers.defaultConstructor != nullptr);
+    EXPECT_TRUE(type->GetSpecialMembers().defaultConstructor != nullptr);
 
     std::aligned_storage_t<sizeof(ReflectedType), alignof(ReflectedType)> data;
     ReflectedType* pointer = reinterpret_cast<ReflectedType*>(&data);
-    type->specialMembers.defaultConstructor(pointer);
+    type->GetSpecialMembers().defaultConstructor(pointer);
     EXPECT_TRUE(pointer->member == 124);
 }
 
@@ -47,7 +46,7 @@ TEST(CppReflectionTest, SpecialMembers_NoDefaultConstructor) {
 
     const cppreflection::Type* type = cppreflection::GetTypeInfo<ReflectedType>();
     EXPECT_TRUE(type != nullptr);
-    EXPECT_TRUE(type->specialMembers.defaultConstructor == nullptr);
+    EXPECT_TRUE(type->GetSpecialMembers().defaultConstructor == nullptr);
 }
 
 TEST(CppReflectionTest, SpecialMembers_CopyAssign) {
@@ -68,12 +67,12 @@ TEST(CppReflectionTest, SpecialMembers_CopyAssign) {
 
     const cppreflection::Type* type = cppreflection::GetTypeInfo<ReflectedType>();
     EXPECT_TRUE(type != nullptr);
-    EXPECT_TRUE(type->specialMembers.copyAssign != nullptr);
+    EXPECT_TRUE(type->GetSpecialMembers().copyAssign != nullptr);
 
     ReflectedType a, b;
     std::vector<int> member{ 1, 2, 3 };
     b.member = member;
-    type->specialMembers.copyAssign(&a, &b);
+    type->GetSpecialMembers().copyAssign(&a, &b);
     EXPECT_TRUE(b.member == member);
     EXPECT_TRUE(a.member == member);
 }
@@ -91,7 +90,7 @@ TEST(CppReflectionTest, SpecialMembers_NoCopyAssign) {
 
     const cppreflection::Type* type = cppreflection::GetTypeInfo<ReflectedType>();
     EXPECT_TRUE(type != nullptr);
-    EXPECT_TRUE(type->specialMembers.copyAssign == nullptr);
+    EXPECT_TRUE(type->GetSpecialMembers().copyAssign == nullptr);
 }
 
 TEST(CppReflectionTest, SpecialMembers_MoveAssign) {
@@ -112,12 +111,12 @@ TEST(CppReflectionTest, SpecialMembers_MoveAssign) {
 
     const cppreflection::Type* type = cppreflection::GetTypeInfo<ReflectedType>();
     EXPECT_TRUE(type != nullptr);
-    EXPECT_TRUE(type->specialMembers.moveAssign != nullptr);
+    EXPECT_TRUE(type->GetSpecialMembers().moveAssign != nullptr);
 
     ReflectedType a, b;
     std::vector<int> member{ 1, 2, 3 };
     b.member = member;
-    type->specialMembers.moveAssign(&a, &b);
+    type->GetSpecialMembers().moveAssign(&a, &b);
     EXPECT_TRUE(b.member.empty());
     EXPECT_TRUE(a.member == member);
 }
@@ -135,7 +134,7 @@ TEST(CppReflectionTest, SpecialMembers_NoMoveAssign) {
 
     const cppreflection::Type* type = cppreflection::GetTypeInfo<ReflectedType>();
     EXPECT_TRUE(type != nullptr);
-    EXPECT_TRUE(type->specialMembers.moveAssign == nullptr);
+    EXPECT_TRUE(type->GetSpecialMembers().moveAssign == nullptr);
 }
 
 TEST(CppReflectionTest, SpecialMembers_Destructor) {
@@ -155,13 +154,13 @@ TEST(CppReflectionTest, SpecialMembers_Destructor) {
 
     const cppreflection::Type* type = cppreflection::GetTypeInfo<ReflectedType>();
     EXPECT_TRUE(type != nullptr);
-    EXPECT_TRUE(type->specialMembers.defaultConstructor != nullptr);
-    EXPECT_TRUE(type->specialMembers.destructor != nullptr);
+    EXPECT_TRUE(type->GetSpecialMembers().defaultConstructor != nullptr);
+    EXPECT_TRUE(type->GetSpecialMembers().destructor != nullptr);
 
     std::aligned_storage_t<sizeof(ReflectedType), alignof(ReflectedType)> data;
     ReflectedType* pointer = reinterpret_cast<ReflectedType*>(&data);
-    type->specialMembers.defaultConstructor(pointer);
+    type->GetSpecialMembers().defaultConstructor(pointer);
     EXPECT_TRUE(pointer->member == 1024);
-    type->specialMembers.destructor(pointer);
+    type->GetSpecialMembers().destructor(pointer);
     EXPECT_TRUE(pointer->member == 2048);
 }

@@ -1,9 +1,9 @@
 #pragma once
 
 #include <cassert>
-#include "FunctionImpl.h"
 #include "Detail/FunctionTraits.h"
 #include "EverydayTools/UnusedVar.h"
+#include "../Function.h"
 
 namespace cppreflection
 {
@@ -14,41 +14,56 @@ namespace cppreflection
 namespace cppreflection::detail
 {
     template<auto pfn>
-    class FunctionReflector : public FunctionImpl
+    class FunctionReflector
     {
         using FnReflector = detail::FunctionPointerTraits<pfn>;
 
     public:
         FunctionReflector();
-        virtual void Call(void* Object, void* ReturnValue, void** ArgsArray, size_t ArgsArraySize) const override;
+
+        Function* StealFunction();
+
+        void SetName(const char* name);
 
     private:
         template<size_t Index>
         static constexpr decltype(auto) CastArg_i(void** ArgsArray);
 
+        static void Call(void* Object, void* ReturnValue, void** ArgsArray, size_t ArgsArraySize);
+
         template<size_t... Index>
-        void Call_i(void* Object, void* ReturnValue, void** ArgsArray, size_t ArgsArraySize, std::index_sequence<Index...>) const;
+        static void Call_i(void* Object, void* ReturnValue, void** ArgsArray, size_t ArgsArraySize, std::index_sequence<Index...>);
 
         template<size_t... Index>
         void InitializeArgs(std::index_sequence<Index...>);
 
         template<size_t Index>
         void InitializeArg();
+
+        void InitializeCaller() {
+            m_function->SetCaller(Call);
+        }
+
+    private:
+        Function* m_function = nullptr;
     };
 
     template<auto pfn>
     FunctionReflector<pfn>::FunctionReflector() {
+        m_function = AllocFunction();
+
         using ReturnType = typename FnReflector::ReturnType;
         if constexpr (!std::is_same_v<ReturnType, void>) {
-            SetReturnType(GetTypeInfo<ReturnType>());
+            m_function->SetReturnType(GetTypeInfo<ReturnType>());
         }
 
         if constexpr (FnReflector::IsMethod()) {
             using Class = typename FnReflector::Class;
-            SetObjectType(GetTypeInfo<Class>());
+            m_function->SetObjectType(GetTypeInfo<Class>());
         }
 
         InitializeArgs(std::make_index_sequence<FnReflector::GetArgsCount()>());
+        InitializeCaller();
     }
 }
 
@@ -74,7 +89,12 @@ namespace cppreflection::detail
 namespace cppreflection::detail
 {
     template<auto pfn>
-    void FunctionReflector<pfn>::Call(void* Object, void* ReturnValue, void** ArgsArray, size_t ArgsArraySize) const {
+    void FunctionReflector<pfn>::SetName(const char* name) {
+        m_function->SetName(name);
+    }
+
+    template<auto pfn>
+    void FunctionReflector<pfn>::Call(void* Object, void* ReturnValue, void** ArgsArray, size_t ArgsArraySize) {
         Call_i(Object, ReturnValue, ArgsArray, ArgsArraySize, std::make_index_sequence<FnReflector::GetArgsCount()>());
     }
 
@@ -108,7 +128,7 @@ namespace cppreflection::detail
 
     template<auto pfn>
     template<size_t... Index>
-    void FunctionReflector<pfn>::Call_i(void* Object, void* ReturnValue, void** ArgsArray, size_t ArgsArraySize, std::index_sequence<Index...>) const {
+    void FunctionReflector<pfn>::Call_i(void* Object, void* ReturnValue, void** ArgsArray, size_t ArgsArraySize, std::index_sequence<Index...>) {
         assert(ArgsArraySize >= FnReflector::GetArgsCount());
         using ReturnType = typename FnReflector::ReturnType;
         auto call = [&]() -> decltype(auto) {
@@ -158,6 +178,14 @@ namespace cppreflection::detail
         using Arguments = typename FnReflector::Arguments;
         using Argument = std::tuple_element_t<Index, Arguments>;
         auto typeInfo = GetTypeInfo<Argument>();
-        PushArgumentType(typeInfo);
+        m_function->AddArgumentType(typeInfo);
+    }
+
+    template<auto pfn>
+    Function* FunctionReflector<pfn>::StealFunction()
+    {
+        auto temp = m_function;
+        m_function = nullptr;
+        return temp;
     }
 }

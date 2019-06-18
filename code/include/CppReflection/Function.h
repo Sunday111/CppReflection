@@ -1,5 +1,7 @@
 #pragma once
 
+#include "CppReflection/Common.h"
+
 namespace cppreflection
 {
     class Type;
@@ -7,11 +9,17 @@ namespace cppreflection
     class Function
     {
     public:
+        using Caller = void(*)(void* Object, void* ReturnValue, void** ArgsArray, size_t ArgsArraySize);
+
+        virtual void SetReturnType(const Type* returnType) = 0;
+
         /* Function return value type.
          * Null if function doesn't have return type (void)
          */
         [[nodiscard]]
         virtual const Type* GetReturnType() const = 0;
+
+        virtual void SetObjectType(const Type* objectType) = 0;
 
         /* Returns type of object on which instance this function should be called.
          * i.e. function is method.
@@ -19,6 +27,8 @@ namespace cppreflection
          */
         [[nodiscard]]
         virtual const Type* GetObjectType() const = 0;
+
+        virtual size_t AddArgumentType(const Type* argumentType) = 0;
 
         /* Function parameters count
          */
@@ -31,10 +41,14 @@ namespace cppreflection
         [[nodiscard]]
         virtual const Type* GetArgumentType(size_t index) const = 0;
 
+        virtual void SetName(const char* name) = 0;
+
         /* Name of function
          */
         [[nodiscard]]
         virtual const char* GetName() const = 0;
+
+        virtual void SetCaller(Caller caller) = 0;
 
         /* Calls method with specified parameters
          * Object - parameter for methods, may be null in case of pure functions.
@@ -45,4 +59,6 @@ namespace cppreflection
         //
         virtual ~Function() = default;
     };
+
+    CPP_REFLECTION_API Function* AllocFunction();
 }

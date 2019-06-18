@@ -7,7 +7,7 @@
 #include "CppReflection/TypeReflector.h"
 #include "CppReflection/PrimitiveTypeReflection.h"
 #include "CppReflection/CallReflectedFunction.h"
-#include "CppReflection/Detail/TypeRegistryImpl.h"
+#include "CppReflection/TypeRegistry.h"
 
 void PrintType(const cppreflection::Type* typeInfo, std::ostream& output) {
     assert(typeInfo->GetName() != nullptr);

@@ -17,4 +17,21 @@ namespace cppreflection::detail
     void FieldImpl::SetType(const Type* type) {
         m_type = type;
     }
+
+    void FieldImpl::SetValueGetter(ValueGetter getter)
+    {
+        m_getter = getter;
+    }
+
+    void* FieldImpl::GetValue(void* Object) const
+    {
+        return m_getter(Object);
+    }
+}
+
+namespace cppreflection
+{
+    CPP_REFLECTION_API Field* AllocField() {
+        return new detail::FieldImpl();
+    }
 }

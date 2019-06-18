@@ -38,7 +38,24 @@ namespace cppreflection::detail
         return nullptr;
     }
 
-    void FunctionImpl::PushArgumentType(const Type* type) {
-        m_argumentTypes.push_back(type);
+    size_t FunctionImpl::AddArgumentType(const Type* argumentType) {
+        m_argumentTypes.push_back(argumentType);
+        return m_argumentTypes.size() - 1;
+    }
+
+    void FunctionImpl::SetCaller(Caller caller) {
+        m_caller = caller;
+    }
+
+    void FunctionImpl::Call(void* Object, void* ReturnValue, void** ArgsArray, size_t ArgsArraySize) const {
+        m_caller(Object, ReturnValue, ArgsArray, ArgsArraySize);
+    }
+}
+
+
+namespace cppreflection
+{
+    CPP_REFLECTION_API Function* AllocFunction() {
+        return new detail::FunctionImpl();
     }
 }
