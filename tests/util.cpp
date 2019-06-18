@@ -4,10 +4,9 @@
 
 #include "gtest/gtest.h"
 
-#include "CppReflection/TypeReflector.h"
-#include "CppReflection/PrimitiveTypeReflection.h"
 #include "CppReflection/CallReflectedFunction.h"
-#include "CppReflection/TypeRegistry.h"
+#include "CppReflection/PrimitiveTypeReflection.h"
+#include "CppReflection/Reflector/TypeReflector.h"
 
 void PrintType(const cppreflection::Type* typeInfo, std::ostream& output) {
     assert(typeInfo->GetName() != nullptr);

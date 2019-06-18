@@ -4,9 +4,9 @@
 #include <vector>
 
 #include "CppReflection/Common.h"
+#include "TypeComparisonOperators.h"
 #include "TypeFlag.h"
 #include "TypeSpecialMembers.h"
-#include "TypeComparisonOperators.h"
 
 namespace cppreflection
 {

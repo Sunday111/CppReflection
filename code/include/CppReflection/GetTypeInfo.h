@@ -1,7 +1,7 @@
 #pragma once
 
-#include "TypeReflector.h"
 #include "Detail/CallReflectType.h"
+#include "Reflector/TypeReflector.h"
 #include "TypeRegistry.h"
 
 namespace cppreflection

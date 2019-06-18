@@ -1,8 +1,8 @@
 #pragma once
 
 #include <cassert>
-#include "Detail/FunctionTraits.h"
 #include "EverydayTools/UnusedVar.h"
+#include "../Detail/FunctionTraits.h"
 #include "../Function.h"
 
 namespace cppreflection

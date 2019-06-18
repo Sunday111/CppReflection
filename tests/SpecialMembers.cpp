@@ -4,9 +4,9 @@
 
 #include "gtest/gtest.h"
 
-#include "CppReflection/TypeReflector.h"
-#include "CppReflection/PrimitiveTypeReflection.h"
 #include "CppReflection/CallReflectedFunction.h"
+#include "CppReflection/PrimitiveTypeReflection.h"
+#include "CppReflection/Reflector/TypeReflector.h"
 
 TEST(CppReflectionTest, SpecialMembers_DefaultConstructor) {
     class ReflectedType

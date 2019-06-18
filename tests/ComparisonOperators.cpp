@@ -4,7 +4,7 @@
 
 #include "gtest/gtest.h"
 
-#include "CppReflection/TypeReflector.h"
+#include "CppReflection/Reflector/TypeReflector.h"
 #include "CppReflection/PrimitiveTypeReflection.h"
 #include "CppReflection/CallReflectedFunction.h"
 

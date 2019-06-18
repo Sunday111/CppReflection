@@ -1,7 +1,8 @@
 #pragma once
 
 #include <cassert>
-#include "FieldTraits.h"
+#include "../Detail/FieldTraits.h"
+#include "../Field.h"
 #include "EverydayTools/UnusedVar.h"
 
 namespace cppreflection

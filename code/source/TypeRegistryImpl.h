@@ -1,15 +1,13 @@
 #pragma once
 
 #include "CppReflection/TypeRegistry.h"
-#include "CppReflection/TypeReflector.h"
+#include "CppReflection/Reflector/TypeReflector.h"
 
 namespace cppreflection::detail
 {
     class TypeRegistryImpl : public TypeRegistry
     {
     public:
-        template<typename T>
-        TypeReflector<T>& Register();
         static TypeRegistryImpl& Instance();
         virtual const Type* GetTypeInfo(size_t index) const override;
         virtual size_t GetTypesCount() const override;
@@ -20,11 +18,4 @@ namespace cppreflection::detail
     private:
         std::vector<Type*> m_types;
     };
-
-    template<typename T>
-    TypeReflector<T>& TypeRegistryImpl::Register() {
-        auto newType = new TypeReflector<T>();
-        RegisterType(newType);
-        return static_cast<TypeReflector<T>&>(*newType);
-    }
 }
