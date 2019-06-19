@@ -1,13 +1,14 @@
 #include "FunctionImpl.h"
+#include "EverydayTools/Array/ArrayViewVector.h"
 
 namespace cppreflection::detail
 {
-    const char* FunctionImpl::GetName() const {
-        return m_name.c_str();
+    edt::StringView FunctionImpl::GetName() const {
+        return edt::StringView(m_name.c_str(), m_name.size());
     }
 
-    void FunctionImpl::SetName(const char* name) {
-        m_name = name;
+    void FunctionImpl::SetName(const edt::StringView& name) {
+        m_name = name.GetData();
     }
 
     const Type* FunctionImpl::GetReturnType() const {
@@ -26,18 +27,6 @@ namespace cppreflection::detail
         m_objectType = type;
     }
 
-    size_t FunctionImpl::GetArgumentsCount() const {
-        return m_argumentTypes.size();
-    }
-
-    const Type* FunctionImpl::GetArgumentType(size_t index) const {
-        if (index < m_argumentTypes.size()) {
-            return m_argumentTypes[index];
-        }
-
-        return nullptr;
-    }
-
     size_t FunctionImpl::AddArgumentType(const Type* argumentType) {
         m_argumentTypes.push_back(argumentType);
         return m_argumentTypes.size() - 1;
@@ -49,6 +38,10 @@ namespace cppreflection::detail
 
     void FunctionImpl::Call(void* Object, void* ReturnValue, void** ArgsArray, size_t ArgsArraySize) const {
         m_caller(Object, ReturnValue, ArgsArray, ArgsArraySize);
+    }
+
+    edt::SparseArrayView<const Type* const> FunctionImpl::GetArguments() const {
+        return edt::MakeArrayView(m_argumentTypes);
     }
 }
 

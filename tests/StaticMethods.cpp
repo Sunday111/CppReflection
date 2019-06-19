@@ -48,54 +48,56 @@ TEST(CppReflectionTest, StaticMethod) {
     using namespace FunctionReturnsVoidArgumentVoid_nm;
     const cppreflection::Type* typeInfo = cppreflection::GetTypeInfo<ReflectedType>();
     EXPECT_TRUE(typeInfo != nullptr);
-    EXPECT_TRUE(typeInfo->GetName() == "test_function_ret_void_arg_void::ReflectedType"sv);
+    EXPECT_TRUE(typeInfo->GetName() == edt::StringView("test_function_ret_void_arg_void::ReflectedType"));
     EXPECT_TRUE(typeInfo->GetInstanceSize() == sizeof(ReflectedType));
-    EXPECT_TRUE(typeInfo->GetMethodsCount() == 4);
+
+    auto methods = typeInfo->GetMethods();
+    EXPECT_TRUE(methods.GetSize() == 4);
 
     {
-        const cppreflection::Function* f = typeInfo->GetMethod(0);
+        const cppreflection::Function* f = methods[0];
         EXPECT_TRUE(f != nullptr);
-        EXPECT_TRUE(f->GetName() == "f1"sv);
+        EXPECT_TRUE(f->GetName() == edt::StringView("f1"));
         EXPECT_TRUE(f->GetObjectType() == nullptr);
         EXPECT_TRUE(f->GetReturnType() == nullptr);
-        EXPECT_TRUE(f->GetArgumentsCount() == 0);
+        EXPECT_TRUE(f->GetArguments().GetSize() == 0);
         cppreflection::CallFunction<void>(f);
         EXPECT_TRUE(ReflectedType::k == 11);
     }
 
     {
-        const cppreflection::Function* f = typeInfo->GetMethod(1);
+        const cppreflection::Function* f = methods[1];
         EXPECT_TRUE(f != nullptr);
-        EXPECT_TRUE(f->GetName() == "f2"sv);
+        EXPECT_TRUE(f->GetName() == edt::StringView("f2"));
         EXPECT_TRUE(f->GetObjectType() == nullptr);
         EXPECT_TRUE(f->GetReturnType() == nullptr);
-        EXPECT_TRUE(f->GetArgumentsCount() == 1);
-        EXPECT_TRUE(f->GetArgumentType(0) == cppreflection::GetTypeInfo<int>());
+        EXPECT_TRUE(f->GetArguments().GetSize() == 1);
+        EXPECT_TRUE(f->GetArguments()[0] == cppreflection::GetTypeInfo<int>());
         cppreflection::CallFunction<void>(f, 2);
         EXPECT_TRUE(ReflectedType::k == 13);
     }
 
     {
-        const cppreflection::Function* f = typeInfo->GetMethod(2);
+        const cppreflection::Function* f = methods[2];
         EXPECT_TRUE(f != nullptr);
-        EXPECT_TRUE(f->GetName() == "f3"sv);
+        EXPECT_TRUE(f->GetName() == edt::StringView("f3"));
         EXPECT_TRUE(f->GetObjectType() == nullptr);
         EXPECT_TRUE(f->GetReturnType() == nullptr);
-        EXPECT_TRUE(f->GetArgumentsCount() == 1);
-        EXPECT_TRUE(f->GetArgumentType(0) == cppreflection::GetTypeInfo<int*>());
+        EXPECT_TRUE(f->GetArguments().GetSize() == 1);
+        EXPECT_TRUE(f->GetArguments()[0] == cppreflection::GetTypeInfo<int*>());
         int arg = 3;
         cppreflection::CallFunction<void>(f, &arg);
         EXPECT_TRUE(arg == 114);
     }
 
     {
-        const cppreflection::Function* f = typeInfo->GetMethod(3);
+        const cppreflection::Function* f = methods[3];
         EXPECT_TRUE(f != nullptr);
-        EXPECT_TRUE(f->GetName() == "f4"sv);
+        EXPECT_TRUE(f->GetName() == edt::StringView("f4"));
         EXPECT_TRUE(f->GetObjectType() == nullptr);
         EXPECT_TRUE(f->GetReturnType() == nullptr);
-        EXPECT_TRUE(f->GetArgumentsCount() == 1);
-        EXPECT_TRUE(f->GetArgumentType(0) == cppreflection::GetTypeInfo<int&>());
+        EXPECT_TRUE(f->GetArguments().GetSize() == 1);
+        EXPECT_TRUE(f->GetArguments()[0] == cppreflection::GetTypeInfo<int&>());
         int arg = 3;
         cppreflection::CallFunction<void>(f, arg);
         EXPECT_TRUE(arg == 115);

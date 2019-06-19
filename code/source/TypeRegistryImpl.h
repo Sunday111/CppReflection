@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 #include "CppReflection/TypeRegistry.h"
 #include "CppReflection/Reflector/TypeReflector.h"
 

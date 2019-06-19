@@ -40,47 +40,47 @@ namespace CppReflectionTest_Fields
 }
 
 TEST(CppReflectionTest, Fields) {
-    using namespace std::literals;
     using namespace CppReflectionTest_Fields;
     const cppreflection::Type* typeInfo = cppreflection::GetTypeInfo<ReflectedType>();
     EXPECT_TRUE(typeInfo != nullptr);
-    EXPECT_TRUE(typeInfo->GetName() == "test_field_value::ReflectedType"sv);
+    EXPECT_TRUE(typeInfo->GetName() == edt::StringView("test_field_value::ReflectedType"));
     EXPECT_TRUE(typeInfo->GetInstanceSize() == sizeof(ReflectedType));
-    EXPECT_TRUE(typeInfo->GetFieldsCount() == 4);
+    EXPECT_TRUE(typeInfo->GetFields().GetSize() == 4);
 
     ReflectedType instance(100);
+    auto fields = typeInfo->GetFields();
     // Reflected int
     {
-        auto f = typeInfo->GetField(0);
+        auto f = fields[0];
         EXPECT_TRUE(f != nullptr);
-        EXPECT_TRUE(f->GetName() == "m_int"sv);
+        EXPECT_TRUE(f->GetName() == edt::StringView("m_int"));
         EXPECT_TRUE(f->GetType() == cppreflection::GetTypeInfo<int>());
         EXPECT_TRUE(f->GetValue(&instance) == &instance.m_int);
     }
 
     // Reflected int*
     {
-        auto f = typeInfo->GetField(1);
+        auto f = fields[1];
         EXPECT_TRUE(f != nullptr);
-        EXPECT_TRUE(f->GetName() == "m_int_ptr"sv);
+        EXPECT_TRUE(f->GetName() == edt::StringView("m_int_ptr"));
         EXPECT_TRUE(f->GetType() == cppreflection::GetTypeInfo<int*>());
         EXPECT_TRUE(f->GetValue(&instance) == &instance.m_int_ptr);
     }
 
     // Reflected static int
     {
-        auto f = typeInfo->GetField(2);
+        auto f = fields[2];
         EXPECT_TRUE(f != nullptr);
-        EXPECT_TRUE(f->GetName() == "ms_int"sv);
+        EXPECT_TRUE(f->GetName() == edt::StringView("ms_int"));
         EXPECT_TRUE(f->GetType() == cppreflection::GetTypeInfo<int>());
         EXPECT_TRUE(f->GetValue(nullptr) == &instance.ms_int);
     }
 
     // Reflected static int*
     {
-        auto f = typeInfo->GetField(3);
+        auto f = fields[3];
         EXPECT_TRUE(f != nullptr);
-        EXPECT_TRUE(f->GetName() == "ms_int_ptr"sv);
+        EXPECT_TRUE(f->GetName() == edt::StringView("ms_int_ptr"));
         EXPECT_TRUE(f->GetType() == cppreflection::GetTypeInfo<int*>());
         EXPECT_TRUE(f->GetValue(nullptr) == &instance.ms_int_ptr);
     }

@@ -9,14 +9,13 @@
 #include "CppReflection/Reflector/TypeReflector.h"
 
 void PrintType(const cppreflection::Type* typeInfo, std::ostream& output) {
-    assert(typeInfo->GetName() != nullptr);
-    output << typeInfo->GetName() << '\n';
+    assert(typeInfo->GetName().GetSize() != 0);
+    output << typeInfo->GetName().GetData() << '\n';
     bool needNewLine = false;
-    if (typeInfo->GetMethodsCount() > 0) {
+    auto methods = typeInfo->GetMethods();
+    if (methods.GetSize() > 0) {
         output << "   Methods:\n";
-        const size_t methodsCount = typeInfo->GetMethodsCount();
-        for (size_t methodIndex = 0; methodIndex < methodsCount; ++methodIndex) {
-            auto methodInfo = typeInfo->GetMethod(methodIndex);
+        for(const cppreflection::Function* methodInfo : methods) {
             output << "      ";
 
             if (auto objectType = methodInfo->GetObjectType(); objectType == nullptr) {
@@ -31,11 +30,11 @@ void PrintType(const cppreflection::Type* typeInfo, std::ostream& output) {
             }
 
             output << ' ' << methodInfo->GetName() << '(';
-            const size_t methodArgsCount = methodInfo->GetArgumentsCount();
-            for (size_t methodArgIndex = 0; methodArgIndex < methodArgsCount; ++methodArgIndex) {
-                auto methodArgTypeInfo = methodInfo->GetArgumentType(methodArgIndex);
+            auto arguments = methodInfo->GetArguments();
+            for (size_t methodArgIndex = 0; methodArgIndex < arguments.GetSize(); ++methodArgIndex) {
+                auto methodArgTypeInfo = arguments[methodArgIndex];
                 output << methodArgTypeInfo->GetName();
-                if (methodArgIndex < methodArgsCount - 1) {
+                if (methodArgIndex < arguments.GetSize() - 1) {
                     output << ", ";
                 }
             }

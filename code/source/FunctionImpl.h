@@ -14,10 +14,9 @@ namespace cppreflection::detail
         virtual void SetObjectType(const Type* type) override;
         virtual const Type* GetObjectType() const override;
         virtual size_t AddArgumentType(const Type* argumentType) override;
-        virtual size_t GetArgumentsCount() const override;
-        virtual const Type* GetArgumentType(size_t index) const override;
-        virtual void SetName(const char* name) override;
-        virtual const char* GetName() const override;
+        virtual edt::SparseArrayView<const Type* const> GetArguments() const override;
+        virtual void SetName(const edt::StringView& name) override;
+        virtual edt::StringView GetName() const override;
         virtual void SetCaller(Caller caller) override;
         virtual void Call(void* Object, void* ReturnValue, void** ArgsArray, size_t ArgsArraySize) const override;
 

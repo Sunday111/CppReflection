@@ -14,10 +14,10 @@ namespace cppreflection::detail
         [[nodiscard]]
         virtual const Type* GetType() const override;
 
-        virtual void SetName(const char* name) override;
+        virtual void SetName(const edt::StringView& name) override;
 
         [[nodiscard]]
-        virtual const char* GetName() const override;
+        virtual edt::StringView GetName() const override;
 
         virtual void SetValueGetter(ValueGetter getter) override;
 

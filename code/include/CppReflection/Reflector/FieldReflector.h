@@ -42,7 +42,7 @@ namespace cppreflection::detail
             }
         }
 
-        void SetName(const char* name) {
+        void SetName(const edt::StringView& name) {
             m_field->SetName(name);
         }
 
