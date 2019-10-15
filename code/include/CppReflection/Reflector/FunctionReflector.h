@@ -84,6 +84,12 @@ namespace cppreflection::detail
             return *reinterpret_cast<T*>(rawArg);
         }
     }
+
+	template<>
+	constexpr decltype(auto) CastArg_t<void>(void* rawArg) {
+		assert(!"This hack exist to simplify code but shouldn't be ever called");
+		return *(int*)rawArg;
+	}
 }
 
 namespace cppreflection::detail
@@ -142,27 +148,27 @@ namespace cppreflection::detail
             call();
         }
         else {
-            // free function with some return type
-            assert(ReturnValue != nullptr);
-            if constexpr (std::is_reference_v<ReturnType>) {
-                using NoRef = std::remove_reference_t<ReturnType>;
-                if constexpr (std::is_rvalue_reference_v<ReturnType>) {
-                    // Return type is rvalue reference
-                    auto pRV = reinterpret_cast<NoRef*>(ReturnValue);
-                    // Construct instance in given memory
-                    new (pRV)NoRef(call());
-                }
-                else {
-                    // Return type is lvalue reference
-                    auto ppRV = reinterpret_cast<NoRef**>(ReturnValue);
-                    *ppRV = &call();
-                }
-            }
-            else {
-                // Return type is not reference
-                auto& pRV = CastArg_t<ReturnType>(ReturnValue);
-                pRV = call();
-            }
+			// free function with some return type
+			assert(ReturnValue != nullptr);
+			if constexpr (std::is_reference_v<ReturnType>) {
+				using NoRef = std::remove_reference_t<ReturnType>;
+				if constexpr (std::is_rvalue_reference_v<ReturnType>) {
+					// Return type is rvalue reference
+					auto pRV = reinterpret_cast<NoRef*>(ReturnValue);
+					// Construct instance in given memory
+					new (pRV)NoRef(call());
+				}
+				else {
+					// Return type is lvalue reference
+					auto ppRV = reinterpret_cast<NoRef**>(ReturnValue);
+					*ppRV = &call();
+				}
+			}
+			else {
+				// Return type is not reference
+				auto& pRV = CastArg_t<ReturnType>(ReturnValue);
+				pRV = call();
+			}
         }
     }
 
