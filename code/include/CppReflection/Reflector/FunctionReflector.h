@@ -87,7 +87,7 @@ namespace cppreflection::detail
 
 	template<>
 	constexpr decltype(auto) CastArg_t<void>(void* rawArg) {
-		assert(!"This hack exist to simplify code but shouldn't be ever called");
+		//assert(!"This hack exist to simplify code but shouldn't be ever called");
 		return *(int*)rawArg;
 	}
 }

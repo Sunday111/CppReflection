@@ -1,11 +1,18 @@
 #pragma once
 
+#include <type_traits>
 #include "EverydayTools/Template/TypeHasMethod.h"
 
 namespace cppreflection
 {
     template<typename T>
     class TypeReflector;
+
+    template<typename T, typename Enable = void>
+    struct TypeReflectionProvider
+    {
+        static constexpr bool Reflected = false;
+    };
 }
 
 namespace cppreflection::detail
@@ -16,29 +23,17 @@ namespace cppreflection::detail
     inline constexpr bool TypeIsReflectedWithMethod = HasReflectTypeMethod_v<T>;
 
     template<typename T>
-    class ReflectTypeOverloadChecker
-    {
-        template<typename = decltype(ReflectType(std::declval<TypeReflector<T>&>()))>
-        static std::true_type test(int);
-
-        static std::false_type test(...);
-
-    public:
-        static constexpr bool Value = decltype(test(0))::value;
-    };
-
-    template<typename T>
-    inline constexpr bool TypeIsReflectedWithOverload = ReflectTypeOverloadChecker<T>::Value;
+    inline constexpr bool TypeIsReflectedWithProvider = TypeReflectionProvider<T>::Reflected;
 
     template<typename T>
     void CallReflectType(TypeReflector<T>& typeInfo) {
-        constexpr bool overload = TypeIsReflectedWithOverload<T>;
+        constexpr bool provider = TypeIsReflectedWithProvider<T>;
         constexpr bool method = TypeIsReflectedWithMethod<T>;
 
-        static_assert(overload || method, "Type must be reflected");
+        static_assert(provider || method, "Type must be reflected");
 
-        if constexpr (overload) {
-            ReflectType(typeInfo);
+        if constexpr (provider) {
+            TypeReflectionProvider<T>::ReflectType(typeInfo);
         }
         else {
             T::ReflectType(typeInfo);
@@ -49,5 +44,5 @@ namespace cppreflection::detail
 namespace cppreflection
 {
     template<typename T>
-    inline constexpr bool TypeIsReflected = detail::TypeIsReflectedWithMethod<T> || detail::TypeIsReflectedWithOverload<T>;
+    inline constexpr bool TypeIsReflected = detail::TypeIsReflectedWithMethod<T> || detail::TypeIsReflectedWithProvider<T>;
 }

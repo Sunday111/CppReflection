@@ -20,4 +20,3 @@ namespace cppreflection
         Destructor destructor = nullptr;
     };
 }
-

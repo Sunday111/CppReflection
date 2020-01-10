@@ -40,5 +40,5 @@ target_include_directories(${target_name_tests} PRIVATE ${gtest_SOURCE_DIR}/incl
 target_include_directories(${target_name_tests} PRIVATE ${gtest_SOURCE_DIR})
 require_cxx_version(${target_name_tests} 17)
 enable_testing()
-add_test(NAME    ${target_name_tests} 
+add_test(NAME    ${target_name_tests}
          COMMAND ${target_name_tests})

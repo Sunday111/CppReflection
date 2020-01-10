@@ -56,4 +56,3 @@ namespace cppreflection::detail
         Field* m_field = nullptr;
     };
 }
-

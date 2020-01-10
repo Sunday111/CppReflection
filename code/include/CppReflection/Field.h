@@ -31,7 +31,7 @@ namespace cppreflection
         [[nodiscard]]
         virtual void* GetValue(void* Object) const = 0;
 
-        // 
+        //
         virtual ~Field() = default;
     };
 
