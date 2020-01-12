@@ -136,6 +136,8 @@ namespace cppreflection::detail
     template<size_t... Index>
     void FunctionReflector<pfn>::Call_i(void* Object, void* ReturnValue, void** ArgsArray, size_t ArgsArraySize, std::index_sequence<Index...>) {
         assert(ArgsArraySize >= FnReflector::GetArgsCount());
+        UnusedVar(ArgsArraySize);
+
         using ReturnType = typename FnReflector::ReturnType;
         auto call = [&]() -> decltype(auto) {
             auto f = WrapMethodCalls<pfn>(Object);
