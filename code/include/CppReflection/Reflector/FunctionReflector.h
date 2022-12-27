@@ -23,7 +23,7 @@ namespace cppreflection::detail
 
         Function* StealFunction();
 
-        void SetName(const edt::StringView& name);
+        void SetName(const std::string_view& name);
 
     private:
         template<size_t Index>
@@ -95,7 +95,7 @@ namespace cppreflection::detail
 namespace cppreflection::detail
 {
     template<auto pfn>
-    void FunctionReflector<pfn>::SetName(const edt::StringView& name) {
+    void FunctionReflector<pfn>::SetName(const std::string_view& name) {
         m_function->SetName(name);
     }
 

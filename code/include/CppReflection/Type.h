@@ -1,7 +1,5 @@
 #pragma once
 
-#include "EverydayTools/Array/ArrayView.h"
-#include "EverydayTools/Array/StringView.h"
 #include "EverydayTools/GUID.h"
 
 #include "CppReflection/Common.h"
@@ -25,17 +23,17 @@ namespace cppreflection
         /* Name of type
          */
         [[nodiscard]]
-        virtual edt::StringView GetName() const = 0;
+        virtual std::string_view GetName() const = 0;
 
         /* Type methods (including static methods)
          */
         [[nodiscard]]
-        virtual edt::SparseArrayView<const Function* const> GetMethods() const = 0;
+        virtual std::span<const Function* const> GetMethods() const = 0;
 
         /* Type fields (including static fields)
          */
         [[nodiscard]]
-        virtual edt::SparseArrayView<const Field* const> GetFields() const = 0;
+        virtual std::span<const Field* const> GetFields() const = 0;
 
         /* Type flags
          */
@@ -77,7 +75,7 @@ namespace cppreflection
 
         /* Sets type name
          */
-        virtual void SetName(const edt::StringView& name) = 0;
+        virtual void SetName(const std::string_view& name) = 0;
 
         /* Sets type special members
          */

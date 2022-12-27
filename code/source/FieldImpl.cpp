@@ -6,12 +6,12 @@ namespace cppreflection::detail
         return m_type;
     }
 
-    edt::StringView FieldImpl::GetName() const {
-        return edt::StringView(m_name.c_str(), m_name.size());
+    std::string_view FieldImpl::GetName() const {
+        return std::string_view(m_name.c_str(), m_name.size());
     }
 
-    void FieldImpl::SetName(const edt::StringView& name) {
-        m_name = name.GetData();
+    void FieldImpl::SetName(const std::string_view& name) {
+        m_name = name.data();
     }
 
     void FieldImpl::SetType(const Type* type) {

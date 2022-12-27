@@ -1,9 +1,22 @@
 #pragma once
 
-#include "EverydayTools/Preprocessor/ExpotImport.h"
+#ifdef _MSC_VER
+    #define CPP_REFLECTION_EXPORT __declspec(dllexport)
+    #define CPP_REFLECTION_IMPORT __declspec(dllimport)
+#endif
+
+#ifdef __GNUC__
+    #define CPP_REFLECTION_EXPORT __attribute__((visibility("default")))
+    #define CPP_REFLECTION_IMPORT __attribute__((visibility("default")))
+#endif
+
+#ifdef __clang__
+    #define CPP_REFLECTION_EXPORT __attribute__((visibility("default")))
+    #define CPP_REFLECTION_IMPORT __attribute__((visibility("default")))
+#endif
 
 #ifdef INSIDE_CPP_REFLECION_LIB
-    #define CPP_REFLECTION_API EXPORT
+    #define CPP_REFLECTION_API  CPP_REFLECTION_EXPORT
 #else
-    #define CPP_REFLECTION_API IMPORT
+    #define CPP_REFLECTION_API  CPP_REFLECTION_IMPORT
 #endif

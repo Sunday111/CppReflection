@@ -1,8 +1,10 @@
 #pragma once
 
+#include <span>
+#include <string_view>
+
 #include "CppReflection/Common.h"
-#include "EverydayTools/Array/ArrayView.h"
-#include "EverydayTools/Array/StringView.h"
+
 
 namespace cppreflection
 {
@@ -27,12 +29,12 @@ namespace cppreflection
         virtual const Type* GetObjectType() const = 0;
 
         [[nodiscard]]
-        virtual edt::SparseArrayView<const Type* const> GetArguments() const = 0;
+        virtual std::span<const Type* const> GetArguments() const = 0;
 
         /* Name of function
          */
         [[nodiscard]]
-        virtual edt::StringView GetName() const = 0;
+        virtual std::string_view GetName() const = 0;
 
         /* Calls method with specified parameters
          * Object - parameter for methods, may be null in case of pure functions.
@@ -43,7 +45,7 @@ namespace cppreflection
         virtual size_t AddArgumentType(const Type* argumentType) = 0;
         virtual void SetObjectType(const Type* objectType) = 0;
         virtual void SetCaller(Caller caller) = 0;
-        virtual void SetName(const edt::StringView& name) = 0;
+        virtual void SetName(const std::string_view& name) = 0;
         virtual void SetReturnType(const Type* returnType) = 0;
 
         //

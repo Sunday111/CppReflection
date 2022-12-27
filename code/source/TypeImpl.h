@@ -19,12 +19,12 @@ namespace cppreflection::detail
 
         virtual size_t GetInstanceSize() const override;
         virtual void SetInstanceSize(size_t instanceSize) override;
-        virtual edt::StringView GetName() const override;
-        virtual void SetName(const edt::StringView& name) override;
-        virtual edt::SparseArrayView<const Function* const> GetMethods() const override;
+        virtual std::string_view GetName() const override;
+        virtual void SetName(const std::string_view& name) override;
+        virtual std::span<const Function* const> GetMethods() const override;
         virtual size_t AddMethod(Function* function) override;
         virtual size_t AddField(Field* field) override;
-        virtual edt::SparseArrayView<const Field* const> GetFields() const override;
+        virtual std::span<const Field* const> GetFields() const override;
         virtual void SetFlags(TypeFlag flags) override;
         virtual TypeFlag GetFlags() const override;
         virtual void SetSpecialMembers(const TypeSpecialMembers& specialMembers) override;

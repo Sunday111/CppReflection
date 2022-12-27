@@ -1,14 +1,13 @@
 #include "FunctionImpl.h"
-#include "EverydayTools/Array/ArrayViewVector.h"
 
 namespace cppreflection::detail
 {
-    edt::StringView FunctionImpl::GetName() const {
-        return edt::StringView(m_name.c_str(), m_name.size());
+    std::string_view FunctionImpl::GetName() const {
+        return std::string_view(m_name.c_str(), m_name.size());
     }
 
-    void FunctionImpl::SetName(const edt::StringView& name) {
-        m_name = name.GetData();
+    void FunctionImpl::SetName(const std::string_view& name) {
+        m_name = name.data();
     }
 
     const Type* FunctionImpl::GetReturnType() const {
@@ -40,8 +39,8 @@ namespace cppreflection::detail
         m_caller(Object, ReturnValue, ArgsArray, ArgsArraySize);
     }
 
-    edt::SparseArrayView<const Type* const> FunctionImpl::GetArguments() const {
-        return edt::MakeArrayView(m_argumentTypes);
+    std::span<const Type* const> FunctionImpl::GetArguments() const {
+        return m_argumentTypes;
     }
 }
 

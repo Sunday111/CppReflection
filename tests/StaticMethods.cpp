@@ -48,7 +48,7 @@ TEST(CppReflectionTest, StaticMethod) {
     using namespace FunctionReturnsVoidArgumentVoid_nm;
     const cppreflection::Type* typeInfo = cppreflection::GetTypeInfo<ReflectedType>();
     EXPECT_TRUE(typeInfo != nullptr);
-    EXPECT_TRUE(typeInfo->GetName() == edt::StringView("test_function_ret_void_arg_void::ReflectedType"));
+    EXPECT_TRUE(typeInfo->GetName() == std::string_view("test_function_ret_void_arg_void::ReflectedType"));
     EXPECT_TRUE(typeInfo->GetInstanceSize() == sizeof(ReflectedType));
 
     auto methods = typeInfo->GetMethods();
@@ -57,7 +57,7 @@ TEST(CppReflectionTest, StaticMethod) {
     {
         const cppreflection::Function* f = methods[0];
         EXPECT_TRUE(f != nullptr);
-        EXPECT_TRUE(f->GetName() == edt::StringView("f1"));
+        EXPECT_TRUE(f->GetName() == std::string_view("f1"));
         EXPECT_TRUE(f->GetObjectType() == nullptr);
         EXPECT_TRUE(f->GetReturnType() == nullptr);
         EXPECT_TRUE(f->GetArguments().GetSize() == 0);
@@ -68,7 +68,7 @@ TEST(CppReflectionTest, StaticMethod) {
     {
         const cppreflection::Function* f = methods[1];
         EXPECT_TRUE(f != nullptr);
-        EXPECT_TRUE(f->GetName() == edt::StringView("f2"));
+        EXPECT_TRUE(f->GetName() == std::string_view("f2"));
         EXPECT_TRUE(f->GetObjectType() == nullptr);
         EXPECT_TRUE(f->GetReturnType() == nullptr);
         EXPECT_TRUE(f->GetArguments().GetSize() == 1);
@@ -80,7 +80,7 @@ TEST(CppReflectionTest, StaticMethod) {
     {
         const cppreflection::Function* f = methods[2];
         EXPECT_TRUE(f != nullptr);
-        EXPECT_TRUE(f->GetName() == edt::StringView("f3"));
+        EXPECT_TRUE(f->GetName() == std::string_view("f3"));
         EXPECT_TRUE(f->GetObjectType() == nullptr);
         EXPECT_TRUE(f->GetReturnType() == nullptr);
         EXPECT_TRUE(f->GetArguments().GetSize() == 1);
@@ -93,7 +93,7 @@ TEST(CppReflectionTest, StaticMethod) {
     {
         const cppreflection::Function* f = methods[3];
         EXPECT_TRUE(f != nullptr);
-        EXPECT_TRUE(f->GetName() == edt::StringView("f4"));
+        EXPECT_TRUE(f->GetName() == std::string_view("f4"));
         EXPECT_TRUE(f->GetObjectType() == nullptr);
         EXPECT_TRUE(f->GetReturnType() == nullptr);
         EXPECT_TRUE(f->GetArguments().GetSize() == 1);

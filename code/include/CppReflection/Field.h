@@ -1,7 +1,8 @@
 #pragma once
 
+#include <string_view>
+
 #include "CppReflection/Common.h"
-#include "EverydayTools/Array/StringView.h"
 
 namespace cppreflection
 {
@@ -13,7 +14,7 @@ namespace cppreflection
         using ValueGetter = void* (*) (void* instance);
 
         virtual void SetType(const Type* type) = 0;
-        virtual void SetName(const edt::StringView& name) = 0;
+        virtual void SetName(const std::string_view& name) = 0;
         virtual void SetValueGetter(ValueGetter getter) = 0;
 
         /* Field type
@@ -24,7 +25,7 @@ namespace cppreflection
         /* Field name
          */
         [[nodiscard]]
-        virtual edt::StringView GetName() const = 0;
+        virtual std::string_view GetName() const = 0;
 
         /* Get pointer to field value
          */

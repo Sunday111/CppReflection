@@ -11,11 +11,11 @@ namespace cppreflection::detail
     TypeImpl::TypeImpl() = default;
     TypeImpl::~TypeImpl() = default;
 
-    edt::StringView TypeImpl::GetName() const {
-        return edt::StringView(m_name.c_str(), m_name.size());
+    std::string_view TypeImpl::GetName() const {
+        return std::string_view(m_name.c_str(), m_name.size());
     }
 
-    void TypeImpl::SetName(const edt::StringView& name) {
+    void TypeImpl::SetName(const std::string_view& name) {
         m_name = name.GetData();
     }
 
@@ -62,11 +62,11 @@ namespace cppreflection::detail
         return m_comparisonOperators;
     }
 
-    edt::SparseArrayView<const Field* const> TypeImpl::GetFields() const {
+    std::span<const Field* const> TypeImpl::GetFields() const {
         return edt::MakeArrayView(m_fields);
     }
 
-    edt::SparseArrayView<const Function* const> TypeImpl::GetMethods() const {
+    std::span<const Function* const> TypeImpl::GetMethods() const {
         return edt::MakeArrayView(m_methods);
     }
 

@@ -15,15 +15,15 @@ namespace cppreflection
     public:
         TypeReflector();
 
-        void SetName(const edt::StringView& name);
+        void SetName(const std::string_view& name);
 
         void SetGUID(const edt::GUID& guid);
 
         template<auto pfn>
-        void AddMethod(const edt::StringView& name);
+        void AddMethod(const std::string_view& name);
 
         template<auto pfield>
-        void AddField(const edt::StringView& name);
+        void AddField(const std::string_view& name);
 
         Type* GetType() const;
 
@@ -42,7 +42,7 @@ namespace cppreflection
     }
 
     template<typename T>
-    void TypeReflector<T>::SetName(const edt::StringView& name) {
+    void TypeReflector<T>::SetName(const std::string_view& name) {
         m_type->SetName(name);
     }
 
@@ -56,7 +56,7 @@ namespace cppreflection
 
     template<typename T>
     template<auto pfn>
-    void TypeReflector<T>::AddMethod(const edt::StringView& name) {
+    void TypeReflector<T>::AddMethod(const std::string_view& name) {
         detail::FunctionReflector<pfn> functionReflector;
         functionReflector.SetName(name);
         m_type->AddMethod(functionReflector.StealFunction());
@@ -64,7 +64,7 @@ namespace cppreflection
 
     template<typename T>
     template<auto pfield>
-    void TypeReflector<T>::AddField(const edt::StringView& name) {
+    void TypeReflector<T>::AddField(const std::string_view& name) {
         detail::FieldReflector<pfield> fieldReflector;
         fieldReflector.SetName(name);
         m_type->AddField(fieldReflector.StealField());
