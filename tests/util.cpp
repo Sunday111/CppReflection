@@ -9,11 +9,11 @@
 #include "CppReflection/Reflector/TypeReflector.h"
 
 void PrintType(const cppreflection::Type* typeInfo, std::ostream& output) {
-    assert(typeInfo->GetName().GetSize() != 0);
-    output << typeInfo->GetName().GetData() << '\n';
+    assert(typeInfo->GetName().size() != 0);
+    output << typeInfo->GetName().data() << '\n';
     bool needNewLine = false;
     auto methods = typeInfo->GetMethods();
-    if (methods.GetSize() > 0) {
+    if (methods.size() > 0) {
         output << "   Methods:\n";
         for(const cppreflection::Function* methodInfo : methods) {
             output << "      ";
@@ -31,10 +31,10 @@ void PrintType(const cppreflection::Type* typeInfo, std::ostream& output) {
 
             output << ' ' << methodInfo->GetName() << '(';
             auto arguments = methodInfo->GetArguments();
-            for (size_t methodArgIndex = 0; methodArgIndex < arguments.GetSize(); ++methodArgIndex) {
+            for (size_t methodArgIndex = 0; methodArgIndex < arguments.size(); ++methodArgIndex) {
                 auto methodArgTypeInfo = arguments[methodArgIndex];
                 output << methodArgTypeInfo->GetName();
-                if (methodArgIndex < arguments.GetSize() - 1) {
+                if (methodArgIndex < arguments.size() - 1) {
                     output << ", ";
                 }
             }

@@ -16,7 +16,7 @@ namespace cppreflection::detail
     }
 
     void TypeImpl::SetName(const std::string_view& name) {
-        m_name = name.GetData();
+        m_name = name.data();
     }
 
     size_t TypeImpl::AddField(Field* field) {
@@ -63,11 +63,11 @@ namespace cppreflection::detail
     }
 
     std::span<const Field* const> TypeImpl::GetFields() const {
-        return edt::MakeArrayView(m_fields);
+        return m_fields;
     }
 
     std::span<const Function* const> TypeImpl::GetMethods() const {
-        return edt::MakeArrayView(m_methods);
+        return m_methods;
     }
 
     const edt::GUID& TypeImpl::GetGuid() const {

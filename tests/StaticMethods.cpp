@@ -52,7 +52,7 @@ TEST(CppReflectionTest, StaticMethod) {
     EXPECT_TRUE(typeInfo->GetInstanceSize() == sizeof(ReflectedType));
 
     auto methods = typeInfo->GetMethods();
-    EXPECT_TRUE(methods.GetSize() == 4);
+    EXPECT_TRUE(methods.size() == 4);
 
     {
         const cppreflection::Function* f = methods[0];
@@ -60,7 +60,7 @@ TEST(CppReflectionTest, StaticMethod) {
         EXPECT_TRUE(f->GetName() == std::string_view("f1"));
         EXPECT_TRUE(f->GetObjectType() == nullptr);
         EXPECT_TRUE(f->GetReturnType() == nullptr);
-        EXPECT_TRUE(f->GetArguments().GetSize() == 0);
+        EXPECT_TRUE(f->GetArguments().size() == 0);
         cppreflection::CallFunction<void>(f);
         EXPECT_TRUE(ReflectedType::k == 11);
     }
@@ -71,7 +71,7 @@ TEST(CppReflectionTest, StaticMethod) {
         EXPECT_TRUE(f->GetName() == std::string_view("f2"));
         EXPECT_TRUE(f->GetObjectType() == nullptr);
         EXPECT_TRUE(f->GetReturnType() == nullptr);
-        EXPECT_TRUE(f->GetArguments().GetSize() == 1);
+        EXPECT_TRUE(f->GetArguments().size() == 1);
         EXPECT_TRUE(f->GetArguments()[0] == cppreflection::GetTypeInfo<int>());
         cppreflection::CallFunction<void>(f, 2);
         EXPECT_TRUE(ReflectedType::k == 13);
@@ -83,7 +83,7 @@ TEST(CppReflectionTest, StaticMethod) {
         EXPECT_TRUE(f->GetName() == std::string_view("f3"));
         EXPECT_TRUE(f->GetObjectType() == nullptr);
         EXPECT_TRUE(f->GetReturnType() == nullptr);
-        EXPECT_TRUE(f->GetArguments().GetSize() == 1);
+        EXPECT_TRUE(f->GetArguments().size() == 1);
         EXPECT_TRUE(f->GetArguments()[0] == cppreflection::GetTypeInfo<int*>());
         int arg = 3;
         cppreflection::CallFunction<void>(f, &arg);
@@ -96,7 +96,7 @@ TEST(CppReflectionTest, StaticMethod) {
         EXPECT_TRUE(f->GetName() == std::string_view("f4"));
         EXPECT_TRUE(f->GetObjectType() == nullptr);
         EXPECT_TRUE(f->GetReturnType() == nullptr);
-        EXPECT_TRUE(f->GetArguments().GetSize() == 1);
+        EXPECT_TRUE(f->GetArguments().size() == 1);
         EXPECT_TRUE(f->GetArguments()[0] == cppreflection::GetTypeInfo<int&>());
         int arg = 3;
         cppreflection::CallFunction<void>(f, arg);

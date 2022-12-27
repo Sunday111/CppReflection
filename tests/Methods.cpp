@@ -29,13 +29,13 @@ TEST(CppReflectionTest, Method_ReturnsVoidArgumentVoid) {
     EXPECT_TRUE(typeInfo != nullptr);
     EXPECT_TRUE(typeInfo->GetName() == std::string_view("test_method_ret_void_arg_void::ReflectedType"));
     EXPECT_TRUE(typeInfo->GetInstanceSize() == sizeof(ReflectedType));
-    EXPECT_TRUE(typeInfo->GetMethods().GetSize() == 1);
+    EXPECT_TRUE(typeInfo->GetMethods().size() == 1);
     const cppreflection::Function* functionInfo = typeInfo->GetMethods()[0];
     EXPECT_TRUE(functionInfo != nullptr);
     EXPECT_TRUE(functionInfo->GetName() == std::string_view("f1"));
     EXPECT_TRUE(functionInfo->GetObjectType() == typeInfo);
     EXPECT_TRUE(functionInfo->GetReturnType() == nullptr);
-    EXPECT_TRUE(functionInfo->GetArguments().GetSize() == 0);
+    EXPECT_TRUE(functionInfo->GetArguments().size() == 0);
 
     ReflectedType object;
     cppreflection::CallMethod<void>(functionInfo, object);
@@ -61,13 +61,13 @@ TEST(CppReflectionTest, Method_ReturnsVoidArgumentInt) {
     EXPECT_TRUE(typeInfo != nullptr);
     EXPECT_TRUE(typeInfo->GetName() == std::string_view("test_method_ret_void_arg_int::ReflectedType"));
     EXPECT_TRUE(typeInfo->GetInstanceSize() == sizeof(ReflectedType));
-    EXPECT_TRUE(typeInfo->GetMethods().GetSize() == 1);
+    EXPECT_TRUE(typeInfo->GetMethods().size() == 1);
     const cppreflection::Function* functionInfo = typeInfo->GetMethods()[0];
     EXPECT_TRUE(functionInfo != nullptr);
     EXPECT_TRUE(functionInfo->GetName() == std::string_view("f1"));
     EXPECT_TRUE(functionInfo->GetObjectType() == typeInfo);
     EXPECT_TRUE(functionInfo->GetReturnType() == nullptr);
-    EXPECT_TRUE(functionInfo->GetArguments().GetSize() == 1);
+    EXPECT_TRUE(functionInfo->GetArguments().size() == 1);
     EXPECT_TRUE(functionInfo->GetArguments()[0] == cppreflection::GetTypeInfo<int>());
 
     ReflectedType object;
@@ -96,13 +96,13 @@ TEST(CppReflectionTest, Method_ReturnsVoidArgumentIntPtr) {
     EXPECT_TRUE(typeInfo != nullptr);
     EXPECT_TRUE(typeInfo->GetName() == std::string_view("test_method_ret_void_arg_int_ptr::ReflectedType"));
     EXPECT_TRUE(typeInfo->GetInstanceSize() == sizeof(ReflectedType));
-    EXPECT_TRUE(typeInfo->GetMethods().GetSize() == 1);
+    EXPECT_TRUE(typeInfo->GetMethods().size() == 1);
     const cppreflection::Function* functionInfo = typeInfo->GetMethods()[0];
     EXPECT_TRUE(functionInfo != nullptr);
     EXPECT_TRUE(functionInfo->GetName() == std::string_view("f1"));
     EXPECT_TRUE(functionInfo->GetObjectType() == typeInfo);
     EXPECT_TRUE(functionInfo->GetReturnType() == nullptr);
-    EXPECT_TRUE(functionInfo->GetArguments().GetSize() == 1);
+    EXPECT_TRUE(functionInfo->GetArguments().size() == 1);
     EXPECT_TRUE(functionInfo->GetArguments()[0] == cppreflection::GetTypeInfo<int*>());
 
     ReflectedType object;
@@ -131,13 +131,13 @@ TEST(CppReflectionTest, Method_ReturnsVoidArgumentIntRef) {
     EXPECT_TRUE(typeInfo != nullptr);
     EXPECT_TRUE(typeInfo->GetName() == std::string_view("test_method_ret_void_arg_int_ref::ReflectedType"));
     EXPECT_TRUE(typeInfo->GetInstanceSize() == sizeof(ReflectedType));
-    EXPECT_TRUE(typeInfo->GetMethods().GetSize() == 1);
+    EXPECT_TRUE(typeInfo->GetMethods().size() == 1);
     const cppreflection::Function* functionInfo = typeInfo->GetMethods()[0];
     EXPECT_TRUE(functionInfo != nullptr);
     EXPECT_TRUE(functionInfo->GetName() == std::string_view("f1"));
     EXPECT_TRUE(functionInfo->GetObjectType() == typeInfo);
     EXPECT_TRUE(functionInfo->GetReturnType() == nullptr);
-    EXPECT_TRUE(functionInfo->GetArguments().GetSize() == 1);
+    EXPECT_TRUE(functionInfo->GetArguments().size() == 1);
     EXPECT_TRUE(functionInfo->GetArguments()[0] == cppreflection::GetTypeInfo<int&>());
 
     ReflectedType object;
@@ -167,13 +167,13 @@ TEST(CppReflectionTest, Method_ReturnsVoidArgumentIntPtrRef) {
     EXPECT_TRUE(typeInfo != nullptr);
     EXPECT_TRUE(typeInfo->GetName() == std::string_view("test_method_ret_void_arg_int_ptr_ref::ReflectedType"));
     EXPECT_TRUE(typeInfo->GetInstanceSize() == sizeof(ReflectedType));
-    EXPECT_TRUE(typeInfo->GetMethods().GetSize() == 1);
+    EXPECT_TRUE(typeInfo->GetMethods().size() == 1);
     const cppreflection::Function* functionInfo = typeInfo->GetMethods()[0];
     EXPECT_TRUE(functionInfo != nullptr);
     EXPECT_TRUE(functionInfo->GetName() == std::string_view("f1"));
     EXPECT_TRUE(functionInfo->GetObjectType() == typeInfo);
     EXPECT_TRUE(functionInfo->GetReturnType() == nullptr);
-    EXPECT_TRUE(functionInfo->GetArguments().GetSize() == 1);
+    EXPECT_TRUE(functionInfo->GetArguments().size() == 1);
     EXPECT_TRUE(functionInfo->GetArguments()[0] == cppreflection::GetTypeInfo<int*&>());
 
     ReflectedType object;
@@ -212,13 +212,13 @@ TEST(CppReflectionTest, Method_ReturnsVoidArgumentRValue) {
     EXPECT_TRUE(typeInfo != nullptr);
     EXPECT_TRUE(typeInfo->GetName() == std::string_view("test_method_ret_void_arg_void::ReflectedType"));
     EXPECT_TRUE(typeInfo->GetInstanceSize() == sizeof(ReflectedType));
-    EXPECT_TRUE(typeInfo->GetMethods().GetSize() == 1);
+    EXPECT_TRUE(typeInfo->GetMethods().size() == 1);
     const cppreflection::Function* functionInfo = typeInfo->GetMethods()[0];
     EXPECT_TRUE(functionInfo != nullptr);
     EXPECT_TRUE(functionInfo->GetName() == std::string_view("f1"));
     EXPECT_TRUE(functionInfo->GetObjectType() == typeInfo);
     EXPECT_TRUE(functionInfo->GetReturnType() == nullptr);
-    EXPECT_TRUE(functionInfo->GetArguments().GetSize() == 1);
+    EXPECT_TRUE(functionInfo->GetArguments().size() == 1);
     EXPECT_TRUE(functionInfo->GetArguments()[0] == cppreflection::GetTypeInfo<MovableType&&>());
 
     MovableType arg;
@@ -251,13 +251,13 @@ TEST(CppReflectionTest, Method_ReturnsIntArgumentVoid) {
     EXPECT_TRUE(typeInfo != nullptr);
     EXPECT_TRUE(typeInfo->GetName() == std::string_view("test_method_ret_int::ReflectedType"));
     EXPECT_TRUE(typeInfo->GetInstanceSize() == sizeof(ReflectedType));
-    EXPECT_TRUE(typeInfo->GetMethods().GetSize() == 1);
+    EXPECT_TRUE(typeInfo->GetMethods().size() == 1);
     const cppreflection::Function* functionInfo = typeInfo->GetMethods()[0];
     EXPECT_TRUE(functionInfo != nullptr);
     EXPECT_TRUE(functionInfo->GetName() == std::string_view("f1"));
     EXPECT_TRUE(functionInfo->GetObjectType() == typeInfo);
     EXPECT_TRUE(functionInfo->GetReturnType() == cppreflection::GetTypeInfo<int>());
-    EXPECT_TRUE(functionInfo->GetArguments().GetSize() == 0);
+    EXPECT_TRUE(functionInfo->GetArguments().size() == 0);
 
     ReflectedType object;
     int returnValue = cppreflection::CallMethod<int>(functionInfo, object);
@@ -285,13 +285,13 @@ TEST(CppReflectionTest, Method_ReturnsIntPtrArgumentVoid) {
     EXPECT_TRUE(typeInfo != nullptr);
     EXPECT_TRUE(typeInfo->GetName() == std::string_view("test_method_ret_int_ptr::ReflectedType"));
     EXPECT_TRUE(typeInfo->GetInstanceSize() == sizeof(ReflectedType));
-    EXPECT_TRUE(typeInfo->GetMethods().GetSize() == 1);
+    EXPECT_TRUE(typeInfo->GetMethods().size() == 1);
     const cppreflection::Function* functionInfo = typeInfo->GetMethods()[0];
     EXPECT_TRUE(functionInfo != nullptr);
     EXPECT_TRUE(functionInfo->GetName() == std::string_view("f1"));
     EXPECT_TRUE(functionInfo->GetObjectType() == typeInfo);
     EXPECT_TRUE(functionInfo->GetReturnType() == cppreflection::GetTypeInfo<int*>());
-    EXPECT_TRUE(functionInfo->GetArguments().GetSize() == 0);
+    EXPECT_TRUE(functionInfo->GetArguments().size() == 0);
 
     ReflectedType object;
     int* returnValue = cppreflection::CallMethod<int*>(functionInfo, object);
@@ -319,13 +319,13 @@ TEST(CppReflectionTest, Method_ReturnsIntRefArgumentVoid) {
     EXPECT_TRUE(typeInfo != nullptr);
     EXPECT_TRUE(typeInfo->GetName() == std::string_view("test_method_ret_int_ref::ReflectedType"));
     EXPECT_TRUE(typeInfo->GetInstanceSize() == sizeof(ReflectedType));
-    EXPECT_TRUE(typeInfo->GetMethods().GetSize() == 1);
+    EXPECT_TRUE(typeInfo->GetMethods().size() == 1);
     const cppreflection::Function* functionInfo = typeInfo->GetMethods()[0];
     EXPECT_TRUE(functionInfo != nullptr);
     EXPECT_TRUE(functionInfo->GetName() == std::string_view("f1"));
     EXPECT_TRUE(functionInfo->GetObjectType() == typeInfo);
     EXPECT_TRUE(functionInfo->GetReturnType() == cppreflection::GetTypeInfo<int&>());
-    EXPECT_TRUE(functionInfo->GetArguments().GetSize() == 0);
+    EXPECT_TRUE(functionInfo->GetArguments().size() == 0);
 
     ReflectedType object;
     int& returnValue = cppreflection::CallMethod<int&>(functionInfo, object);
@@ -358,13 +358,13 @@ TEST(CppReflectionTest, Method_ReturnsIntPtrRefArgumentVoid) {
     EXPECT_TRUE(typeInfo != nullptr);
     EXPECT_TRUE(typeInfo->GetName() == std::string_view("test_method_ret_int_ptr_ref::ReflectedType"));
     EXPECT_TRUE(typeInfo->GetInstanceSize() == sizeof(ReflectedType));
-    EXPECT_TRUE(typeInfo->GetMethods().GetSize() == 1);
+    EXPECT_TRUE(typeInfo->GetMethods().size() == 1);
     const cppreflection::Function* functionInfo = typeInfo->GetMethods()[0];
     EXPECT_TRUE(functionInfo != nullptr);
     EXPECT_TRUE(functionInfo->GetName() == std::string_view("f1"));
     EXPECT_TRUE(functionInfo->GetObjectType() == typeInfo);
     EXPECT_TRUE(functionInfo->GetReturnType() == cppreflection::GetTypeInfo<int*&>());
-    EXPECT_TRUE(functionInfo->GetArguments().GetSize() == 0);
+    EXPECT_TRUE(functionInfo->GetArguments().size() == 0);
 
     ReflectedType object;
     int*& returnValue = cppreflection::CallMethod<int*&>(functionInfo, object);
@@ -417,13 +417,13 @@ TEST(CppReflectionTest, Method_ReturnsRValueArgumentVoid) {
     EXPECT_TRUE(typeInfo != nullptr);
     EXPECT_TRUE(typeInfo->GetName() == std::string_view("test_method_ret_rvalue::ReflectedType"));
     EXPECT_TRUE(typeInfo->GetInstanceSize() == sizeof(ReflectedType));
-    EXPECT_TRUE(typeInfo->GetMethods().GetSize() == 1);
+    EXPECT_TRUE(typeInfo->GetMethods().size() == 1);
     const cppreflection::Function* functionInfo = typeInfo->GetMethods()[0];
     EXPECT_TRUE(functionInfo != nullptr);
     EXPECT_TRUE(functionInfo->GetName() == std::string_view("f1"));
     EXPECT_TRUE(functionInfo->GetObjectType() == typeInfo);
     EXPECT_TRUE(functionInfo->GetReturnType() == cppreflection::GetTypeInfo<MovableType&&>());
-    EXPECT_TRUE(functionInfo->GetArguments().GetSize() == 0);
+    EXPECT_TRUE(functionInfo->GetArguments().size() == 0);
 
     ReflectedType object;
     MovableType moved = cppreflection::WrapReflectedFunctionReturnType<MovableType&&>(functionInfo, &object, nullptr, 0);
@@ -452,13 +452,13 @@ TEST(CppReflectionTest, Method_ReturnsVoidArgumentClassType) {
     EXPECT_TRUE(typeInfo != nullptr);
     EXPECT_TRUE(typeInfo->GetName() == std::string_view("test_method_ret_void_arg_same_type_ref::ReflectedType"));
     EXPECT_TRUE(typeInfo->GetInstanceSize() == sizeof(ReflectedType));
-    EXPECT_TRUE(typeInfo->GetMethods().GetSize() == 1);
+    EXPECT_TRUE(typeInfo->GetMethods().size() == 1);
     const cppreflection::Function* functionInfo = typeInfo->GetMethods()[0];
     EXPECT_TRUE(functionInfo != nullptr);
     EXPECT_TRUE(functionInfo->GetName() == std::string_view("f1"));
     EXPECT_TRUE(functionInfo->GetObjectType() == typeInfo);
     EXPECT_TRUE(functionInfo->GetReturnType() == nullptr);
-    EXPECT_TRUE(functionInfo->GetArguments().GetSize() == 1);
+    EXPECT_TRUE(functionInfo->GetArguments().size() == 1);
     EXPECT_TRUE(functionInfo->GetArguments()[0] == cppreflection::GetTypeInfo<ReflectedType&>());
 
     ReflectedType object;

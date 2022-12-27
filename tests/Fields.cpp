@@ -45,7 +45,7 @@ TEST(CppReflectionTest, Fields) {
     EXPECT_TRUE(typeInfo != nullptr);
     EXPECT_TRUE(typeInfo->GetName() == std::string_view("test_field_value::ReflectedType"));
     EXPECT_TRUE(typeInfo->GetInstanceSize() == sizeof(ReflectedType));
-    EXPECT_TRUE(typeInfo->GetFields().GetSize() == 4);
+    EXPECT_TRUE(typeInfo->GetFields().size() == 4);
 
     ReflectedType instance(100);
     auto fields = typeInfo->GetFields();

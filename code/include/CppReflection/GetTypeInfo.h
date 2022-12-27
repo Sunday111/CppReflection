@@ -17,19 +17,19 @@ namespace cppreflection
             if constexpr (std::is_pointer_v<T>) {
                 using Naked = std::remove_pointer_t<T>;
                 auto ti = GetTypeInfo<Naked>();
-                auto name = std::string(ti->GetName().GetData()) + "*";
+                auto name = std::string(ti->GetName().data()) + "*";
                 rt.SetName(name.c_str());
             }
             else if constexpr (std::is_rvalue_reference_v<T>) {
                 using Naked = std::remove_reference_t<T>;
                 auto ti = GetTypeInfo<Naked>();
-                auto name = std::string(ti->GetName().GetData()) + "&&";
+                auto name = std::string(ti->GetName().data()) + "&&";
                 rt.SetName(name.c_str());
             }
             else {
                 using Naked = std::remove_reference_t<T>;
                 auto ti = GetTypeInfo<Naked>();
-                auto name = std::string(ti->GetName().GetData()) + '&';
+                auto name = std::string(ti->GetName().data()) + '&';
                 rt.SetName(name.c_str());
             }
         }

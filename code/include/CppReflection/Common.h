@@ -1,18 +1,23 @@
 #pragma once
 
-#ifdef _MSC_VER
-    #define CPP_REFLECTION_EXPORT __declspec(dllexport)
-    #define CPP_REFLECTION_IMPORT __declspec(dllimport)
-#endif
+#ifdef CPP_REFLECTION_SHARED
+    #ifdef _MSC_VER
+        #define CPP_REFLECTION_EXPORT __declspec(dllexport)
+        #define CPP_REFLECTION_IMPORT __declspec(dllimport)
+    #endif
 
-#ifdef __GNUC__
-    #define CPP_REFLECTION_EXPORT __attribute__((visibility("default")))
-    #define CPP_REFLECTION_IMPORT __attribute__((visibility("default")))
-#endif
+    #ifdef __GNUC__
+        #define CPP_REFLECTION_EXPORT __attribute__((visibility("default")))
+        #define CPP_REFLECTION_IMPORT __attribute__((visibility("default")))
+    #endif
 
-#ifdef __clang__
-    #define CPP_REFLECTION_EXPORT __attribute__((visibility("default")))
-    #define CPP_REFLECTION_IMPORT __attribute__((visibility("default")))
+    #ifdef __clang__
+        #define CPP_REFLECTION_EXPORT __attribute__((visibility("default")))
+        #define CPP_REFLECTION_IMPORT __attribute__((visibility("default")))
+    #endif
+#else
+    #define CPP_REFLECTION_EXPORT
+    #define CPP_REFLECTION_IMPORT
 #endif
 
 #ifdef INSIDE_CPP_REFLECION_LIB

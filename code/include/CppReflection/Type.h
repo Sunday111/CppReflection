@@ -1,5 +1,8 @@
 #pragma once
 
+#include <span>
+#include <string_view>
+
 #include "EverydayTools/GUID.h"
 
 #include "CppReflection/Common.h"
