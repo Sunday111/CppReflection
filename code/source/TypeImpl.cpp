@@ -1,8 +1,7 @@
-#include "TypeImpl.h"
+#include "TypeImpl.hpp"
 
-#include "EverydayTools/Array/ArrayViewVector.h"
-#include "FunctionImpl.h"
-#include "FieldImpl.h"
+#include "FunctionImpl.hpp"
+#include "FieldImpl.hpp"
 
 #include <cassert>
 

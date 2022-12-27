@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Detail/CallReflectType.h"
-#include "Reflector/TypeReflector.h"
-#include "TypeRegistry.h"
+#include "Detail/CallReflectType.hpp"
+#include "Reflector/TypeReflector.hpp"
+#include "TypeRegistry.hpp"
 
 namespace cppreflection
 {

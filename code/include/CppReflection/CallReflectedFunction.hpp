@@ -1,7 +1,6 @@
 #pragma once
 
-#include "EverydayTools/UnusedVar.h"
-#include "GetTypeInfo.h"
+#include "GetTypeInfo.hpp"
 
 namespace cppreflection
 {

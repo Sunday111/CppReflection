@@ -1,8 +1,8 @@
 #include "gtest/gtest.h"
 
-#include "CppReflection/Reflector/TypeReflector.h"
-#include "CppReflection/PrimitiveTypeReflection.h"
-#include "CppReflection/CallReflectedFunction.h"
+#include "CppReflection/Reflector/TypeReflector.hpp"
+#include "CppReflection/PrimitiveTypeReflection.hpp"
+#include "CppReflection/CallReflectedFunction.hpp"
 
 edt::GUID TestGUID() {
     return edt::GUID::Create("BC16AC85-AD55-4207-99D4-99872369750E");

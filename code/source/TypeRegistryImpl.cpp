@@ -1,4 +1,4 @@
-#include "TypeRegistryImpl.h"
+#include "TypeRegistryImpl.hpp"
 
 namespace cppreflection::detail
 {

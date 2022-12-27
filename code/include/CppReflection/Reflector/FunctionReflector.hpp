@@ -1,9 +1,8 @@
 #pragma once
 
 #include <cassert>
-#include "EverydayTools/UnusedVar.h"
-#include "../Detail/FunctionTraits.h"
-#include "../Function.h"
+#include "../Detail/FunctionTraits.hpp"
+#include "../Function.hpp"
 
 namespace cppreflection
 {
@@ -114,7 +113,7 @@ namespace cppreflection::detail
 
     // Make object that will call function or method in the same way
     template<auto pfn>
-    decltype(auto) WrapMethodCalls(void* Object) {
+    decltype(auto) WrapMethodCalls([[maybe_unused]] void* Object) {
         using FnReflector = detail::FunctionPointerTraits<pfn>;
         using ReturnType = typename FnReflector::ReturnType;
         if constexpr (FnReflector::IsMethod()) {
@@ -125,7 +124,6 @@ namespace cppreflection::detail
             };
         }
         else {
-            UnusedVar(Object);
             return [](auto&&... args) -> decltype(auto) {
                 return static_cast<ReturnType>(pfn(std::forward<decltype(args)>(args)...));
             };
@@ -134,9 +132,9 @@ namespace cppreflection::detail
 
     template<auto pfn>
     template<size_t... Index>
-    void FunctionReflector<pfn>::Call_i(void* Object, void* ReturnValue, void** ArgsArray, size_t ArgsArraySize, std::index_sequence<Index...>) {
+    void FunctionReflector<pfn>::Call_i(void* Object, [[maybe_unused]] void* ReturnValue, void** ArgsArray,
+        [[maybe_unused]] size_t ArgsArraySize, std::index_sequence<Index...>) {
         assert(ArgsArraySize >= FnReflector::GetArgsCount());
-        UnusedVar(ArgsArraySize);
 
         using ReturnType = typename FnReflector::ReturnType;
         auto call = [&]() -> decltype(auto) {
@@ -146,7 +144,6 @@ namespace cppreflection::detail
 
         if constexpr (std::is_same_v<void, ReturnType>) {
             // free function without return type
-            UnusedVar(ReturnValue);
             call();
         }
         else {

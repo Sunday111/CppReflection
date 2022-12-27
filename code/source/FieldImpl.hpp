@@ -2,7 +2,7 @@
 
 #include <string>
 
-#include "CppReflection/Field.h"
+#include "CppReflection/Field.hpp"
 
 namespace cppreflection::detail
 {

@@ -4,25 +4,9 @@
 
 #include "gtest/gtest.h"
 
-namespace cppreflection
-{
-    template<typename T>
-    class TypeReflector;
-
-
-    inline void ReflectType(TypeReflector<int8_t>& rt);
-    inline void ReflectType(TypeReflector<int16_t>& rt);
-    inline void ReflectType(TypeReflector<int32_t>& rt);
-    inline void ReflectType(TypeReflector<int64_t>& rt);
-    inline void ReflectType(TypeReflector<uint8_t>& rt);
-    inline void ReflectType(TypeReflector<uint16_t>& rt);
-    inline void ReflectType(TypeReflector<uint32_t>& rt);
-    inline void ReflectType(TypeReflector<uint64_t>& rt);
-}
-
-#include "CppReflection/PrimitiveTypeReflection.h"
-#include "CppReflection/Reflector/TypeReflector.h"
-#include "CppReflection/CallReflectedFunction.h"
+#include "CppReflection/PrimitiveTypeReflection.hpp"
+#include "CppReflection/Reflector/TypeReflector.hpp"
+#include "CppReflection/CallReflectedFunction.hpp"
 
 TEST(CppReflectionTest, ComparisonOperators_LessOperator) {
     class ReflectedType

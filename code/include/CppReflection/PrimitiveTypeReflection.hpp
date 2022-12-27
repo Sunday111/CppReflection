@@ -1,7 +1,7 @@
 #pragma once
 
 #include <cstdint>
-#include "GetTypeInfo.h"
+#include "GetTypeInfo.hpp"
 
 namespace cppreflection
 {

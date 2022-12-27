@@ -1,7 +1,7 @@
 #pragma once
 
-#include "HasOperator.h"
-#include "../TypeComparisonOperators.h"
+#include "HasOperator.hpp"
+#include "../TypeComparisonOperators.hpp"
 
 namespace cppreflection::detail
 {

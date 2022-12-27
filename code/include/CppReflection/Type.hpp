@@ -5,10 +5,10 @@
 
 #include "EverydayTools/GUID.h"
 
-#include "CppReflection/Common.h"
-#include "TypeComparisonOperators.h"
-#include "TypeFlag.h"
-#include "TypeSpecialMembers.h"
+#include "CppReflection/Common.hpp"
+#include "TypeComparisonOperators.hpp"
+#include "TypeFlag.hpp"
+#include "TypeSpecialMembers.hpp"
 
 namespace cppreflection
 {

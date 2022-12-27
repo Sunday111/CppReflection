@@ -1,4 +1,4 @@
-#include "FunctionImpl.h"
+#include "FunctionImpl.hpp"
 
 namespace cppreflection::detail
 {

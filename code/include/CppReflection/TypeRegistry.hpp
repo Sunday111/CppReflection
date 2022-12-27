@@ -1,6 +1,6 @@
 #pragma once
 
-#include "CppReflection/Common.h"
+#include "CppReflection/Common.hpp"
 
 namespace cppreflection
 {

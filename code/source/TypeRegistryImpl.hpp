@@ -2,8 +2,8 @@
 
 #include <vector>
 
-#include "CppReflection/TypeRegistry.h"
-#include "CppReflection/Reflector/TypeReflector.h"
+#include "CppReflection/TypeRegistry.hpp"
+#include "CppReflection/Reflector/TypeReflector.hpp"
 
 namespace cppreflection::detail
 {

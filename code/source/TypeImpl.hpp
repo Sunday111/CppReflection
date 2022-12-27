@@ -4,8 +4,8 @@
 #include <vector>
 #include <memory>
 
-#include "CppReflection/Common.h"
-#include "CppReflection/Type.h"
+#include "CppReflection/Common.hpp"
+#include "CppReflection/Type.hpp"
 
 namespace cppreflection::detail
 {

@@ -4,17 +4,10 @@ include(generic_compile_options)
 set(target_name "CppReflectionTests")
 set(target)
 
-set(target_sources
-    "ComparisonOperators.cpp"
-    "Fields.cpp"
-    "Methods.cpp"
-    "SpecialMembers.cpp"
-    "StaticMethods.cpp"
-    "TypeGUID.cpp"
-    "util.cpp"
-)
+file(GLOB_RECURSE target_headers "*.hpp")
+file(GLOB_RECURSE target_sources "*.cpp")
 
-add_executable(${target_name} ${target_sources})
+add_executable(${target_name} ${target_headers} ${target_sources})
 set_generic_compile_options(${target_name} PRIVATE)
 target_include_directories(${target_name} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/tests)
 target_include_directories(${target_name} PRIVATE ${gtest_SOURCE_DIR}/include)

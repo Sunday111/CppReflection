@@ -2,7 +2,7 @@
 
 #include <string_view>
 
-#include "CppReflection/Common.h"
+#include "CppReflection/Common.hpp"
 
 namespace cppreflection
 {

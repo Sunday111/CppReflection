@@ -1,11 +1,11 @@
 #pragma once
 
-#include "../Detail/MakeTypeComparisonOperators.h"
-#include "../Detail/MakeTypeSpecialMembers.h"
-#include "../Type.h"
+#include "../Detail/MakeTypeComparisonOperators.hpp"
+#include "../Detail/MakeTypeSpecialMembers.hpp"
+#include "../Type.hpp"
 
-#include "FieldReflector.h"
-#include "FunctionReflector.h"
+#include "FieldReflector.hpp"
+#include "FunctionReflector.hpp"
 
 namespace cppreflection
 {

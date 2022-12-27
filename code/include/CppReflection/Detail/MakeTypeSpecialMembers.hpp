@@ -1,7 +1,7 @@
 #pragma once
 
 #include <type_traits>
-#include "../TypeSpecialMembers.h"
+#include "../TypeSpecialMembers.hpp"
 
 namespace cppreflection::detail
 {

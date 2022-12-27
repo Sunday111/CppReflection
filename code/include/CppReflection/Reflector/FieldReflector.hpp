@@ -1,9 +1,8 @@
 #pragma once
 
 #include <cassert>
-#include "../Detail/FieldTraits.h"
-#include "../Field.h"
-#include "EverydayTools/UnusedVar.h"
+#include "../Detail/FieldTraits.hpp"
+#include "../Field.hpp"
 
 namespace cppreflection
 {
@@ -27,8 +26,7 @@ namespace cppreflection::detail
 
             using Traits = FieldPointerTraits<pField>;
             if constexpr (Traits::IsStatic()) {
-                m_field->SetValueGetter([](void* instance) -> void* {
-                    UnusedVar(instance);
+                m_field->SetValueGetter([]([[maybe_unused]] void* instance) -> void* {
                     return pField;
                 });
             }
