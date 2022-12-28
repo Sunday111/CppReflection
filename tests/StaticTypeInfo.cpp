@@ -25,7 +25,6 @@ enum class ExampleEnum {
 namespace cppreflection {
 template <>
 struct TypeReflectionProvider<ExampleEnum> {
-  static constexpr bool Reflected = true;
   [[nodiscard]] inline constexpr static auto ReflectType() {
     return StaticEnumTypeInfo<ExampleEnum>(
                "ExampleEnum",

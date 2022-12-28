@@ -22,7 +22,17 @@ concept HasConstexprReflectTypeMethod = requires(T) {
 };
 
 template <typename T>
+concept HasConstexprRelectionProvider = requires(T) {
+  { TypeReflectionProvider<T>::ReflectType() } -> IsStaticTypeInfoTrait;
+};
+
+template <typename T>
+concept IsTypeStaticallyReflected =
+    HasConstexprReflectTypeMethod<T> || HasConstexprRelectionProvider<T>;
+
+template <typename T>
 [[nodiscard]] inline constexpr auto GetStaticTypeInfo() {
+  static_assert(IsTypeStaticallyReflected<T>);
   if constexpr (HasConstexprReflectTypeMethod<T>) {
     return T::ReflectType();
   } else {

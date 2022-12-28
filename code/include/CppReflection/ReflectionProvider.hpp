@@ -8,15 +8,15 @@ template <typename T>
 class TypeReflector;
 
 template <typename T, typename Enable = void>
-struct TypeReflectionProvider {
-  static constexpr bool Reflected = false;
-};
+struct TypeReflectionProvider {};
 }  // namespace cppreflection
 
 namespace cppreflection::detail {
 template <typename T>
 inline constexpr bool TypeIsReflectedWithProvider =
-    TypeReflectionProvider<T>::Reflected;
+    requires(T, TypeReflector<T>& rt) {
+  { TypeReflectionProvider<T>::ReflectType(rt) } -> std::same_as<void>;
+};
 
 template <typename T>
 concept HasReflectTypeMethod = requires(T, TypeReflector<T>& rt) {
