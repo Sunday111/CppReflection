@@ -5,16 +5,16 @@
 #include <stdexcept>
 #include <string_view>
 
-#include "EverydayTools/Template/StringLiteral.h"
+#include "EverydayTools/Template/StringLiteral.hpp"
 
 namespace cppreflection {
 
 template <edt::StringLiteral name, auto object>
 struct NamedObject {
-  [[nodiscard]] inline constexpr std::string_view GetName() const {
+  [[nodiscard]] inline static constexpr std::string_view GetName() {
     return name.GetView();
   }
-  [[nodiscard]] inline constexpr auto GetObject() const { return object; }
+  [[nodiscard]] inline static constexpr auto GetObject() { return object; }
 };
 
 template <NamedObject... objects>
@@ -37,6 +37,10 @@ struct NamedObjectsCollection {
     return GetByNameImpl<name, 0>();
   }
 
+  [[nodiscard]] inline static constexpr size_t Size() {
+    return sizeof...(objects);
+  }
+
   template <edt::StringLiteral name, size_t index>
   [[nodiscard]] inline static constexpr auto GetByNameImpl() {
     if constexpr (index == sizeof...(objects)) {
@@ -49,6 +53,11 @@ struct NamedObjectsCollection {
         return GetByNameImpl<name, index + 1>();
       }
     }
+  }
+
+  template <typename Visitor>
+  static constexpr void ForEach(Visitor&& visitor) {
+    (visitor(objects), ...);
   }
 };
 
@@ -97,6 +106,16 @@ struct StaticClassTypeInfo {
     return methods.Contains(name);
   }
 
+  template <typename Visitor>
+  void ForEachField(Visitor&& visitor) {
+    fields.ForEach(std::forward<Visitor>(visitor));
+  }
+
+  template <typename Visitor>
+  void ForEachMethod(Visitor&& visitor) {
+    methods.ForEach(std::forward<Visitor>(visitor));
+  }
+
   std::string_view type_name;
   edt::GUID guid;
 };
@@ -117,3 +136,23 @@ template <typename Test>
 concept IsStaticClassTypeInfo = is_static_class_type_info_v<Test>;
 
 }  // namespace cppreflection
+
+// This function copies compile time class information to runtime object
+namespace cppreflection::detail {
+template <IsStaticClassTypeInfo StaticClassInfoT, typename T>
+void StaticToDynamic(StaticClassInfoT static_type_info,
+                     TypeReflector<T>& dynamic_type_info) {
+  dynamic_type_info.SetName(static_type_info.type_name);
+  dynamic_type_info.SetGUID(static_type_info.guid);
+
+  static_type_info.ForEachField([&](auto named_object) {
+    using NO = decltype(named_object);
+    dynamic_type_info.AddField<NO::GetObject()>(NO::GetName());
+  });
+
+  static_type_info.ForEachMethod([&](auto named_object) {
+    using NO = decltype(named_object);
+    dynamic_type_info.AddMethod<NO::GetObject()>(NO::GetName());
+  });
+}
+}  // namespace cppreflection::detail

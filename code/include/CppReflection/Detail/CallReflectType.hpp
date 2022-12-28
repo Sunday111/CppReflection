@@ -9,7 +9,8 @@ namespace cppreflection::detail {
 template <typename T>
 void CallReflectType(TypeReflector<T>& typeInfo) {
   if constexpr (IsTypeStaticallyReflected<T>) {
-    [[maybe_unused]] constexpr auto static_type_info = GetStaticTypeInfo<T>();
+    constexpr auto static_type_info = GetStaticTypeInfo<T>();
+    detail::StaticToDynamic(static_type_info, typeInfo);
   } else {
     constexpr bool provider = TypeIsReflectedWithProvider<T>;
     constexpr bool method = HasReflectTypeMethod<T>;

@@ -65,3 +65,12 @@ template <typename Test>
 concept IsStaticEnumTypeInfo = is_static_enum_type_info_v<Test>;
 
 }  // namespace cppreflection
+
+namespace cppreflection::detail {
+template <IsStaticEnumTypeInfo StaticEnumInfoT, typename T>
+void StaticToDynamic(StaticEnumInfoT static_type_info,
+                     TypeReflector<T>& dynamic_type_info) {
+  dynamic_type_info.SetName(static_type_info.type_name);
+  dynamic_type_info.SetGUID(static_type_info.guid);
+}
+}  // namespace cppreflection::detail
