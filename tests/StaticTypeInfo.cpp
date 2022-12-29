@@ -5,8 +5,7 @@
 #include <string>
 #include <string_view>
 
-#include "CppReflection/PrimitiveTypeReflection.hpp"
-#include "CppReflection/Reflector/TypeReflector.hpp"
+#include "CppReflection/GetTypeInfo.hpp"
 #include "gtest/gtest.h"
 
 enum class ExampleEnum {

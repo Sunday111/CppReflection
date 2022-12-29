@@ -2,9 +2,6 @@
 
 #include <cstdint>
 
-#include "GetTypeInfo.hpp"
-#include "StaticType/fundamental.hpp"
-
 namespace cppreflection {
 template <>
 struct TypeReflectionProvider<int8_t> {

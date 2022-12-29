@@ -124,6 +124,11 @@ struct StaticClassTypeInfo {
   edt::GUID guid;
 };
 
+}  // namespace cppreflection
+
+// This function copies compile time class information to runtime object
+namespace cppreflection::detail {
+
 template <typename Test>
 struct IsStaticClassTypeInfoTrait : std::false_type {};
 
@@ -139,10 +144,6 @@ inline constexpr bool is_static_class_type_info_v =
 template <typename Test>
 concept IsStaticClassTypeInfo = is_static_class_type_info_v<Test>;
 
-}  // namespace cppreflection
-
-// This function copies compile time class information to runtime object
-namespace cppreflection::detail {
 template <IsStaticClassTypeInfo StaticClassInfoT, typename T>
 void StaticToDynamic(StaticClassInfoT static_type_info,
                      TypeReflector<T>& dynamic_type_info) {

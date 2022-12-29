@@ -54,6 +54,10 @@ struct StaticEnumTypeInfo {
   std::array<EnumValue<T>, num_values> values{};
 };
 
+}  // namespace cppreflection
+
+namespace cppreflection::detail {
+
 template <typename Test>
 struct IsStaticEnumTypeInfoTrait : std::false_type {};
 
@@ -67,9 +71,6 @@ inline constexpr bool is_static_enum_type_info_v =
 template <typename Test>
 concept IsStaticEnumTypeInfo = is_static_enum_type_info_v<Test>;
 
-}  // namespace cppreflection
-
-namespace cppreflection::detail {
 template <IsStaticEnumTypeInfo StaticEnumInfoT, typename T>
 void StaticToDynamic(StaticEnumInfoT static_type_info,
                      TypeReflector<T>& dynamic_type_info) {

@@ -3,7 +3,6 @@
 #include <string_view>
 
 #include "CppReflection/CallReflectedFunction.hpp"
-#include "CppReflection/PrimitiveTypeReflection.hpp"
 #include "CppReflection/Reflector/TypeReflector.hpp"
 #include "gtest/gtest.h"
 

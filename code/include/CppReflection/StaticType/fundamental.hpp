@@ -22,6 +22,10 @@ struct StaticFundamentalTypeInfo {
   std::string_view type_name;
 };
 
+}  // namespace cppreflection
+
+namespace cppreflection::detail {
+
 template <typename Test>
 struct IsStaticFundamentalTypeInfoTrait : std::false_type {};
 
@@ -36,9 +40,6 @@ inline constexpr bool is_static_fundamental_type_info_v =
 template <typename Test>
 concept IsStaticFundamentalTypeInfo = is_static_fundamental_type_info_v<Test>;
 
-}  // namespace cppreflection
-
-namespace cppreflection::detail {
 template <IsStaticFundamentalTypeInfo StaticEnumInfoT, typename T>
 void StaticToDynamic(StaticEnumInfoT static_type_info,
                      TypeReflector<T>& dynamic_type_info) {
@@ -46,3 +47,5 @@ void StaticToDynamic(StaticEnumInfoT static_type_info,
   dynamic_type_info.SetGUID(static_type_info.guid);
 }
 }  // namespace cppreflection::detail
+
+#include "fundamental_predefined.hpp"

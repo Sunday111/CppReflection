@@ -11,8 +11,9 @@
 namespace cppreflection {
 
 template <typename Test>
-concept IsStaticTypeInfoTrait = IsStaticClassTypeInfo<Test> ||
-    IsStaticEnumTypeInfo<Test> || IsStaticFundamentalTypeInfo<Test>;
+concept IsStaticTypeInfoTrait =
+    detail::IsStaticClassTypeInfo<Test> || detail::IsStaticEnumTypeInfo<Test> ||
+    detail::IsStaticFundamentalTypeInfo<Test>;
 
 template <typename T, typename Enable>
 struct TypeReflectionProvider;
