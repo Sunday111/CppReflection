@@ -8,6 +8,9 @@
 namespace cppreflection {
 
 template <typename T>
+class TypeReflector;
+
+template <typename T>
 struct EnumValue {
   T value;
   std::string_view name;

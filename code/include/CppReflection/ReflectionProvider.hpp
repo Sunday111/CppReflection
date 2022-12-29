@@ -13,8 +13,7 @@ struct TypeReflectionProvider {};
 
 namespace cppreflection::detail {
 template <typename T>
-inline constexpr bool TypeIsReflectedWithProvider =
-    requires(T, TypeReflector<T>& rt) {
+concept TypeIsReflectedWithProvider = requires(T, TypeReflector<T>& rt) {
   { TypeReflectionProvider<T>::ReflectType(rt) } -> std::same_as<void>;
 };
 
@@ -26,7 +25,8 @@ concept HasReflectTypeMethod = requires(T, TypeReflector<T>& rt) {
 }  // namespace cppreflection::detail
 
 namespace cppreflection {
+
 template <typename T>
-inline constexpr bool TypeIsReflected = detail::TypeIsReflectedWithMethod<T> ||
-                                        detail::TypeIsReflectedWithProvider<T>;
-}
+concept IsTypeDynamicallyReflected =
+    detail::HasReflectTypeMethod<T> || detail::TypeIsReflectedWithProvider<T>;
+}  // namespace cppreflection

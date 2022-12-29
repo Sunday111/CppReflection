@@ -5,9 +5,13 @@
 #include <stdexcept>
 #include <string_view>
 
+#include "EverydayTools/GUID.hpp"
 #include "EverydayTools/Template/StringLiteral.hpp"
 
 namespace cppreflection {
+
+template <typename T>
+class TypeReflector;
 
 template <edt::StringLiteral name, auto object>
 struct NamedObject {

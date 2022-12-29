@@ -5,13 +5,14 @@
 #include "Reflector/TypeReflector.hpp"
 #include "StaticType/class.hpp"
 #include "StaticType/enum.hpp"
+#include "StaticType/fundamental.hpp"
 #include "TypeRegistry.hpp"
 
 namespace cppreflection {
 
 template <typename Test>
-concept IsStaticTypeInfoTrait =
-    IsStaticClassTypeInfo<Test> || IsStaticEnumTypeInfo<Test>;
+concept IsStaticTypeInfoTrait = IsStaticClassTypeInfo<Test> ||
+    IsStaticEnumTypeInfo<Test> || IsStaticFundamentalTypeInfo<Test>;
 
 template <typename T, typename Enable>
 struct TypeReflectionProvider;

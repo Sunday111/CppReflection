@@ -11,6 +11,8 @@ set_generic_compile_options(${target_name} PRIVATE)
 target_include_directories(${target_name} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/tests)
 target_link_libraries(${target_name} gtest gtest_main CppReflection)
 
+target_compile_options(${target_name} PUBLIC "/std:c++20")
+
 enable_testing()
 add_test(NAME ${target_name}
     COMMAND ${target_name})
