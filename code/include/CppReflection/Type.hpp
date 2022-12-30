@@ -1,5 +1,6 @@
 #pragma once
 
+#include <optional>
 #include <span>
 #include <string_view>
 
@@ -9,16 +10,28 @@
 #include "TypeFlag.hpp"
 #include "TypeSpecialMembers.hpp"
 
-
 namespace cppreflection {
 class Field;
 class Function;
 
 class Type {
  public:
+  [[nodiscard]] virtual bool IsA(edt::GUID type_guid) const = 0;
+
+  /* Returns guid of the base class
+   */
+  [[nodiscard]] virtual std::optional<edt::GUID> GetBaseClass() const = 0;
+
+  virtual void SetBaseClass(edt::GUID base_class_guid) = 0;
+
   /* Returns size (in bytes) of type instance
    */
   [[nodiscard]] virtual size_t GetInstanceSize() const = 0;
+
+  /* Returns alignment of type instance
+   */
+  [[nodiscard]] virtual size_t GetAlignment() const = 0;
+  virtual void SetAlignment(size_t alignment) = 0;
 
   /* Name of type
    */

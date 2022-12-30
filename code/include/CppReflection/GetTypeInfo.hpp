@@ -40,10 +40,12 @@ template <typename T>
 
   TypeReflector<T> typeReflector;
   Type* type = typeReflector.GetType();
-  GetTypeRegistry()->RegisterType(type);
+  auto registry = GetTypeRegistry();
+  registry->RegisterType(type);
   ptr = type;
 
   detail::CallReflectType(typeReflector);
+  registry->RefreshType(type);
   return ptr;
 }
 }  // namespace cppreflection

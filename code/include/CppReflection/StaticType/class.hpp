@@ -65,7 +65,7 @@ struct NamedObjectsCollection {
   }
 };
 
-template <typename T,
+template <typename T, typename BaseClass_ = void,
           NamedObjectsCollection methods = NamedObjectsCollection<>{},
           NamedObjectsCollection fields = NamedObjectsCollection<>{}>
 struct StaticClassTypeInfo {
@@ -73,14 +73,26 @@ struct StaticClassTypeInfo {
                                 edt::GUID in_guid)
       : type_name(in_type_name), guid(in_guid) {}
 
+  using BaseClass = BaseClass_;
+
+  template <typename NewBase>
+  [[nodiscard]] inline constexpr auto Base() const {
+    using CurrentMethods = decltype(methods);
+    using CurrentFields = decltype(fields);
+
+    static_assert(std::is_void_v<BaseClass>);
+    return StaticClassTypeInfo<T, NewBase, CurrentMethods{}, CurrentFields{}>(
+        type_name, guid);
+  }
+
   template <edt::StringLiteral name, auto method>
   [[nodiscard]] inline constexpr auto Method() const {
     using CurrentMethods = decltype(methods);
     using NewMethods =
         CurrentMethods::template Add<NamedObject<name, method>{}>;
     using CurrentFields = decltype(fields);
-    return StaticClassTypeInfo<T, NewMethods{}, CurrentFields{}>(type_name,
-                                                                 guid);
+    return StaticClassTypeInfo<T, BaseClass, NewMethods{}, CurrentFields{}>(
+        type_name, guid);
   }
 
   template <edt::StringLiteral name, auto field>
@@ -88,8 +100,8 @@ struct StaticClassTypeInfo {
     using CurrentMethods = decltype(methods);
     using CurrentFields = decltype(fields);
     using NewFields = CurrentFields::template Add<NamedObject<name, field>{}>;
-    return StaticClassTypeInfo<T, CurrentMethods{}, NewFields{}>(type_name,
-                                                                 guid);
+    return StaticClassTypeInfo<T, BaseClass, CurrentMethods{}, NewFields{}>(
+        type_name, guid);
   }
 
   template <edt::StringLiteral name>
@@ -132,10 +144,10 @@ namespace cppreflection::detail {
 template <typename Test>
 struct IsStaticClassTypeInfoTrait : std::false_type {};
 
-template <typename T, NamedObjectsCollection methods,
+template <typename T, typename BaseClass, NamedObjectsCollection methods,
           NamedObjectsCollection fields>
-struct IsStaticClassTypeInfoTrait<StaticClassTypeInfo<T, methods, fields>>
-    : std::true_type {};
+struct IsStaticClassTypeInfoTrait<
+    StaticClassTypeInfo<T, BaseClass, methods, fields>> : std::true_type {};
 
 template <typename Test>
 inline constexpr bool is_static_class_type_info_v =
@@ -147,6 +159,9 @@ concept IsStaticClassTypeInfo = is_static_class_type_info_v<Test>;
 template <IsStaticClassTypeInfo StaticClassInfoT, typename T>
 void StaticToDynamic(StaticClassInfoT static_type_info,
                      TypeReflector<T>& dynamic_type_info) {
+  using SCI = decltype(static_type_info);
+  using BaseClass = typename SCI::BaseClass;
+
   dynamic_type_info.SetName(static_type_info.type_name);
   dynamic_type_info.SetGUID(static_type_info.guid);
 
@@ -159,5 +174,9 @@ void StaticToDynamic(StaticClassInfoT static_type_info,
     using NO = decltype(named_object);
     dynamic_type_info.AddMethod<NO::GetObject()>(NO::GetName());
   });
+
+  if constexpr (!std::is_void_v<BaseClass>) {
+    dynamic_type_info.SetBaseClass(GetStaticTypeInfo<BaseClass>().guid);
+  }
 }
 }  // namespace cppreflection::detail

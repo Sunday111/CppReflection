@@ -41,4 +41,9 @@ template <typename T>
     return TypeReflectionProvider<T>::ReflectType();
   }
 }
+
+template <typename T>
+[[nodiscard]] inline constexpr edt::GUID GetStaticTypeGUID() {
+  return GetStaticTypeInfo<T>().guid;
+}
 }  // namespace cppreflection
