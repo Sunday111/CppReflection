@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <array>
+#include <sstream>
 #include <stdexcept>
 #include <string_view>
 
@@ -39,14 +40,24 @@ struct StaticEnumTypeInfo {
     throw std::runtime_error("Cannot convert value to string");
   }
 
-  [[nodiscard]] constexpr T FromString(std::string_view str) const {
+  [[nodiscard]] constexpr bool TryParse(std::string_view str,
+                                        T& out_value) const {
     for (const auto& ev : values) {
       if (ev.name == str) {
-        return ev.value;
+        out_value = ev.value;
+        return true;
       }
     }
 
-    throw std::runtime_error("Cannot convert string to enum value");
+    return false;
+  }
+
+  [[nodiscard]] constexpr T Parse(std::string_view str) const {
+    T result;
+    [[likely]] if (TryParse(str, result)) { return result; }
+    std::stringstream msg;
+    msg << "Failed to parse " << type_name << " from string \"" << str << "\"";
+    throw std::runtime_error(msg.str());
   }
 
   edt::GUID guid;
@@ -69,7 +80,12 @@ inline constexpr bool is_static_enum_type_info_v =
     IsStaticEnumTypeInfoTrait<Test>::value;
 
 template <typename Test>
-concept IsStaticEnumTypeInfo = is_static_enum_type_info_v<Test>;
+concept IsStaticEnumTypeInfo = is_static_enum_type_info_v<std::decay_t<Test>>;
+
+template <typename Test>
+concept IsStaticallyReflectedEnum = requires(Test) {
+  { GetStaticTypeInfo<Test>() } -> IsStaticEnumTypeInfo;
+};
 
 template <IsStaticEnumTypeInfo StaticEnumInfoT, typename T>
 void StaticToDynamic(StaticEnumInfoT static_type_info,
@@ -78,3 +94,21 @@ void StaticToDynamic(StaticEnumInfoT static_type_info,
   dynamic_type_info.SetGUID(static_type_info.guid);
 }
 }  // namespace cppreflection::detail
+
+namespace cppreflection {
+template <detail::IsStaticallyReflectedEnum T>
+[[nodiscard]] inline constexpr std::string_view EnumToString(T value) {
+  return GetStaticTypeInfo<T>().ToString(value);
+}
+
+template <detail::IsStaticallyReflectedEnum T>
+[[nodiscard]] inline constexpr bool TryParseEnum(std::string_view str,
+                                                 T& out_value) {
+  return GetStaticTypeInfo<T>().TryParse(str, out_value);
+}
+
+template <detail::IsStaticallyReflectedEnum T>
+[[nodiscard]] inline constexpr T ParseEnum(std::string_view str) {
+  return GetStaticTypeInfo<T>().Parse(str);
+}
+}  // namespace cppreflection

@@ -59,25 +59,25 @@ TEST(CppReflectionTest, StaticEnumerationInfo) {
   constexpr const auto example_ti =
       cppreflection::GetStaticTypeInfo<ExampleEnum>();
   static_assert(example_ti.ToString(ExampleEnum::EntryA) == "EntryA");
-  static_assert(example_ti.FromString("EntryA") == ExampleEnum::EntryA);
+  static_assert(example_ti.Parse("EntryA") == ExampleEnum::EntryA);
 
   static_assert(example_ti.ToString(ExampleEnum::EntryB) == "EntryB");
-  static_assert(example_ti.FromString("EntryB") == ExampleEnum::EntryB);
+  static_assert(example_ti.Parse("EntryB") == ExampleEnum::EntryB);
 
   static_assert(example_ti.ToString(ExampleEnum::EntryC) == "EntryC");
-  static_assert(example_ti.FromString("EntryC") == ExampleEnum::EntryC);
+  static_assert(example_ti.Parse("EntryC") == ExampleEnum::EntryC);
 
   static_assert(example_ti.ToString(ExampleEnum::EntryD) == "EntryD");
-  static_assert(example_ti.FromString("EntryD") == ExampleEnum::EntryD);
+  static_assert(example_ti.Parse("EntryD") == ExampleEnum::EntryD);
 
   static_assert(example_ti.ToString(ExampleEnum::EntryE) == "EntryE");
-  static_assert(example_ti.FromString("EntryE") == ExampleEnum::EntryE);
+  static_assert(example_ti.Parse("EntryE") == ExampleEnum::EntryE);
 
   static_assert(example_ti.ToString(ExampleEnum::EntryF) == "EntryF");
-  static_assert(example_ti.FromString("EntryF") == ExampleEnum::EntryF);
+  static_assert(example_ti.Parse("EntryF") == ExampleEnum::EntryF);
 
   static_assert(example_ti.ToString(ExampleEnum::EntryG) == "EntryG");
-  static_assert(example_ti.FromString("EntryG") == ExampleEnum::EntryG);
+  static_assert(example_ti.Parse("EntryG") == ExampleEnum::EntryG);
 
   const cppreflection::Type* dyn_ti = cppreflection::GetTypeInfo<ExampleEnum>();
   EXPECT_EQ(dyn_ti->GetName(), "ExampleEnum");
