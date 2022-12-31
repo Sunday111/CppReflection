@@ -66,7 +66,7 @@ FunctionReflector<pfn>::FunctionReflector() {
 
 namespace cppreflection::detail {
 template <typename T>
-constexpr decltype(auto) CastArg_t(void* rawArg) {
+inline constexpr decltype(auto) CastArg_t(void* rawArg) {
   if constexpr (std::is_reference_v<T>) {
     using NoRef = std::remove_reference_t<T>;
     if constexpr (std::is_rvalue_reference_v<T>) {
@@ -80,9 +80,9 @@ constexpr decltype(auto) CastArg_t(void* rawArg) {
 }
 
 template <>
-constexpr decltype(auto) CastArg_t<void>(void* rawArg) {
+inline decltype(auto) CastArg_t<void>(void* rawArg) {
   // assert(!"This hack exist to simplify code but shouldn't be ever called");
-  return *(int*)rawArg;
+  return *reinterpret_cast<int*>(rawArg);
 }
 }  // namespace cppreflection::detail
 

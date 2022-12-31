@@ -89,7 +89,7 @@ struct StaticClassTypeInfo {
   [[nodiscard]] inline constexpr auto Method() const {
     using CurrentMethods = decltype(methods);
     using NewMethods =
-        CurrentMethods::template Add<NamedObject<name, method>{}>;
+        typename CurrentMethods::template Add<NamedObject<name, method>{}>;
     using CurrentFields = decltype(fields);
     return StaticClassTypeInfo<T, BaseClass, NewMethods{}, CurrentFields{}>(
         type_name, guid);
@@ -99,7 +99,8 @@ struct StaticClassTypeInfo {
   [[nodiscard]] inline constexpr auto Field() const {
     using CurrentMethods = decltype(methods);
     using CurrentFields = decltype(fields);
-    using NewFields = CurrentFields::template Add<NamedObject<name, field>{}>;
+    using NewFields =
+        typename CurrentFields::template Add<NamedObject<name, field>{}>;
     return StaticClassTypeInfo<T, BaseClass, CurrentMethods{}, NewFields{}>(
         type_name, guid);
   }
@@ -138,7 +139,6 @@ struct StaticClassTypeInfo {
 
 }  // namespace cppreflection
 
-// This function copies compile time class information to runtime object
 namespace cppreflection::detail {
 
 template <typename Test>
@@ -155,28 +155,4 @@ inline constexpr bool is_static_class_type_info_v =
 
 template <typename Test>
 concept IsStaticClassTypeInfo = is_static_class_type_info_v<Test>;
-
-template <IsStaticClassTypeInfo StaticClassInfoT, typename T>
-void StaticToDynamic(StaticClassInfoT static_type_info,
-                     TypeReflector<T>& dynamic_type_info) {
-  using SCI = decltype(static_type_info);
-  using BaseClass = typename SCI::BaseClass;
-
-  dynamic_type_info.SetName(static_type_info.type_name);
-  dynamic_type_info.SetGUID(static_type_info.guid);
-
-  static_type_info.ForEachField([&](auto named_object) {
-    using NO = decltype(named_object);
-    dynamic_type_info.AddField<NO::GetObject()>(NO::GetName());
-  });
-
-  static_type_info.ForEachMethod([&](auto named_object) {
-    using NO = decltype(named_object);
-    dynamic_type_info.AddMethod<NO::GetObject()>(NO::GetName());
-  });
-
-  if constexpr (!std::is_void_v<BaseClass>) {
-    dynamic_type_info.SetBaseClass(GetStaticTypeInfo<BaseClass>().guid);
-  }
-}
 }  // namespace cppreflection::detail

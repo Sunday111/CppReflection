@@ -50,6 +50,9 @@ TEST(CppReflectionTest, SpecialMembers_CopyAssign) {
       rt.SetName("test_special_members::copy_assign::ReflectedType");
     }
 
+    ReflectedType() = default;
+    ReflectedType(const ReflectedType& another) { member = another.member; }
+
     ReflectedType& operator=(const ReflectedType& another) {
       member = another.member;
       return *this;
@@ -77,6 +80,7 @@ TEST(CppReflectionTest, SpecialMembers_NoCopyAssign) {
       rt.SetName("test_special_members::no_copy_assign::ReflectedType");
     }
 
+    ReflectedType(const ReflectedType& another) = delete;
     ReflectedType& operator=(const ReflectedType& another) = delete;
   };
 

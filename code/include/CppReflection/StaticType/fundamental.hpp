@@ -16,7 +16,7 @@ template <typename T>
 struct StaticFundamentalTypeInfo {
   constexpr StaticFundamentalTypeInfo(std::string_view in_type_name,
                                       edt::GUID in_guid)
-      : type_name(in_type_name), guid(in_guid) {}
+      : guid(in_guid), type_name(in_type_name) {}
 
   edt::GUID guid;
   std::string_view type_name;
