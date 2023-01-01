@@ -12,13 +12,13 @@ template <typename T>
     Result.equals = [](const void* a, const void* b) {
       const T* ca = reinterpret_cast<const T*>(a);
       const T* cb = reinterpret_cast<const T*>(b);
-      #ifndef _MSC_VER
+      #if !defined(_MSC_VER) || defined(__clang__)
       _Pragma("GCC diagnostic push");
       _Pragma("GCC diagnostic ignored \"-Wfloat-equal\"");
-      #endif
       return *ca == *cb;
-      #ifndef _MSC_VER
       _Pragma("GCC diagnostic pop");
+      #else
+      return *ca == *cb;
       #endif
     };
   }

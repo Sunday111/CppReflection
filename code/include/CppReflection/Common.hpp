@@ -1,7 +1,7 @@
 #pragma once
 
 #ifdef CPP_REFLECTION_SHARED
-    #ifdef _MSC_VER
+    #if defined(_MSC_VER) && !defined(__clang__)
         #define CPP_REFLECTION_EXPORT __declspec(dllexport)
         #define CPP_REFLECTION_IMPORT __declspec(dllimport)
     #endif

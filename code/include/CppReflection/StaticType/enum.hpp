@@ -56,7 +56,7 @@ struct StaticEnumTypeInfo {
     T result;
     [[likely]] if (TryParse(str, result)) { return result; }
 
-#ifdef _MSC_VER
+#if defined(_MSC_VER) && !defined(__clang__)
     std::stringstream msg;
     msg << "Failed to parse " << type_name << " from string \"" << str << "\"";
     throw std::runtime_error(msg.str());
