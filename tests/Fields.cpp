@@ -35,7 +35,7 @@ TEST(CppReflectionTest, Fields) {
   using namespace CppReflectionTest_Fields;
   const cppreflection::Type* typeInfo =
       cppreflection::GetTypeInfo<ReflectedType>();
-  EXPECT_TRUE(typeInfo != nullptr);
+  ASSERT_TRUE(typeInfo != nullptr);
   EXPECT_TRUE(typeInfo->GetName() ==
               std::string_view("test_field_value::ReflectedType"));
   EXPECT_TRUE(typeInfo->GetInstanceSize() == sizeof(ReflectedType));
