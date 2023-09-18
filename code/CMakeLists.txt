@@ -1,6 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
 
-include(generic_compile_options)
 set(target_name CppReflection)
 
 option(CPP_REFLECTION_SHARED "Enable if you want to use it as shared library" OFF)
