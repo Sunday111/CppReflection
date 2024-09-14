@@ -4,13 +4,13 @@
 
 namespace cppreflection
 {
-    class TypeComparisonOperators
-    {
-    public:
-        using Less = bool(*)(const void* lhs, const void* rhs);
-        using Equals = bool(*)(const void* a, const void* b);
+class TypeComparisonOperators
+{
+public:
+    using Less = bool (*)(const void* lhs, const void* rhs);
+    using Equals = bool (*)(const void* a, const void* b);
 
-        Less less = nullptr;
-        Equals equals = nullptr;
-    };
-}
+    Less less = nullptr;
+    Equals equals = nullptr;
+};
+}  // namespace cppreflection

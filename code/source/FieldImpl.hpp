@@ -6,27 +6,27 @@
 
 namespace cppreflection::detail
 {
-    class FieldImpl : public Field
-    {
-    public:
-        virtual void SetType(const Type* type) override;
+class FieldImpl : public Field
+{
+public:
+    virtual void SetType(const Type* type) override;
 
-        [[nodiscard]]
-        virtual const Type* GetType() const override;
+    [[nodiscard]]
+    virtual const Type* GetType() const override;
 
-        virtual void SetName(const std::string_view& name) override;
+    virtual void SetName(const std::string_view& name) override;
 
-        [[nodiscard]]
-        virtual std::string_view GetName() const override;
+    [[nodiscard]]
+    virtual std::string_view GetName() const override;
 
-        virtual void SetValueGetter(ValueGetter getter) override;
+    virtual void SetValueGetter(ValueGetter getter) override;
 
-        [[nodiscard]]
-        virtual void* GetValue(void* Object) const override;
+    [[nodiscard]]
+    virtual void* GetValue(void* Object) const override;
 
-    private:
-        const Type* m_type = nullptr;
-        std::string m_name;
-        ValueGetter m_getter = nullptr;
-    };
-}
+private:
+    const Type* m_type = nullptr;
+    std::string m_name;
+    ValueGetter m_getter = nullptr;
+};
+}  // namespace cppreflection::detail
